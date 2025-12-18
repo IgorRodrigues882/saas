@@ -1,0 +1,137 @@
+{% load static %}
+{% load sass_tags %}
+{% load tags %}
+<div class="col-xl-3 xl-40">
+  <div class="job-sidebar md-sidebar"><a class="btn btn-primary md-sidebar-toggle" href="javascript:void(0)">Filtros</a>
+    <div class="md-sidebar-aside job-left-aside custom-scrollbar">
+      <div class="default-according style-1 job-accordion" id="accordionoc">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0 p-0">
+                  <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon"
+                    aria-expanded="true" aria-controls="collapseicon">Filtros</button>
+                </h5>
+              </div>
+              <div class="collapse show" id="collapseicon" aria-labelledby="collapseicon" data-bs-parent="#accordion">
+                <div class="card-body filter-cards-view animate-chk">
+                  <div class="job-filter">
+                    <div class="faq-form">
+                      <input class="typeahead form-control" id="lead" type="text" placeholder="Pesquisar lead.."><i class="search-icon"
+                        data-feather="search"></i>
+                        <div class="input-group-append">
+                          <span class="loading-indicator-itens input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="checkbox-animated">
+                    <div class="learning-header">
+                      <h5 class="f-w-600">Período de {% get_string_personalizada 'Compra' %}</h5>
+                    </div>
+                    <div class="d-block">
+                      <div class="col-12">
+                        <div class="input-group">
+                          <input class="datepicker-here form-control digits" id="dt_inicio" type="text" data-language="pt-BR"
+                            placeholder="Data Inicial">
+                        </div>
+                      </div>
+                      <div class="col-12 mt-2">
+                        <div class="input-group">
+                          <input class="datepicker-here form-control digits" id="dt_fim" type="text" data-language="pt-BR"
+                            placeholder="Data Final">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="checkbox-animated mt-0">
+                    <div class="learning-header">
+                      <h5 class="f-w-600">Faixa de valor</h5>
+                    </div>
+                    <div class="col-md-11">
+                      <input id="u-range-03" type="text">
+                    </div>
+                  </div>
+                  <div class="checkbox-animated mt-0">
+                    <div class="learning-header">
+                      <h5 class="f-w-600">Campanha</h5>
+                    </div>
+                    <div class="col-md-11">
+                      <select class="js-example-basic-single" id="campanha">
+                        <option value="">Selecione</option>
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="checkbox-animated mt-0">
+                    <div class="learning-header">
+                      <h5 class="f-w-600">Status</h5>
+                    </div>
+                    <div class="col-md-11">
+                      <select class="js-example-basic-single" id="status">
+                        <option value="">Selecione</option>
+                        <option value="APROVADO">Aprovado</option>
+                        <option value="PENDENTE">Pendente</option>
+                        <option value="REJEITADO">Rejeitado</option>
+                        <option value="CANCELADO">Cancelado</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- <div class="checkbox-animated mt-0">
+                    <div class="learning-header">
+                      <h5 class="f-w-600">Status</h5>
+                    </div>
+                    <label class="d-block" for="chk-ani3">
+                      <input class="checkbox_animated" id="chk-ani3" type="checkbox"> Registration
+                    </label>
+                    <label class="d-block" for="chk-ani4">
+                      <input class="checkbox_animated" id="chk-ani4" type="checkbox"> Progress
+                    </label>
+                    <label class="d-block" for="chk-ani5">
+                      <input class="checkbox_animated" id="chk-ani5" type="checkbox"> Completed
+                    </label>
+                  </div> -->
+                  <button class="btn btn-primary text-center" id="filtrar" type="button">Filtrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0 p-0">
+                  <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon1"
+                    aria-expanded="true" aria-controls="collapseicon1">Opções</button>
+                </h5>
+              </div>
+              <div class="collapse show" id="collapseicon1" aria-labelledby="collapseicon1" data-bs-parent="#accordion">
+                <div class="categories">
+
+                  <ul>
+                    <!-- <li><a href="#" data-bs-toggle="modal" data-bs-target="#modal-importar-arquivo"> Importar Histórico de {% get_string_personalizada 'vendas' %}</a></li> -->
+                    <li><a href="#"  id="export_btn">Exportar</a></li>
+                    <!-- <li><a href="#">UX Design </a><span class="badge badge-primary pull-right">35</span></li>
+                    <li><a href="#">Interface Design </a><span class="badge badge-primary pull-right">17</span></li>
+                    <li><a href="#">User Experience </a><span class="badge badge-primary pull-right">26</span></li> -->
+                  </ul>
+                </div>
+                <!-- <div class="categories pt-0">
+                  <div class="learning-header"><span class="f-w-600">Development</span></div>
+                  <ul>
+                    <li><a href="#">Frontend Development</a><span class="badge badge-primary pull-right">48</span></li>
+                    <li><a href="#">Backend Development</a><span class="badge badge-primary pull-right">19</span></li>
+                  </ul>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

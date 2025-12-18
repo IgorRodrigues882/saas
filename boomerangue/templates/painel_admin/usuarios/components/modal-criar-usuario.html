@@ -1,0 +1,56 @@
+<div class="modal fade modal-bookmark" id="modal_criar_usuario" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title" id="exampleModalLabel">Criar usuário</h1>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+        <div class="form-row">
+
+          <div class="mb-3">
+            <label>Nome</label>
+            <input class="form-control" id="nome" name="nome" type="text" placeholder="Nome">
+          </div>
+
+          <div class="mb-3">
+            <label>E-mail</label>
+            <input class="form-control" id="email" name="email" type="text" placeholder="E-mail">
+          </div>
+
+          <div class="mb-3">
+            <label>Telefone</label>
+            <input class="form-control" id="telefone" name="telefone" type="text" placeholder="Telefone">
+          </div>
+
+          <div class="mb-3">
+            <label>Grupo de permissão</label>
+            <select class="form-select" id="grupo" name="grupo">
+              {% for grupo in grupos %}
+                <option value="{{ grupo.id }}">{{ grupo.nome }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-lg-6">
+              <label>Senha</label>
+              <input class="form-control" id="senha" name="senha" type="password" placeholder="Senha">
+            </div>
+            <div class="col-lg-6 mt-3 mt-lg-0">
+              <label>Repetir senha</label>
+              <input class="form-control" id="repetir-senha" name="repetir-senha" type="password" placeholder="Repetir senha">
+            </div>
+            
+          </div>
+
+          <button class="btn btn-secondary" id="salvar_usuario">Salvar</button>
+          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

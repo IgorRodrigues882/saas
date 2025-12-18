@@ -1,0 +1,379 @@
+{% load sass_tags %}
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+    <head>
+    
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="{% static 'assets/images/logo/boomerangue.png' %}" type="image/x-icon"/>
+    <title> {{dados.template.texto_promocional}} </title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        {% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/font-awesome.css' %}">
+	<!-- ico-font-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/icofont.css' %}">
+	<!-- Themify icon-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/themify.css' %}">
+	<!-- Flag icon-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/flag-icon.css' %}">
+	<!-- Feather icon-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/feather-icon.css' %}">
+	<!-- Plugins css start-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/scrollbar.css' %}">
+
+	<!-- Plugins css Ends-->
+	<!-- Bootstrap css-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/bootstrap.css' %}">
+	<!-- App css-->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}"> -->
+	<!-- Responsive css-->
+	<link rel="stylesheet" href="{% static 'assets/css/testi.css'%}" >
+    <link rel="stylesheet" href="{% static 'assets/css/listai.css' %}" >
+    <link rel="stylesheet" href="{% static 'assets/css/indexi.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+	<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/sweetalert2.scss' %}">
+	<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+    {% endblock css %}
+        
+
+        <!-- Temporary navbar container fix -->
+        <style>
+
+            @media (max-width: 750px) {
+                
+            	.uls,#precoo{
+                display:none;
+                }
+
+
+            
+            body{
+                background-image: url("");
+                background-repeat: no-repeat;
+                background-position: center;
+                 background-size: 400px;
+
+            }
+        }
+            @media (max-width: 544px) {
+                #listaDeProdutos{
+                    display: none;
+                }
+                
+                .tituloBarra{
+                    display: none;
+                }
+
+            }
+
+        </style>
+    <script charset="UTF-8" src="//web.webpushs.com/js/push/bd9bc2aa153f02465591ff46b7bd262b_1.js" async></script>
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+    <div class="w-100 faixa fixed-top"></div>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mb-3">
+    <div class="container">
+        <div class="d-flex col-md-6 col-11 align-items-center">
+    		<div class='d-block d-lg-none'>
+    			<img class="mt-0 ms-0" height="26" width="32" alt="loginho"  src="assets/img/logo/logo1.png">
+    		</div>
+            <div class="col-lg-11 p-lg-0 col-md-12 col-11">
+            	<a class="navbar-brand " id="titu2" href="#">{{dados.template.texto_header}}</a>
+            </div>
+			<div class="col-md-12  col-lg-8 text-center   align-items-center" id="ola">
+                <ul>
+                	<li><a class="float-end mbs pe-md-5 pe-auto" href="/campanhas_cliente/{{dados.token_bm}}">Campanhas</a></li>
+                	<li><a class="mbs float-start" href="/meus_pedidos/{{dados.token_bm}}">Meus Pedidos</a></li>
+                </ul>
+               
+            </div>
+        
+            <input type="checkbox" id="btMenu">
+        	<label for="btMenu" onclick="checado()" id="men"><i class="bi bi-list"></i></label>
+        </div>
+            <img id="logo" class="d-none d-lg-block" alt="Boomerangue" src="{% static 'assets/images/logo/boomerangue_logo3.png' %}">
+    </div>
+    </nav>
+
+        <!-- Navigation -->
+        <!--cabeçalho slide-->
+
+        <div class="container" style="margin-top:13vh;" onclick="fechar();">
+               <div class="row  justify-content-center">
+                <div class="col-md-12 ms-md-5 ms-1">
+                    <img height="50" width="50" id="img-sucesso" src="{% static 'assets\images\sucesso.png' %}" />
+                    <h1>Seu pré-pedido foi realizado com sucesso :)</h1>
+                    <h6> Esse pré-pedido pode sofrer alterações de valor, quantidade e/ou data de entrega.</h6>
+                    <p>&nbsp✔️ A entrega será feita pelo Distribuidor: <B>{{distribuidor}}</B> da Sua Região<BR>
+                	&nbsp🙋🏼‍♀️ <I>Para maiores informações, entre em contato com seu vendedor <B> {{dados.vendedor.Vendedor}} </B> ou Central de Atedimento 📞 (0800) 077-1212</I>.</p>
+                </div>
+               </div>
+             <div class="row">
+                
+                 <div class="col-12 list">
+                      
+                    <div class="d-md-flex d-block col-12">
+                        <div class="col-lg-9 col-md-7 col-12">
+                  		
+                    		<h6 class="ms-4">Olá, {{dados.entidade.Entidade}}! Aqui está o que você comprou:</h6>
+							
+                        </div>
+                        <div class="butons col-lg-3 col-md-5 col-12 me-0 ms-0 d-md-flex d-block ">
+                           
+                        	<a href="/gerar_pdf/{{dados.token_bm}}" target="_blank" class="btn ms-md-5 ms-0 col-lg-10 col-md-10 col-12  print mt-md-0 mt-2">Baixar pedido em PDF</a>
+                         <!-- <a href="#modalEmail" class="btn btn-primary ms-md-5 ml-0 col-lg-3 col-md-10 col-12   mt-md-0 mt-2">PHP</a>-->
+                             
+                           
+                   		 </div>
+                    </div>
+                    <div class="listou col-12 table-responsive mt-3" id="ultopdf"> 
+                            
+                             <div class="infos mt-3 mb-2" style="display:none; overflow-x:hidden;" id="inf">
+                             <div class="col-12">
+                             <h3 class="ms-5 col-12">Pré-Pedido: {{dados.chave_busca}}</h3>
+                             <h5 class="ms-5 col-12">Segue abaixo o pré-pedido realizado:</h5>
+                             <br>
+                             <div class=" ms-4 col-12 d-flex">
+                            	 <h6 class="ms-2 col-4" id="bb" >Nome: {{dados.entidade.Entidade}}</h6>
+                                  <h6 class="ms-2 col-4" id="bb" >CNPJ: {{dados.entidade.CNPJ}}</h6>
+                             	<h6 class="ms-2 col-4" id="dat">Data: {{dados.data_aceite_bm|date:'d/m/Y'}}</h6><br>
+                     		</div>
+                               <div class="col-12">
+                             	<h6 class="ms-5" id="cp">{{dados.condicoes_pagamento.condicoes_pagamento}}</h6>
+                             </div>
+                              </div>
+                             <p class=" ms-5 col-12 text-danger font-italic" style="font-size:1.2em;">*Esse pré-pedido pode sofrer alterações de valor, quantidade e/ou data de entrega.</p>
+                             </div>
+                             
+                             
+ 
+                        <ul class="responsive-table uls" id="ulrs" >
+                            
+   							 <li class="table-header">
+    							  <div class="ll-1">Cód</div>
+     							<div class="ll-2">Produto</div>
+      							<div class="ll-3">Quantidade</div>
+      							<div class="ll-4">Unitário</div>
+     							 <div class="ll-5">Total</div>
+    						</li>
+             
+                            {% for item in items %}
+                
+                                <li class="table-row d-flex" id="table">  
+                                    <div class=" ll-1" data-label="Job Id">
+                                        {{item.pk}}
+                                        <input name="produto_{{item.pk}}" type="hidden" value="">
+                                    </div>
+                                    <div  class="ll-2" data-label="Job Id" >
+                                		<div class="d-flex align-items-center">
+                                        <img class="" style="max-height:70px;"  src="{{item.produto.PathProduto}}" onerror="this.onerror=null;this.src='{% static 'assets\images\banner\Produto-sem-foto.png' %}';">
+                                        <p class="">{{item.produto.Descricao_Amigavel}}<br>{% if item.MultiploCaixa|floatformat:0 > 1 %} CX c/ {{item.MultiploCaixa|floatformat:0}} DY {% else %} {{item.MultiploCaixa|floatformat:0}} UN {% endif %}</p></div>
+                                		
+                                        
+                                    </div>
+                                    <div  class=" ll-3" data-label="Job Id">
+                                        {{item.QuantidadeCompradaUN|floatformat:'0'}}
+                                        <input name="produto_{{item.pk}}" id="produto_{{item.pk}}"  class="form-control  col-md-6" type="hidden"  size="10" value="{{item.QuantidadeCompradaUN|floatformat:'0'}}"/>
+
+                                    </div>
+                                    <div  class=" ll-4" data-label="Job Id">
+                                        {{item.valor_total_item|custom_floatformat:2}}
+                                        <input name="produto_{{item.pk}}" id="produto_{{item.pk}}"  class="form-control  col-md-6" type="hidden"  size="10" value="{{item.valor_total_item|custom_floatformat:2}}"/>
+                                    </div>
+                                    
+                                    <div  class=" ll-5" id="vt" data-label="Job Id">
+                                        {{item.ValorTotalCompra|custom_floatformat:2}}
+                                        <input name="produto_{{item.pk}}" id="produto_{{item.pk}}"  class="form-control  col-md-6" type="hidden"  size="10" value="{{item.ValorTotalCompra|custom_floatformat:2}}"/>
+
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            <div class="col-12" id="precoo">
+                            	<div class="float-end">
+                            		<a class="btn btn-danger" style="color:#eee; font-weight:600;">Total: R$ {{dados.valor_atual|custom_floatformat:2}} </a>
+                            	</div>
+                            </div>
+
+                    </div>
+            
+
+
+                 </div>
+                 </div>
+                  
+                 <!--tabela mobile-->
+     <div class="d-block d-md-none">
+        {% for item in items %}
+       <div class="row rMobile">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2">{{item.produto.Descricao_Amigavel}}</h5>
+                            <p class="font-italic text-muted mb-0">{{item.pk}}</p>
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h5 class="font-weight-bold my-2"> R$ {{item.valor_total_item|custom_floatformat:2}}</h5>
+                                <ul class="list-inline small">
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                    <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
+                                </ul>
+                            </div>
+                        </div><img src="{{item.produto.PathProduto}}" onerror="this.onerror=null;this.src='{% static 'assets\images\banner\Produto-sem-foto.png' %}';" alt="Generic placeholder image" class="img-fluid ml-lg-5 order-1 order-lg-2">
+       							<div class="col-12 text-center"><p class="font-weight-bold">{% if item.MultiploCaixa|floatformat:0 > 1 %} CX c/ {{item.MultiploCaixa|floatformat:0}} DY {% else %} {{item.MultiploCaixa|floatformat:0}} UN {% endif %}</p></div>
+       					<div class=" col-12 justify-content-center" ><h5 class="col-12 font-weight-bold text-center">{{item.QuantidadeCompradaUN|floatformat:'0'}} Unidades</h5></div>
+                    </div> <!-- End -->
+                </li> <!-- End -->
+               </ul>
+       			
+             </div>
+           </div>
+       	{% endfor %}
+                	<div class="col-12 text-center mt-2">
+       					<a class="btn btn-danger col-12" style="color:white; font-weight:600; font-size:1.2em;">Total da compra: R$ {{item.valor_atual|custom_floatformat:2}} </a>
+                 </div>	
+       				
+       			</div>
+        </div>
+                
+						
+      </div>
+                
+            <div class="modalEmail" id="modalEmail" tabindex="-1">
+                <a href="#nada" class="modal__overlay" aria-label="Fechar"></a>
+                <div class="modal__content">
+                    <a href="#nada" class="modal__close"  aria-label="Fechar"></a>
+                    <div class="container text-center">
+                        <h3>Informe seu email:</h3>
+                         
+                        <form action="<?php echo BASE_URL; ?>views/gerapdf.php" method="POST">
+                        		<input type="text" class="d-none" value="<?php echo $user;?>" name="nome"/>
+                        		<input type="text" class="d-none" value="<?php echo $cnpj;?>" name="cnpj"/>
+                        		<input type="text" class="d-none" value="<?php echo $td;?>" name="itens"/>
+                        		<input type="text" class="d-none" value="<?php echo $pedido;?>" name="ped"/>
+                        		<input type="text" class="d-none" value="<?php echo $agora->format('d/m/Y H:i');?>" name="date"/>
+                        		<input type="text" class="d-none" value="<?php echo $pg;?>" name="pg"/>
+   								<div class="input-container">		
+									<input type="text" required />
+									<label>Email</label>
+                       
+									</div>
+                       <button type="submit" class="btn btn-success">Enviar</button>
+						</form>
+
+                    </div>
+                </div>
+        </div>
+                 
+
+        
+
+            <!-- <a href="<?//php echo BASE_URL; ?>/Pedido/fecharPedido/?usuario=<?//php echo $_GET['usuario']; ?>&cnpj=<?//php echo $_GET['cnpj'];?>" class="btn btn-lg btn-secondary btn-block">Finalizar Pedido</a> -->
+       
+
+            <!-- /.container -->
+            <!-- Footer -->
+              <footer class="bg-img-repeat mt-0 foot" id="foot">
+
+    <div class="page-header-ui-content">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-xl-12 col-lg-12 text-center pb-3 pt-4">
+                        <h6 class="page-header-ui-title">© 2024 - Boomerangue. All rights reserved.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+                        
+        <!-- Bootstrap core JavaScript -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         <!-- <script src="<?php echo BASE_URL; ?>assets/vendor/tether/tether.min.js"></script> -->
+         <script src="{% static 'assets/js/mobile_menu.js' %}"></script>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" ></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SXJE0BPHF6"></script>
+     
+<script type="text/javascript">
+ 
+  $('.print').on("click",function(){
+   		instaled(ins="PDF");                     
+   })
+  
+  function instaled(ins){
+    	$.ajax({
+      		type: "POST",
+      		url: "<?php echo BASE_URL; ?>assets/api/bm_log_tempo.php",
+        	data:{
+            	typelog:'B',
+            	inst:ins,
+            	chave:'',
+                tokenUser:"<?php echo $_GET['usuario'];?>",
+            	comp1:"<?php echo isMobile();?>",
+            	pref:"<?php echo prefixo;?>"
+            },
+      		success: function (result) {
+           		console.log(result);
+      		},
+        	error: function(request, status, error){
+                  console.log(request.responseText);  
+            }
+ 		});
+    }
+                        
+  $(document).ready(function() {
+    	comp();
+	});
+	
+	
+
+  function comp(){
+  	$.ajax({
+      		type: "POST",
+        	async: false,
+      		url: "<?php echo BASE_URL; ?>assets/api/bm_log.php",
+        	data:{
+            	tokenUser:"<?php echo $_GET['usuario'];?>",
+            	comp1:"<?php echo isMobile();?>",
+            	pref:"<?php echo prefixo;?>",
+            	total:$("#somaTotalProdutos").text(),
+            	totalitens:getTotalItens(),
+            },
+      		success: function (result) {
+           		console.log(result);
+      		},
+        	error: function(request, status, error){
+                  console.log(request.responseText);  
+            }
+ 		});                      
+                        
+  }
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SXJE0BPHF6');
+</script>
+    </body>
+</html>

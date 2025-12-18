@@ -1,0 +1,57 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0"></div>
+          <div class="col-md-6 p-0">
+            <a class="btn btn-primary" href="/wpp_templatelistitems_create">Criar novo WPP Item</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="tab-content" id="top-tabContent">
+            <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+              <div class="row">
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>ID do Componente</th>
+                        <th>Título do Item</th>
+                        <th>Descrição do Item</th>
+                        <th>ID do Botão</th>
+                        <th>Data de Cadastro</th>
+                        <th>Data de Alteração</th>
+                        <th>Data de Exclusão</th>
+                        <th>ID do Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Inserir dados da lista aqui -->
+                      {% for item in wpp_templatelistitems %}
+                        <tr>
+                          <td>{{ item.component_id }}</td>
+                          <td>{{ item.item_title }}</td>
+                          <td>{{ item.item_description }}</td>
+                          <td>{{ item.button_id }}</td>
+                          <td>{{ item.cadastro_dt }}</td>
+                          <td>{{ item.alteracao_dt }}</td>
+                          <td>{{ item.exclusao_dt }}</td>
+                          <td>{{ item.statusregistro_id }}</td>
+                        </tr>
+                      {%endfor%}
+                      <!-- Adicione mais linhas conforme necessário -->
+                  </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

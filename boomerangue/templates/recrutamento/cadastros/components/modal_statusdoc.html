@@ -1,0 +1,35 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+{% load tags %}
+<div class="modal fade modal-bookmark" id="addstatusdoc" tabindex="-1" role="dialog"
+            aria-labelledby="addstatusdoc" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Status documentos' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-12 m-b-20">
+                          <label for="Title">{% trans 'Status Documento' %}</label>
+                          <input class="form-control"  id="document_status" type="text" required="" maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="col-sm-12 m-b-20">
+                            <label for="Title">{% trans 'Status Reduzido' %}</label>
+                            <input class="form-control"  id="document_status_short" type="text" required="" maxlength="20" autocomplete="off">
+                        </div>
+                    </div>
+                    <input id="index_var" type="hidden" value="6">
+                    <button class="btn btn-secondary" id="salvar_statusdoc" data-set=""
+                      type="button">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>

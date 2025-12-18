@@ -1,0 +1,211 @@
+<style>
+  .card-image {
+    max-width: 100%;
+    height: 200px; /* Defina a altura desejada para os cards */
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+
+<div class="col-sm-12">
+  <div class="card">
+    <div class="card-header">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <div id="remote" class="me-3 col-6">
+            <div>
+                <input class="typeahead form-control" type="text" placeholder="Pesquisar...">
+                <div class="input-group-append">
+                  <span class="loading-indicator input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                </div>
+              </div>
+          </div>
+        </div>
+        <a class="btn btn-secondary me-3" onclick="novo()" data-bs-toggle="modal" data-bs-target="#add_template">
+          + Adicionar Template
+        </a>
+        <a class="btn btn-warning" onclick="opcao_padrao()" data-bs-toggle="modal" data-bs-target="#opcoes_padrao">
+          <i class="icon-settings"></i> Opções Padrão
+        </a>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table" id="item-table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Texto Principal</th>
+            <th scope="col">Ativo</th>
+            <th scope="col">Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for template in templates %}
+          <tr>
+            <td scope="row">{{template.pk}}</td>
+            <td scope="row"><a href="/templates/{{template.pk}}">{{template.nome_template}}</a></td>
+            <td scope="row">{{template.campanha_motivo}} ({{template.get_campanha_motivo_display}})</td>
+            <td scope="row">{{template.texto_header}}</td>
+            <td scope="row"> 
+              <select style="border: none;" class="badge {% if template.Ativo == 'S' %} badge-success {% else %} badge-danger {%endif%}" onchange="atualiza_status(this, '{{template.pk}}')">
+                <option value="S" {% if template.Ativo == 'S' %} selected {% endif %} >Sim</option>
+                <option value="N" {% if template.Ativo == 'N' %} selected {% endif %} >Não</option>
+              </select>  
+            </td>
+            <td scope="row">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">Opções</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item"
+                            href="#" onclick="deleteTemplate('{{template.pk}}')">Excluir</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#add_template" onclick="edit_template('{{template.pk}}')">Editar</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)"  onclick="pausa_campanhas('{{template.pk}}')">Pausar Campanhas</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)"  onclick="duplicar('{{template.pk}}')">Duplicar Template</a>
+                        </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="loader-box" id="loader" style="display: none;">
+        <div class="loader-2"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade modal-bookmark" id="add_template" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Novo Template</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col m-b-20">
+                    <label for="nome_template">Nome Template</label>
+                    <input class="form-control" id="nome_template" maxlength="100" type="text" required="" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm-4 m-b-20">
+                    <label for="texto_header">Texto Principal</label>
+                    <input class="form-control" id="texto_header" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col-sm-4 m-b-20">
+                    <label for="texto_footer">Texto Rodapé</label>
+                    <input class="form-control" id="texto_footer" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col-sm-4 m-b-20">
+                    <label for="texto_promocional">Texto Promocional</label>
+                    <input class="form-control" id="texto_promocional" placeholder="Pedido Express" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col m-b-20">
+                    <label for="link_footer">Link de Rodapé</label>
+                    <input class="form-control" id="link_footer" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col m-b-20">
+                    <label for="link_marketing">Link Marketing</label>
+                    <input class="form-control" id="link_marketing" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col m-b-20">
+                    <label for="link_marketing">Motivo Campanha</label>
+                    <select class="form-control" id="campanha_motivo" type="text" required="">
+                      {% for sigla, nome in tipos %}
+                          <option value="{{ sigla }}">{{ nome }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col m-b-20" id="div_banner_pc">
+                    <label>Imagem de banner PC</label>
+                    <form class="dropzone" id="imagebannerpc" action="/api/bmm_template/">
+                      <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                          <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                              da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col m-b-20" id="div_banner_mobile">
+                      <label>Imagem de banner para Celular</label>
+                      <form class="dropzone" id="imagebannermobile" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                                da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col m-b-20" id="div_footer">
+                     
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="new_template">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade modal-bookmark" id="opcoes_padrao" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Opções Padrão</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col m-b-20">
+                    <label for="nome_template">Link Footer Padrão</label>
+                    <input class="form-control" id="link_footer_padrao" maxlength="100" type="text" required="" autocomplete="off">
+                  </div>
+                </div>
+               
+                <div class="row">
+                  <div class="col m-b-20" id="div_imagem_footer">
+                     
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="media">
+                    <label class="col-form-label"><h5>Aplicar a todos os templates?</h5></label>
+                    <div class="media-body text-end icon-state">
+                      <label class="switch">
+                        <input type="checkbox" id="aplicar_todos" checked=""><span class="switch-state"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="save_opcao_padrao">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

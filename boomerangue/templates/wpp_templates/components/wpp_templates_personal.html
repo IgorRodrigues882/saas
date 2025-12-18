@@ -1,0 +1,420 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<style>
+.CodeMirror-scroll{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.CodeMirror{
+  font-size: 1.5em;
+}
+
+.dz-remove {
+    height: 20px ;
+    font-size: 12px;
+    text-align: center;
+    border: none;
+    background-color: #ff0000;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dz-remove:hover {
+    background-color: #ff4444;
+}
+
+</style>
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+        <div id="remote">
+          <div>
+              <input class="typeahead form-control" type="text" placeholder="Pesquisar">
+            </div>
+        </div>
+        <div class="">
+          <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".send_pulse_sincronizar">{% trans 'Sincronizar Provedor' %}</a>
+          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddwpp">{% trans 'Add Whatsapp Template' %}</a>
+        </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12" style="height: 80vh; overflow-y: scroll;">
+          <div class="nav d-block nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% if wpp_templates %}
+                {% for wpp in wpp_templates %}
+                <a class="contact-tab-{{wpp.pk}} nav-link  {% if forloop.first %} active{% endif %}" id="v-pills-user-tab" data-bs-toggle="pill" onclick="activeDiv('{{wpp.pk}}')"
+                href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">
+                <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_0"
+                    src="{% static 'assets/images/avtar/whatsapp.png' %}" alt="">
+                    <div class="media-body">
+                    <h6><span class="first_name_0"></span>{{wpp.template_name}}</h6>
+                    <p class="email_add_0">{{wpp.category}}</p>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <p class="text-center">
+                        Não Há Templates cadastrados!
+                    </p>
+                </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'wpp_templates/components/components.html' %}
+
+          </div>
+          <div class="contact-editform">
+            <form class="form-bookmark " id="bookmark-form" >
+              <div class="row g-2">
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="template_name">{% trans 'Template Nome' %}</label>
+                      <input class="form-control" id="template_name" type="text" required="" maxlength="255" placeholder="{% trans 'Template Nome' %}"
+                        value="">
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                        <label for="">{% trans 'Categoria' %}</label>
+                        <select class="js-example-basic-single" id="category">
+                            <option value="">Escolha uma categoria</option>
+                            {% for categoria in categorias %}
+                              <option value="{{ categoria }}">{{ categoria }}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2" id="div_mae_action_edit">
+                    <div class="col-sm-6 mb-2">
+                        <label for="language">{% trans 'Linguagem' %}</label>
+                        <select class="form-control" id="language" >
+                          <option value="PT-BR">{% trans 'PT-BR' %}</option>
+                          <option value="EN">{% trans 'EN' %}</option>
+                          <option value="ES">{% trans 'ES' %}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 mb-2">
+                        <label for="webhook_ativo">{% trans 'Add Call To Action' %}</label>
+                        <div class="media-body text-start icon-state">
+                          <label class="switch">
+                            <input type="checkbox" id="add_call_to"><span class="switch-state"></span>
+                          </label>
+                        </div>
+                    </div>
+                    <div id="div_call_to_action_2" class="d-none row">
+                      <div class="col-xl-3 col-12 m-b-20">
+                        <label for="">{% trans 'Palavra de ação' %}</label>
+                        <input class="form-control" id="nome_acao" type="text"  maxlength="255" autocomplete="off">
+                      </div>
+                      <!-- <div class="col-xl-2 col-12 m-b-20 d-none">
+                        <label for="">{% trans 'Link' %}</label> -->
+                        <input class="form-control" type="hidden" id="link_acao"  maxlength="255" autocomplete="off">
+                      <!-- </div> -->
+
+                      <div class="col-xl col-12 m-b-20">
+                        <label for="">{% trans 'Opção' %}</label>
+                        <select class="js-example-basic-single" id="opcoes">
+                          <option value="">Opção de Ação</option>
+                          {% for opcao in opcoes %}
+                              <option value="{{ opcao.0 }}">{{ opcao.1 }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                      <div class="col-xl col-12 m-b-20 d-none" id="value_pix_div">
+                        <label for="">{% trans 'Valor do Pix' %}</label>
+                        <input class="form-control" id="valor_pix" type="text"  maxlength="255" autocomplete="off">
+                      </div>
+
+                      <div class="col-xl-3 col-12 m-b-20">
+                        <label for="">{% trans 'Mensagem Resposta' %}</label>
+                        <select class="js-example-basic-single" id="template_resposta">
+                          <option value="">Escolha um template</option>
+                          {% for wpp in wpp_templates %}
+                            <option value="{{ wpp.id }}">{{ wpp.template_name }}</option>
+                          {% endfor %}
+                      </select>
+                      </div>
+                      <div class="col-xl-1 col-12 m-b-20 d-flex align-items-end">
+                        <button class="btn btn-danger" type="button" id="btn_excluir_call_to_action" onclick="excluir_call_to_action(this)">
+                            <i class="fa fa-trash"></i> 
+                        </button>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+              <div class="">
+                <button class="btn btn-secondary update-contact" type="button">{% trans 'Salvar' %}</button>
+                <button class="btn btn-info d-none" type="button" id="add_call_action_option_2">{% trans 'Add Call to action' %}</button>
+                <button class="btn btn-primary" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="loader-box" style="display: none;" id="loader-3">
+      <div class="loader-2"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-bookmark" id="modalAddcomponente" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document" style="max-height: 900px; overflow-y: auto;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Componentes' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation2" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                            <label for="component_type">{% trans 'Tipo de componente' %}</label>
+                            <select class="js-example-basic-single component_type">
+                              <option value="">Escolha um componente</option>
+                              {% for componente in componentes %}
+                                <option value="{{ componente }}">{{ componente }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="format">{% trans 'Formato' %}</label>
+                          <select class="js-example-basic-single format">
+                            <option value="">Escolha um Formato</option>
+                            {% for formato in formatos %}
+                              <option value="{{ formato }}">{{ formato }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        {% if possui_gateway %}
+                          <div class="col-sm-6 m-b-20">
+                            <label for="qrcode_pix">{% trans 'Enviar com QRCode PIX' %}</label>
+                            <div class="media-body text-start icon-state">
+                              <label class="switch">
+                                <input type="checkbox" id="possui_qrcode_pix"><span class="switch-state"></span>
+                              </label>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+
+                      <div class="row d-none" id="dropzone_wpp_image">
+                        <div class="col-sm-12 m-b-20">
+                          <div class="card">
+                            <div class="card-header pb-0">
+                                <h5>{% trans 'Imagem' %}</h5>
+                            </div>
+                              <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                      <div class="dropzone" id="wppimage" action="/api/bmm_template/">
+                                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                                        </div>
+                                        
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="row d-block d-sm-flex" id="text_area_wpp">
+                        <div class="col-sm-12 m-b-20">
+                            <div class="card">
+                                <div class="card-header pb-0">
+                                    <h5 id="title_textarea">{% trans 'Texto (Mensagem que será enviada pelo whatsapp)' %}</h5>
+                                </div>
+                                  <div class="card-body">
+                                    <div class="row editor_container">
+                                      <div class="col-md-12">
+                                        <textarea class="CodeMirror text_content" id="smde"></textarea>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="col-md-12 reader" id="write_here"></div> -->
+                                    <a data-bs-toggle="modal" id="relatorio-vendas"  onclick="geraRelatorio('{{campanha.pk}}')" title="Assistente de texto IA"  class="botao mt-2 float-end text-white" data-bs-target=".modal-assistent-IA">
+                                        <i class="fa fa-magic"></i>
+                                    </a>
+                                    <button class="btn btn-info dropdown-toggle float-start" title="Adicione termos na mensagem para incluir o nome do cliente, título da campanha, etc.." type="button" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">Add Termos</button>
+                                      <div class="dropdown-menu" style="overflow-y: auto; max-height: 80px;">
+                                        {% for field in fields %}
+                                          <a class="dropdown-item"
+                                            href="javascript:void(0)" onclick="add_termo_text('{{field.exibicao}}')">{{field.exibicao}}</a>
+                                        {% endfor %}
+                                      </div>
+                                  </div>
+                                </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_component" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+<div class="modal fade modal-assistent-IA" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Ia Assistente</h4>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          {% include 'wpp_templates/components/side.html' %}
+          {% include 'wpp_templates/components/main-text.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade send_pulse_sincronizar" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sincronizar Provedor</h4>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form class="form-bookmark" id="bookmark-form" novalidate="">
+          <div class="col-12">
+
+            <label for="">Escolha o bot Provedor</label>
+            <select class="js-example-basic-single" id="bot_sendpulse">
+              {% for bot in bots %}
+                <option value="{{bot.pk}}">{{bot.bot}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button class="btn btn-secondary" id="sincronizar"  data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal components sendpulse -->
+
+<div class="modal fade" id="modal_componente_sendpulse" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Ajustar Termos Provedor</h4>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form class="form-bookmark" id="bookmark-form" novalidate="">
+          <div class="col-12" id="termos_sendpulse">
+            
+          </div>
+          <button class="btn btn-secondary" id="termos_update"  data-id=""
+                      type="submit">{% trans 'Salvar' %}</button>
+          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="flow_fluxo" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Id Fluxo a seguir</h4>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form class="form-bookmark" id="bookmark-form" novalidate="">
+            <div class="col-12">
+              <label for="">Fluxo id</label>
+              <input type="text" id="fluxo_id" class="form-control">
+            </div>
+          <button class="btn btn-secondary" id="salva_flow_id"  data-id=""
+                      type="button">{% trans 'Salvar' %}</button>
+          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-bookmark" id="sendpulse_call_to_action" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add call to action' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex" id="div_mae_action_edit_2">
+                        <div id="div_call_to_action_3" class="row">
+                          <div class="col-sm-3 m-b-20">
+                            <label for="">{% trans 'Palavra de ação' %}</label>
+                            <input class="form-control" id="sendpulse_action" type="text"  maxlength="255" autocomplete="off">
+                          </div>
+                          <div class="col-sm-6 m-b-20">
+                            <label for="">{% trans 'Link' %}</label>
+                            <input class="form-control" id="sendpulse_link_acao" type="text"  maxlength="255" autocomplete="off">
+                          </div>
+                          <div class="col-sm-3 m-b-20">
+                            <label for="">{% trans 'Mensagem Resposta' %}</label>
+                            <select class="js-example-basic-single" id="template_resposta_sendpulse">
+                              <option value="">Escolha um template</option>
+                              {% for wpp in wpp_templates %}
+                                <option value="{{ wpp.id }}">{{ wpp.template_name }}</option>
+                              {% endfor %}
+                          </select>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_provedor_sendpsulse" onclick="salvar_sendpulse_action()" type="button">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-info" type="button" id="add_call_action_option_3">{% trans 'Add Call to action' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<script>
+  var fields = JSON.parse('{{ json_fields|escapejs }}');
+</script>

@@ -1,0 +1,73 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<div class="card">
+  <div class="card-header pb-0">
+    <h5>{% trans 'Cadastro condição de pagamento' %}</h5>
+  </div>
+  <div class="card-body">
+    <form class="row g-3 needs-validation" novalidate="">
+      <div class="col-md-6 position-relative">
+        <label class="form-label" for="condicoes_pagamento">{% trans 'Nome condição de pagamento' %}</label>
+        <input class="form-control" id="condicoes_pagamento" type="text" required="">
+        <div class="invalid-tooltip">{% trans 'Nome da condição não pode estar vazio' %}</div>
+      </div>
+
+      <div class="col-md-6 position-relative">
+        <label class="form-label" for="valor_minimo">{% trans 'Valor mínimo' %}</label>
+        <div class="input-group has-validation">
+          <input class="form-control" id="valor_minimo" type="text" required="">
+          <div class="invalid-tooltip">{% trans 'Valor mínimo não pode estar vazio' %}</div>
+        </div>
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="NroParcelas">{% trans 'Número de parcelas' %}</label>
+        <input class="form-control" id="NroParcelas" type="number" required="">
+        <div class="invalid-tooltip">{% trans 'Número de parcelas não pode estar vazio' %}</div>
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="CondicaoPadrao">{% trans 'Condição Pagamento padrão' %}</label>
+        <select class="form-select" id="CondicaoPadrao" required="">
+          <option value="S">{% trans 'Sim' %}</option>
+          <option value="N">{% trans 'Não' %}</option>
+        </select>
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="CondicaoAtiva">{% trans 'Condição Pagamento Ativa' %}</label>
+        <select class="form-select" id="CondicaoAtiva" required="">
+            <option value="S">{% trans 'Sim' %}</option>
+            <option value="N">{% trans 'Não' %}</option>
+        </select>
+    </div>
+    <div class="col-md-3 position-relative">
+        <label class="form-label" for="prazo_medio">{% trans 'Prazo Condição Pag (Dias)' %}</label>
+        <input class="form-control" id="prazo_medio" type="number" required="">
+        <div class="invalid-tooltip">{% trans 'Prazo médio não pode estar vazio' %}</div>
+    </div>
+    <div class="col-md-4 position-relative">
+        <label class="form-label" for="CodTipoDocumentoCobranca">{% trans 'Cód Tipo Documento Cobrança' %}</label>
+        <input class="form-control" id="CodTipoDocumentoCobranca" maxlength="10" type="text" >
+        <!-- <div class="invalid-tooltip">{% trans 'Prazo médio não pode estar vazio' %}</div> -->
+    </div>
+    <div class="col-md-4 position-relative">
+        <label class="form-label" for="EDI_Integracao">{% trans 'EDI Integração' %}</label>
+        <input class="form-control" id="EDI_Integracao" type="text" maxlength="50" required>
+        <div class="invalid-tooltip">{% trans 'EDI Integração não pode estar vazio!' %}</div>
+    </div>
+    <div class="col-md-4 position-relative">
+        <label class="form-label" for="status_condicoes_pagamento">{% trans 'Status condição de pagamento' %}</label>
+        <input class="form-control" id="status_condicoes_pagamento" type="number" required>
+        <div class="invalid-tooltip">{% trans 'Status condição de pagamento não pode estar vazio!' %}</div>
+    </div>
+    <div class="col-md-12 position-relative">
+        <label class="form-label" for="CondicaoAmigavel">{% trans 'Condição Amigável' %}</label>
+        <textarea class="form-control" id="CondicaoAmigavel" type="text" maxlength="100" ></textarea>
+        <!-- <div class="invalid-tooltip">{% trans 'Prazo médio não pode estar vazio' %}</div> -->
+    </div>
+    
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit" id="create_condPagamento">{% trans 'Salvar' %}</button>
+    </div>
+    </form>
+  </div>
+</div>

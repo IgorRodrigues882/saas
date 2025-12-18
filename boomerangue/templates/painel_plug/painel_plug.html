@@ -1,0 +1,38 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+
+  <!-- Container-fluid starts-->
+  <div class="container-fluid ecommerce-dash">
+  {% include 'painel_plug/components/options_painel.html' %}
+</div>
+  <!-- Container-fluid Ends-->
+</div>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<script src="{% static 'assets/js/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js' %}"></script>
+<script src="{% static 'assets/js/form-validation-custom.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+<script src="{% static 'assets/js/plug_painel/plug_painel.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/permissoes.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/prompt_ia.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/termos.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/criatividade.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/tomvoz.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/opcoes_ia.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/wpp_field.js' %}"></script>
+<script src="{% static 'assets/js/plug_painel/atributos.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

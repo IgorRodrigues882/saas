@@ -1,0 +1,4 @@
+env/
+.env
+nginx.conf
+__pycache__/

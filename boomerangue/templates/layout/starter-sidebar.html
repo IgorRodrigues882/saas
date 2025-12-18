@@ -1,0 +1,860 @@
+{% load static %}
+{% load i18n %}
+{% load tags %}
+{% empresa_tem_permissao request.user.empresa.tipo_de_negocio as resultados %}
+<!-- <style>
+  .simplebar-content-wrapper{
+    overflow: visible scroll !important;
+  }
+  .page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper .sidebar-main .simplebar-offset {
+    height: inherit !important;
+  }
+</style> -->
+<div class="sidebar-wrapper">
+  <div>
+    <div class="logo-wrapper"><a href="/home_page"><img class="img-fluid for-light"
+          src="{% static 'assets/images/logo/bommerangue_back_240x44_cor.png' %}" alt=""><img class="img-fluid for-dark"
+          src="{% static 'assets/images/logo/bommerangue_back_240x44_bco.png' %}" alt=""></a>
+      <div class="back-btn"><i class="fa fa-angle-left"></i></div>
+    </div>
+    <div class="logo-icon-wrapper"><a href="/home_page"><img class="img-fluid"
+          src="{% static 'assets/images/logo-icon.png' %}" alt=""></a></div>
+    <nav class="sidebar-main">
+      <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+      <div id="sidebar-menu" >
+        <ul class="sidebar-links" id="simple-bar">
+          <li class="back-btn"><a href="/home_page"><img class="img-fluid"
+                src="{% static 'assets/images/logo-icon.png' %}" alt=""></a>
+            <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+            </div>
+          </li>
+          {% if resultados.Boomerangues %}
+              <li class="sidebar-list">
+                  <a class="sidebar-link sidebar-title" href="#"><i data-feather="home"></i><span>Boomerangues </span></a>
+                  {% if resultados.Boomerangues_Templates %}
+                  <ul class="sidebar-submenu">
+                      <!-- <li><a class="" href="/boomerangues_list">Boomerangues</a></li> -->
+                      <li><a class="" href="/boomerangues_templates">Boomerangues Templates</a></li>
+                  </ul>
+                  {% endif %}
+              </li>
+          {% endif %}
+          {% if resultados.Campanhas %}
+          <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <g>
+                <path
+                  d="M8.54248 9.21777H15.3975"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M11.9702 2.5C5.58324 2.5 4.50424 3.432 4.50424 10.929C4.50424 19.322 4.34724 21.5 5.94324 21.5C7.53824 21.5 10.1432 17.816 11.9702 17.816C13.7972 17.816 16.4022 21.5 17.9972 21.5C19.5932 21.5 19.4362 19.322 19.4362 10.929C19.4362 3.432 18.3572 2.5 11.9702 2.5Z"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </g></svg><span>{% trans 'Campanhas'%}</span></a>
+                <ul class="sidebar-submenu">
+                  {% if resultados.Campanhas %}
+                  <li><a class="" href="/campanhas_list">{% trans 'Campanhas'%}</a></li>
+                  {% endif %}
+
+                  {% if resultados.Criar_campanha %}
+                  <li><a class="" href="/create_new_campaign">{% trans 'Criar campanha' %}</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+              {% endif %}
+
+              {% if resultados.Mensagens %}
+              <li class="sidebar-list">
+                <label class="badge badge-light-primary">{% get_message_count request.user.empresa.pk %}</label>
+                <a class="sidebar-link sidebar-title link-nav" href="/chat">
+                  <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <g>
+                      <path
+                        d="M15.9393 12.4131H15.9483"
+                        stroke="#130F26"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M11.9303 12.4131H11.9393"
+                        stroke="#130F26"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M7.92128 12.4131H7.93028"
+                        stroke="#130F26"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M19.071 19.0698C16.0159 22.1264 11.4896 22.7867 7.78631 21.074C7.23961 20.8539 3.70113 21.8339 2.93334 21.067C2.16555 20.2991 3.14639 16.7601 2.92631 16.2134C1.21285 12.5106 1.87411 7.9826 4.9302 4.9271C8.83147 1.0243 15.1698 1.0243 19.071 4.9271C22.9803 8.83593 22.9723 15.1681 19.071 19.0698Z"
+                        stroke="#130F26"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </g>
+                  </g>
+                  </svg><span>{% trans 'Chat' %}</span></a>
+              </li>
+              {% endif %}
+
+              {% if resultados.Validacao_de_documentos %}
+              <li class="sidebar-list">
+                <a class="sidebar-link sidebar-title link-nav" href="/valida_documentos">
+                  <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g>
+                    <g>
+                      <path
+                        d="M15.9393 12.4131H15.9483"
+                        stroke="#130F26"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M11.9303 12.4131H11.9393"
+                        stroke="#130F26"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M7.92128 12.4131H7.93028"
+                        stroke="#130F26"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M19.071 19.0698C16.0159 22.1264 11.4896 22.7867 7.78631 21.074C7.23961 20.8539 3.70113 21.8339 2.93334 21.067C2.16555 20.2991 3.14639 16.7601 2.92631 16.2134C1.21285 12.5106 1.87411 7.9826 4.9302 4.9271C8.83147 1.0243 15.1698 1.0243 19.071 4.9271C22.9803 8.83593 22.9723 15.1681 19.071 19.0698Z"
+                        stroke="#130F26"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </g>
+                  </g>
+                  </svg><span>{% trans 'Validação documentos' %}</span></a>
+              </li>
+              {% endif %}
+
+              {% if resultados.Mapa_Interativo %}
+              <li class="sidebar-list">
+                <!-- <label class="badge badge-light-primary">{% get_message_count request.user.empresa.pk %}</label> -->
+                <a class="sidebar-link sidebar-title link-nav" href="/mapa_interativo">
+                  <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <g>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M14.5103 10.7105C14.5103 9.3292 13.391 8.20996 12.0097 8.20996C10.6295 8.20996 9.51025 9.3292 9.51025 10.7105C9.51025 12.0907 10.6295 13.21 12.0097 13.21C13.391 13.21 14.5103 12.0907 14.5103 10.7105Z"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M11.9995 21C9.10148 21 4.5 15.9587 4.5 10.5986C4.5 6.40246 7.8571 3 11.9995 3C16.1419 3 19.5 6.40246 19.5 10.5986C19.5 15.9587 14.8985 21 11.9995 21Z"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g></svg><span>{% trans 'Mapa Interativo' %}</span></a>
+              </li>
+              {% endif %}
+
+              {% if resultados.Histórico_de_vendas %}
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <g>
+                    <path
+                      d="M6.91699 14.854L9.90999 10.965L13.324 13.645L16.253 9.86499"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M19.6671 2.3501C20.7291 2.3501 21.5891 3.2101 21.5891 4.2721C21.5891 5.3331 20.7291 6.1941 19.6671 6.1941C18.6051 6.1941 17.7451 5.3331 17.7451 4.2721C17.7451 3.2101 18.6051 2.3501 19.6671 2.3501Z"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M20.7555 9.26898C20.8885 10.164 20.9495 11.172 20.9495 12.303C20.9495 19.241 18.6375 21.553 11.6995 21.553C4.76246 21.553 2.44946 19.241 2.44946 12.303C2.44946 5.36598 4.76246 3.05298 11.6995 3.05298C12.8095 3.05298 13.8005 3.11198 14.6825 3.23998"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g></svg><span>CRM</span></a
+                >
+                <ul class="sidebar-submenu">
+                  <li><a class="" href="/historico">Histórico de {% get_string_personalizada 'vendas' %}</a></li>
+                  <li><a class="" href="/pix_gerados">{% trans 'Pix Gerados' %}</a></li>
+                </ul>
+              </li>
+              {% endif %}
+
+              {% if resultados.Recrutamento %}
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <g>
+                    <path
+                      d="M6.91699 14.854L9.90999 10.965L13.324 13.645L16.253 9.86499"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M19.6671 2.3501C20.7291 2.3501 21.5891 3.2101 21.5891 4.2721C21.5891 5.3331 20.7291 6.1941 19.6671 6.1941C18.6051 6.1941 17.7451 5.3331 17.7451 4.2721C17.7451 3.2101 18.6051 2.3501 19.6671 2.3501Z"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M20.7555 9.26898C20.8885 10.164 20.9495 11.172 20.9495 12.303C20.9495 19.241 18.6375 21.553 11.6995 21.553C4.76246 21.553 2.44946 19.241 2.44946 12.303C2.44946 5.36598 4.76246 3.05298 11.6995 3.05298C12.8095 3.05298 13.8005 3.11198 14.6825 3.23998"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g></svg><span>Recrutamento</span></a
+                >
+                <ul class="sidebar-submenu">
+                  {% if resultados.Candidatos %}
+                    <li><a class="" href="/candidatos">Candidatos</a></li>
+                  {% endif %}
+                  {% if resultados.Vagas %}
+                    <li><a class="" href="/vagas">Vagas</a></li>
+                  {% endif %}
+                  {% if resultados.Kanban_Admissao %}
+                    <li><a class="" href="/kanban">Kanban Admissão</a></li>
+                  {% endif %}
+                  {% if resultados.Cadastros %}
+                    <li><a class="" href="/cadastros">Cadastros</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+              {% endif %}
+
+              {% if resultados.Agendamentos %}
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <g>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M2.74976 12.7755C2.74976 5.81947 5.06876 3.50146 12.0238 3.50146C18.9798 3.50146 21.2988 5.81947 21.2988 12.7755C21.2988 19.7315 18.9798 22.0495 12.0238 22.0495C5.06876 22.0495 2.74976 19.7315 2.74976 12.7755Z"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M3.02515 9.32397H21.0331"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M16.4284 13.261H16.4374"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M12.0289 13.261H12.0379"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M7.62148 13.261H7.63048"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M16.4284 17.113H16.4374"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M12.0289 17.113H12.0379"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M7.62148 17.113H7.63048"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M16.033 2.05005V5.31205"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M8.02466 2.05005V5.31205"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g></svg
+              ><span>Agendamentos</span></a
+                >
+                <ul class="sidebar-submenu">
+                  <li><a class="" href="/agendamentos">Agendamentos</a></li>
+                  <li><a class="" href="/calendario_agendamentos">Calendário agendamentos</a></li>
+                </ul>
+              </li>
+              {% endif %}
+          
+        {% if resultados.Empresas %}
+          <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <g>
+                <path
+                  d="M6.91699 14.854L9.90999 10.965L13.324 13.645L16.253 9.86499"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M19.6671 2.3501C20.7291 2.3501 21.5891 3.2101 21.5891 4.2721C21.5891 5.3331 20.7291 6.1941 19.6671 6.1941C18.6051 6.1941 17.7451 5.3331 17.7451 4.2721C17.7451 3.2101 18.6051 2.3501 19.6671 2.3501Z"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M20.7555 9.26898C20.8885 10.164 20.9495 11.172 20.9495 12.303C20.9495 19.241 18.6375 21.553 11.6995 21.553C4.76246 21.553 2.44946 19.241 2.44946 12.303C2.44946 5.36598 4.76246 3.05298 11.6995 3.05298C12.8095 3.05298 13.8005 3.11198 14.6825 3.23998"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </g></svg>
+            <span>{% trans 'Empresas' %}</span></a>
+                <ul class="sidebar-submenu">
+                  <li><a class="" href="/empresas_list">{% trans 'Empresas' %}</a></li>
+                  <!-- <li><a class="" href="/empresas_create">{% trans 'Criar Empresa' %}</a></li> -->
+                  {% if resultados.Unidades %}
+                    <li><a class="" href="/unidades">{% trans 'Unidades' %}</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+              {% endif %}
+
+              {% if resultados.Leads %}
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <g>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M2.75024 12C2.75024 5.063 5.06324 2.75 12.0002 2.75C18.9372 2.75 21.2502 5.063 21.2502 12C21.2502 18.937 18.9372 21.25 12.0002 21.25C5.06324 21.25 2.75024 18.937 2.75024 12Z"
+                      stroke="#130F26"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M15.2045 13.8999H15.2135"
+                      stroke="#130F26"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M12.2045 9.8999H12.2135"
+                      stroke="#130F26"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                    <path
+                      d="M9.19557 13.8999H9.20457"
+                      stroke="#130F26"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g></svg>
+                <span>{% get_string_personalizada 'Leads' %}</span></a>
+                <ul class="sidebar-submenu">
+                  {% if resultados.Resumo_Leads %}
+                  <li><a class="" href="/entidades_list">Resumo {% get_string_personalizada 'Leads' %}</a></li>
+                  {% endif %}
+
+                  {% if resultados.Criar_Lead %}
+                    <li><a class="" href="/create-entidade">Criar {% get_string_personalizada 'Leads' %}</a></li>
+                  {% endif %}
+                  <!-- <li><a href="/boomerangues-list">Boomerangues</a></li> -->
+                </ul>
+              </li>
+              {% endif %}
+
+        
+
+                            
+              {% if resultados.Bots %}
+              <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                <i data-feather="archive"></i>
+                <span>Bot</span></a>
+                <ul class="sidebar-submenu">
+                    <!--<li><a href="/bot"><span>Bot</span></a></li>-->
+                    <li><a href="/bots">Bots</a></li>
+                    {% if resultados.Bot_Canal %}
+                      <li><a href="/bot_canal">Bot Canal</a></li>
+                    {% endif %}
+                    {% if resultados.Bot_Canal_Empresa %}
+                      <li><a href="/bot_canalempresa">Bot Canal Empresa</a></li>
+                    {% endif %}
+                    {% if resultados.Bot_Provedor %}
+                    <li><a href="/bot_provedor">Bot Provedor</a></li>
+                    {% endif %}
+                    <!--<li><a href="/bot"><span>Bot</span></a></li>-->
+                </ul>
+            </li>
+            {% endif %}
+
+            {% if resultados.Whatsapp %}
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+              <i data-feather="phone"></i>
+              <span>Whatsapp</span></a>
+              <ul class="sidebar-submenu">
+                  <!--<li><a href="/bot"><span>Bot</span></a></li>-->
+                  <li><a href="/wpp_templates">Whatsapp Template</a></li>
+                  {% if resultados.Flows %}
+                    <li><a href="/flows">Flows</a></li>
+                  {% endif %}
+                  <!-- <li><a href="/wpp_components">Whatsapp Componentes</a></li> -->
+                  <!--<li><a href="/bot"><span>Bot</span></a></li>-->
+              </ul>
+            </li>
+          {% endif %}
+            
+          {% if resultados.Geral %}
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                <i data-feather="archive"></i>
+                <span>Geral</span></a>
+
+                <ul class="sidebar-submenu">
+                  {% if resultados.Vendedores %}
+                  <li>
+                    <a class="submenu-title" href="#"
+                      >{% get_string_personalizada 'Vendedores' %}<span class="sub-arrow"
+                        ><i class="fa fa-angle-right"></i></span
+                    ></a>
+                    <ul class="nav-sub-childmenu submenu-content">
+                      {% if resultados.Listar_vendedores %}
+                        <li><a class="" href="/vendedores_list">{% trans 'Listar' %}</a></li>
+                      {% endif %}
+                      {% if resultados.Adicionar_vendedores %}
+                        <li><a class="" href="/vendedores_create">{% trans 'Adicionar' %}</a></li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                  {% endif %}
+
+                  {% if resultados.Transportadoras %}
+                  <li>
+                    <a class="submenu-title" href="#"
+                      >{%trans 'Transportadoras' %}<span class="sub-arrow"
+                        ><i class="fa fa-angle-right"></i></span
+                    ></a>
+                    <ul class="nav-sub-childmenu submenu-content">
+                      {% if resultados.Listar_transportadoras %}
+                        <li><a class="" href="/transportadoras_list">{% trans 'Listar' %}</a></li>
+                      {% endif %}
+
+                      {% if resultados.Adicionar_transportadoras %}
+                        <li><a class="" href="/transportadora_create">{% trans 'Adicionar' %}</a></li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                  {% endif %}
+
+                  {% if resultados.Condição_Pagto %}
+                  <li>
+                    <a class="submenu-title" href="#"
+                      >{%trans 'Condição Pagto' %}<span class="sub-arrow"
+                        ><i class="fa fa-angle-right"></i></span
+                    ></a>
+                    <ul class="nav-sub-childmenu submenu-content">
+                      {% if resultados.Listar_cond_Pagto %}
+                        <li><a class="" href="/condicao_pagamento_list">{% trans 'Listar' %}</a></li>
+                      {% endif %}
+
+                      {% if resultados.Adicionar_cond_Pagto %}
+                        <li><a class="" href="/condicao_pagamento_create">{% trans 'Adicionar' %}</a></li>
+                      {% endif %}
+                    </ul>
+                  </li>
+                  {% endif %}
+
+                  {% if resultados.Tabelas %}
+                    <li>
+                      <a class="submenu-title" href="#"
+                        >{%trans 'Tabelas' %}<span class="sub-arrow"
+                          ><i class="fa fa-angle-right"></i></span
+                      ></a>
+                      <ul class="nav-sub-childmenu submenu-content">
+                        {% if resultados.Categorias %}
+                          <li><a href="/ger_categorias">{% trans 'Categorias' %}</a></li>
+                        {% endif %}
+
+                        {% if resultados.Grades %}
+                          <li><a href="/ger_grade">{% trans 'Grades' %}</a></li>
+                        {% endif %}
+
+                        {% if resultados.Grupos_de_Produtos %}
+                          <li><a href="/ger_grupoprodutos">{% trans 'Grupos de Produtos'%}</a></li>
+                        {% endif %}
+
+                        {% if resultados.Linhas_de_Produtos %}
+                          <li><a href="/ger_linhaprodutos">{% trans 'Linhas de Produtos'%}</a></li>
+                        {% endif %}
+
+                        {% if resultados.Produtos %}
+                          <li><a href="/ger_produtos">{% trans 'Produtos' %}</a></li>
+                        {% endif %}
+                      </ul>
+                    </li>
+                  {% endif %}
+                </ul>
+            </li>
+          {% endif %}
+
+          {% if resultados.Gateways_Pagamento %}
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title link-nav" href="/gateways-pagamentos">
+                <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <g>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.75024 12C2.75024 5.063 5.06324 2.75 12.0002 2.75C18.9372 2.75 21.2502 5.063 21.2502 12C21.2502 18.937 18.9372 21.25 12.0002 21.25C5.06324 21.25 2.75024 18.937 2.75024 12Z"
+                    stroke="#130F26"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M9.42993 14.5697L14.5699 9.42969"
+                    stroke="#130F26"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M14.4955 14.5H14.5045"
+                    stroke="#130F26"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M9.4955 9.5H9.5045"
+                    stroke="#130F26"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </g></svg
+            ><span>{% trans 'Gateways Pagamento' %}</span></a
+              >
+            </li>
+          {% endif %}
+            
+          {% if resultados.Ajudante_IA %}
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
+              data-feather="aperture"></i><span>Ajudante IA</span></a>
+              <ul class="sidebar-submenu">
+                <li><a class="" href="/ajudante_ia">Inteligência Artificial</a></li>
+              </ul>
+            </li>
+          {% endif %}
+
+            {% if resultados.Painel_Admin %}
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g>
+                <g>
+                  <path
+                    d="M6.91699 14.854L9.90999 10.965L13.324 13.645L16.253 9.86499"
+                    stroke="#130F26"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M19.6671 2.3501C20.7291 2.3501 21.5891 3.2101 21.5891 4.2721C21.5891 5.3331 20.7291 6.1941 19.6671 6.1941C18.6051 6.1941 17.7451 5.3331 17.7451 4.2721C17.7451 3.2101 18.6051 2.3501 19.6671 2.3501Z"
+                    stroke="#130F26"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M20.7555 9.26898C20.8885 10.164 20.9495 11.172 20.9495 12.303C20.9495 19.241 18.6375 21.553 11.6995 21.553C4.76246 21.553 2.44946 19.241 2.44946 12.303C2.44946 5.36598 4.76246 3.05298 11.6995 3.05298C12.8095 3.05298 13.8005 3.11198 14.6825 3.23998"
+                    stroke="#130F26"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </g></svg
+            ><span>Painel Admin</span></a>
+                  <ul class="sidebar-submenu">
+                    {% if resultados.Usuários %}
+                      <li><a class="" href="/usuarios_list">{% trans 'Usuários' %}</a></li>
+                    {% endif %}
+
+                    {% if resultados.Grupos_de_Permissão %}
+                      <li><a class="" href="/grupos_permissao_list">{% trans 'Grupos de Permissão' %}</a></li>
+                    {% endif %}
+                  </ul>
+                </li>
+
+              {% endif %}
+            
+            <!-- 
+                    <li><a href="/ger_categorias"><span>Ger Categorias</span></a></li>
+                    <li><a href="/ger_dadosgerais"><span>Ger Dados Gerais</span></a></li>
+                    <li><a href="/ger_empresas"><span>Ger Empresas</span></a></li>
+                    <li><a href="/ger_entidades"><span>Ger Entidades</span></a></li>
+                    <li><a href="/ger_grade"><span>Ger Grade</span></a></li>
+                    <li><a href="/ger_grupoprodutos"><span>Ger Grupo Produtos</span></a></li>
+                    <li><a href="/ger_linhaprodutos"><span>Ger Linha Produtos</span></a></li>
+                    <li><a href="/ger_produtos"><span>Ger Produtos</span></a></li>
+                </ul>
+            </li>
+             -->
+            <!--
+            <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#">
+                <i data-feather="archive"></i>
+                <span>Whatsapp</span></a>
+                <ul class="sidebar-submenu">
+                    <li><a href="/wpp_templateapprovals"><span>WPP Template Approvals</span></a></li>
+                    <li><a href="/wpp_templatebuttons"><span>WPP Template Buttons</span></a></li>
+                    <li><a href="/wpp_templatelistitems"><span>WPP Template List Items</span></a></li>
+                    <li><a href="/wpp_templates"><span>WPP Templates</span></a></li>
+                    <li><a href="/wpp_templatescomponents"><span>WPP Templates Components</span></a></li>
+                </ul>
+            </li>
+            -->
+
+                    <!-- <li><a href="/wpp_templateapprovals"><span>WPP Template Approvals</span></a></li>
+                    <li><a href="/wpp_templatebuttons"><span>WPP Template Buttons</span></a></li>
+                    <li><a href="/wpp_templatelistitems"><span>WPP Template List Items</span></a></li>
+                    <li><a href="/wpp_templates"><span>WPP Templates</span></a></li>
+                    <li><a href="/wpp_templatescomponents"><span>WPP Templates Components</span></a></li>
+                </ul>
+            </li>
+            
+          -->
+          {% if resultados.Painel_Plug %}
+          <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title link-nav" href="/plug_admin">
+              <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g>
+              <g>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M2.75024 12C2.75024 5.063 5.06324 2.75 12.0002 2.75C18.9372 2.75 21.2502 5.063 21.2502 12C21.2502 18.937 18.9372 21.25 12.0002 21.25C5.06324 21.25 2.75024 18.937 2.75024 12Z"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M9.42993 14.5697L14.5699 9.42969"
+                  stroke="#130F26"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M14.4955 14.5H14.5045"
+                  stroke="#130F26"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M9.4955 9.5H9.5045"
+                  stroke="#130F26"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </g></svg
+          ><span>Painel Plug</span></a
+            >
+          </li>
+          {% endif %}
+
+        </ul>
+        <div id="logo_empresa_">
+            {% if request.user.empresa.image_logo_empresa == null or request.user.empresa.image_logo_empresa == '' %}
+              <div class="sidebar-img-section">
+                <div class="sidebar-img-content"><img class="img-fluid" src="{% static 'assets/images/side-bar.png' %}"
+                    alt="">
+                  <h4>Sem logo?</h4><a class="txt" href="">Coloque a logo da sua empresa aqui!</a><a class="btn btn-secondary"
+                  data-bs-toggle="modal" data-bs-target="#modal-importar-logo" href="#">Inserir logo</a>
+                </div>
+              </div>
+            {% else %}
+            <!-- <div class="logo-wrapper"><a href="/home_page"><img class="img-fluid for-light"
+              src="/media/{{request.user.empresa.image_logo_empresa}}" alt="">
+            </a>
+            </div> -->
+            <div style="width: 100%; display:flex; justify-content:center; align-items:center; position: relative;" id="image_logo_div">
+              <div style="width: 120px; height:120px;">
+                  <div class="sidebar-img-content">
+                      <img class="img-fluid" src="/media/{{request.user.empresa.image_logo_empresa}}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+                      <a id="removeButton_logo" href="#" class="btn btn-secondary" style="position: absolute; top: 0; right: 5px; border-radius: 50%; padding: 10px; height: 40px; width:40px; border:none; display:none;">
+                          <i class="fa fa-trash"></i>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          
+            {% endif %}
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

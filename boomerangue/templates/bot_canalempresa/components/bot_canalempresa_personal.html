@@ -1,0 +1,134 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+      <h5>{% trans 'Canais Empresa' %}</h5><span class="f-14 pull-right mt-0"></span>
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddCanalEmpresa">{% trans "Criar Canal Empresa" %}</a>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% if canais %}
+                {% for canal in canais %}
+                <a class="contact-tab-{{canal.pk}} nav-link  {% if forloop.first %} active{% endif %}" id="v-pills-user-tab" data-bs-toggle="pill" onclick="activeDiv('{{canal.pk}}')"
+                href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">
+                <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_0"
+                    src="{% static 'assets/images/avtar/canal.png' %}" alt="">
+                    <div class="media-body">
+                    <h6><span class="first_name_0"></span>{{canal.pk}}</h6>
+                    <p class="email_add_0">{% if canal.bcc_ativo == 'S' %} <span class="badge badge-success">{% trans 'Ativo' %}</span> {% else %} <span class="badge badge-danger">{% trans 'Inativo'%}</span> {%endif%}</p>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <p class="text-center">
+                        {% trans 'Não Há canais cadastrados!'%}
+                    </p>
+                </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'bot_canalempresa/components/components.html' %}
+
+          </div>
+          <div class="contact-editform">
+            <form>
+              <div class="row g-2">
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="canal_id">{% trans 'Canal' %}</label>
+                        <select class="js-example-basic-single" id="canal_id">
+                          <option value="">{% trans 'Canal'%}</option>
+                          {% for canal_bot in canais_bots %}
+                            <option value="{{canal_bot.pk}}">{{canal_bot.canal}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                      <label for="">{% trans 'BOT' %}</label>
+                      <select class="js-example-basic-single" id="bot_id">
+                        <option value="">{% trans 'Escolha Bot'%}</option>
+                        {% for bot in bots %}
+                          <option value="{{bot.pk}}">{{bot.bot}}</option>
+                        {% endfor %}
+                      </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                      <label for="bcc_ativo">{% trans 'Bot Canal Empresa Ativo' %}</label>
+                      <select class="form-control" id="bcc_ativo" >
+                        <option value="S">{% trans 'Sim' %}</option>
+                        <option value="N">{% trans 'Não' %}</option>
+                      </select>
+                      </div>
+
+                      <div class="col-sm-6 mb-2">
+                        <label for="key1">{% trans 'Chave 1' %}</label>
+                        <input type="text" class="form-control" id="key1">
+                      </div>
+                    </div>
+                </div>
+
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                      <label for="key2">{% trans 'Chave 2' %}</label>
+                      <input type="text" class="form-control" id="key2">
+                      </div>
+
+                      <div class="col-sm-6 mb-2">
+                        <label for="key3">{% trans 'Chave 3' %}</label>
+                        <input type="text" class="form-control" id="key3">
+                      </div>
+                    </div>
+                </div>
+
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                      <label for="key4">{% trans 'Chave 4' %}</label>
+                      <input type="text" class="form-control" id="key4">
+                      </div>
+
+                      <div class="col-sm-6 mb-2">
+                        <label for="limite_diario">{% trans 'Limite Diário' %}</label>
+                        <input type="text" class="form-control" id="limite_diario">
+                      </div>
+                    </div>
+                </div>
+
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                      <label for="limite_semanal">{% trans 'Limite Semanal' %}</label>
+                      <input type="text" class="form-control" id="limite_semanal">
+                      </div>
+
+                      <div class="col-sm-6 mb-2">
+                        <label for="taxa_crescimento_semanal">{% trans 'Taxa de Crescimento Semanal' %}</label>
+                        <input type="text" class="form-control" id="taxa_crescimento_semanal">
+                      </div>
+                    </div>
+                </div>
+
+              <button class="btn btn-secondary update-contact mt-0" type="button">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary mt-3" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

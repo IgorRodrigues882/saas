@@ -1,0 +1,186 @@
+{% load static %}
+{% load sass_tags %}
+<div class="col call-chat-body">
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="row chat-box">
+        <!-- Chat right side start-->
+        <div class="col chat-right-aside">
+          <!-- chat start-->
+          <div class="chat">
+            <!-- chat-header start-->
+            <div class="media chat-header clearfix"><img class="rounded-circle"
+                src="{% static 'assets/images/user/8.jpg' %}" alt="">
+              <div class="media-body">
+                <div class="about">
+                  <div class="name" id="nome_user_msgs"></div>
+                  <div class="status digits">Lead</div>
+                </div>
+              </div>
+              <ul class="list-inline float-start float-sm-end chat-menu-icons">
+                <!-- <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-search"></i></a></li>
+                <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-clip"></i></a></li>
+                <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-headphone-alt"></i></a></li> -->
+                {% if request.user.empresa.tipo_de_negocio.value_prefixo == 'TH' %}
+                  <li class="list-inline-item"><a href="javascript:void(0)" data-bs-toggle="modal"
+                    data-bs-target="#modal_envia_msg_thinkhire"><i class="icofont icofont-ui-text-chat"></i></a></li>
+                {% endif %}
+                <li class="list-inline-item toogle-bar"><a href="javascript:void(0)" id="open-menu"><i class="icon-menu"></i></a></li>
+              </ul>
+            </div>
+            <!-- chat-header end-->
+            <div class="chat-history chat-msg-box custom-scrollbar">
+                <div class="loader-box" id="loader_mensagens_" style="display: none;">
+                    <div class="loader-2"></div>
+                </div>
+              <ul id="tbody_msgs">
+                
+              </ul>
+            </div>
+            <div class="chat-message clearfix">
+              <div class="row">
+                <div class="col-xl-12 d-flex">
+                  <div class="smiley-box bg-primary">
+                    <div class="picker" id="emoji-button"><img src="{% static 'assets/images/smiley.png' %}" alt=""></div>
+                  </div>
+                  <div class="input-group text-box">
+                    <input class="form-control input-txt-bx" id="message-to-send" type="text" name="message-to-send"
+                      placeholder="Digitar mensagem...">
+                    <button class="btn btn-primary input-group-text" id="send-message" type="button">Enviar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col chat-menu" style="max-height: calc(100% - 150px); overflow-y: auto;">
+          <ul class="nav nav-tabs border-tab nav-primary" id="info-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="info-transferir-tab" data-bs-toggle="tab" href="#info-transferir"
+                role="tab" aria-selected="true">Transferir</a>
+              <div class="material-border"></div>
+            </li>
+            <li class="nav-item"><a class="nav-link" id="profile-canais-tab" data-bs-toggle="tab" href="#info-canais"
+                role="tab" aria-selected="false">Canais</a>
+              <div class="material-border"></div>
+            </li>
+            <li class="nav-item"><a class="nav-link" id="create-canal-tab" data-bs-toggle="tab" href="#create-canal"
+                role="tab" aria-selected="false">Criar Canal</a>
+              <div class="material-border"></div>
+            </li>
+          </ul>
+          <div class="tab-content" id="info-tabContent">
+            <div class="tab-pane fade show active" id="info-transferir" role="tabpanel" aria-labelledby="info-transferir-tab">
+              <div class="people-list">
+                <ul class="list digits custom-scrollbar">
+                  <div class="users">
+                    <h6>Usuários</h6>
+                    <div id="list_transferir">
+                      
+                    </div>
+                    <div class="loader-box" id="loader_user_transferir" style="display: none;">
+                      <div class="loader-2"></div>
+                    </div>
+                  </div>
+                  <div class="canais mt-2">
+                    <h6>Canais</h6>
+                    <div id="canais_transferir">
+                      
+                    </div>
+                    <div class="loader-box" id="loader_canais" style="display: none;">
+                      <div class="loader-2"></div>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+              <div class="mt-1">
+                <span id="status_salvamento_transferir"></span>
+              </div>
+              <div class="mt-5">
+                <button class="btn btn-primary" type="button" id="save-transferir">Salvar</button>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="info-canais" role="tabpanel" aria-labelledby="profile-canais-tab">
+              <div class="default-according style-1 faq-accordion job-accordion" id="accordionoc2">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="p-0">
+                      <button class="btn btn-link ps-0" data-bs-toggle="collapse" data-bs-target="#collapseicon14"
+                        aria-expanded="true" aria-controls="collapseicon14">Activity Feed</button>
+                    </h5>
+                  </div>
+                  <div class="collapse show" id="collapseicon14" aria-labelledby="collapseicon14" data-parent="#accordion">
+                    <div class="card-body social-status filter-cards-view">
+                      <div class="media"><img class="img-50 rounded-circle m-r-15"
+                          src="{% static 'assets/images/user/10.jpg' %}" alt="">
+                        <div class="media-body"><span class="f-w-600 d-block">Andew Jon</span>
+                          <p>Commented on Shaun Park's <a href="javascript:void(0)">Photo</a></p><span class="light-span">20
+                            min Ago</span>
+                        </div>
+                      </div>
+                      <div class="media"><img class="img-50 rounded-circle m-r-15"
+                          src="{% static 'assets/images/user/3.jpg' %}" alt="">
+                        <div class="media-body"><span class="f-w-600 d-block">Johny Waston</span>
+                          <p>Commented on Shaun Park's <a href="javascript:void(0)">Photo</a></p><span class="light-span">1
+                            hour Ago</span>
+                        </div>
+                      </div>
+                      <div class="media"><img class="img-50 rounded-circle m-r-15"
+                          src="{% static 'assets/images/user/5.jpg' %}" alt="">
+                        <div class="media-body"><span class="f-w-600 d-block">Comeren Diaz</span>
+                          <p>Commented on Shaun Park's <a href="javascript:void(0)">Photo</a></p><span class="light-span">1
+                            days Ago</span>
+                        </div>
+                      </div>
+                      <div class="media"><img class="img-50 rounded-circle m-r-15"
+                          src="{% static 'assets/images/user/4.jpg' %}" alt="">
+                        <div class="media-body"><span class="f-w-600 d-block">Sarah Loren</span>
+                          <p>Commented on Shaun Park's <a href="javascript:void(0)">Photo</a></p><span class="light-span">2
+                            days Ago</span>
+                        </div>
+                      </div>
+                      <div class="media"><img class="img-50 rounded-circle m-r-15"
+                          src="{% static 'assets/images/user/3.jpg' %}" alt="">
+                        <div class="media-body"><span class="f-w-600 d-block">Johny Waston</span>
+                          <p>Commented on Shaun Park's <a href="javascript:void(0)">Photo</a></p><span class="light-span">5
+                            days Ago</span>
+                        </div>
+                      </div>
+                      <div class="media"><img class="img-50 rounded-circle m-r-15"
+                          src="{% static 'assets/images/user/5.jpg' %}" alt="">
+                        <div class="media-body"><span class="f-w-600 d-block">Comeren Diaz</span>
+                          <p>Commented on Shaun Park's <a href="javascript:void(0)">Photo</a></p><span class="light-span">6
+                            days Ago</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="loader-box" id="loader_canais_lista" style="display: none;">
+                <div class="loader-2"></div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="create-canal" role="tabpanel" aria-labelledby="create-canal">
+              <div class="people-list">
+                <div class="search">
+                  <form class="theme-form">
+                    <div class="form-group">
+                      <input class="form-control" type="text" placeholder="Nome do canal" id="nome_canal"><i class="fa fa-pencil"></i>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="status">
+                <button class="btn btn-primary" type="button" id="save-canal">Salvar</button>
+              </div>
+              <div class="mt-1">
+                <span id="status_salvamento"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Container-fluid Ends-->
+    </div>
+  </div>
+</div>

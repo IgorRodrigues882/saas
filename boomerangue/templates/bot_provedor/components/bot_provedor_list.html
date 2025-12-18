@@ -1,0 +1,240 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-sm-12">
+  <div class="email-right-aside bookmark-tabcontent contacts-tabs">
+    <div class="card email-body radius-left">
+      <div class="ps-0">
+        <div class="tab-content">
+
+          {% include 'bot_provedor/components/bot_provedor_personal.html' %}
+          <div id="right-history">
+            <div class="modal-header p-l-20 p-r-20">
+              <h6 class="modal-title w-100">Contact History<span class="pull-right"><a class="closehistory"
+                    href="javascript:void(0)"><i class="icofont icofont-close"></i></a></span></h6>
+            </div>
+            <div class="history-details">
+              <div class="text-center"><i class="icofont icofont-ui-edit"></i>
+                <p>Contact has not been modified yet.</p>
+              </div>
+              <div class="media"><i class="icofont icofont-star me-3"></i>
+                <div class="media-body mt-0">
+                  <h6 class="mt-0">Contact Created</h6>
+                  <p class="mb-0">Contact is created via mail</p><span class="f-12">June 10, 2022 4:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade modal-bookmark" id="printModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Print preview</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body list-persons">
+                  <div class="profile-mail pt-0" id="DivIdToPrint">
+                    <div class="media"><img class="img-100 img-fluid m-r-20 rounded-circle" id="updateimg"
+                        src="{% static 'assets/images/user/2.png' %}" alt="">
+                      <div class="media-body mt-0">
+                        <h5><span id="printname">Bucky </span><span id="printlast">Barnes</span></h5>
+                        <p id="printmail">barnes@gmail.com</p>
+                      </div>
+                    </div>
+                    <div class="email-general">
+                      <h6>General</h6>
+                      <p>Email Address: <span class="font-primary" id="mailadd">barnes@gmail.com </span></p>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" id="btnPrint" type="button" onclick="printDiv();">Print</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade modal-bookmark" id="modalAddProvedor" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Provedor' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="provedor">{% trans 'Provedor' %}</label>
+                          <input class="form-control provedor" type="text" required="" maxlength="45" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="">{% trans 'Suporta Email' %}</label>
+                          <select class="form-control email">
+                            <option value="S">{% trans 'Sim' %}</option>
+                            <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="whatsapp">{% trans 'Suporta WhatsApp' %}</label>
+                          <select class="form-control whatsapp" >
+                            <option value="S">{% trans 'Sim' %}</option>
+                            <option value="N">{% trans 'Não' %}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="mt-0 mb-3 col-md-12">
+                        <div class="row g-2">
+                          <div class="col-sm-6 mb-2">
+                              <label for="sms">{% trans 'Suporta SMS' %}</label>
+                              <select class="form-control sms" >
+                                <option value="S">{% trans 'Sim' %}</option>
+                                <option value="N">{% trans 'Não' %}</option>
+                              </select>
+                            </div>
+      
+                            <div class="col-sm-6 mb-2">
+                              <label for="provedor_ativo">{% trans 'Provedor Ativo' %}</label>
+                              <select class="form-control provedor_ativo" >
+                                <option value="S">{% trans 'Sim' %}</option>
+                                <option value="N">{% trans 'Não' %}</option>
+                              </select>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_1">{% trans 'Legenda 1' %}</label>
+                          <input class="form-control legenda_1" type="text"  maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_2">{% trans 'Legenda 2' %}</label>
+                          <input class="form-control legenda_2" type="text"  maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_3">{% trans 'Legenda 3' %}</label>
+                          <input class="form-control legenda_3" type="text"  maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_4">{% trans 'Legenda 4' %}</label>
+                          <input class="form-control legenda_4" type="text"  maxlength="100" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-3 m-b-20">
+                          <label for="provedor_padrao">{% trans 'Provedor Padrão' %}</label>
+                          <select name="text_tom" class="js-example-basic-single provedor_padrão" style="border: none; background-color: #F5F9FC;">
+                            {% for provedor in provedores_options %} 
+                              <option value="{{provedor.0}}">{{provedor.1}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_2">{% trans 'Parametro 1' %}</label>
+                          <input class="form-control parametro_1" type="text"  maxlength="200" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_3">{% trans 'Parametro 2' %}</label>
+                          <input class="form-control parametro_2" type="text"   maxlength="200" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_4">{% trans 'Parametro 3' %}</label>
+                          <input class="form-control parametro_3" type="text"   maxlength="200" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-4 m-b-20">
+                          <label for="provedor_padrao">{% trans 'Secret 1' %}</label>
+                          <input class="form-control secret_1" type="text"   maxlength="200" autocomplete="off">
+                        </div>
+                        <div class="col-sm-4 m-b-20">
+                          <label for="legenda_2">{% trans 'Secret 2' %}</label>
+                          <input class="form-control secret_2" type="text"   maxlength="200" autocomplete="off">
+                        </div>
+                        <div class="col-sm-4 m-b-20">
+                          <label for="legenda_3">{% trans 'Secret 3' %}</label>
+                          <input class="form-control secret_3" type="text"   maxlength="200" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-4 m-b-20">
+                          <label for="provedor_padrao">{% trans 'NroNovoLimiteDiario' %}</label>
+                          <input class="form-control NroNovoLimiteDiario" type="text"  placeholder="50" maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-4 m-b-20">
+                          <label for="legenda_2">{% trans 'NroNovoLimiteHora' %}</label>
+                          <input class="form-control NroNovoLimiteHora" type="text" placeholder="10" maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-4 m-b-20">
+                          <label for="legenda_3">{% trans 'NroNovoLimiteMinuto' %}</label>
+                          <input class="form-control NroNovoLimiteMinuto" type="text"  placeholder="1" maxlength="100" autocomplete="off">
+                        </div>
+                      </div>
+  
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="provedor_padrao">{% trans 'NroNovoIntervaloMininoMin' %}</label>
+                          <input class="form-control NroNovoIntervaloMininoMin" type="text"  placeholder="5" maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="legenda_2">{% trans 'NroNovoIntervaloMininoMax' %}</label>
+                          <input class="form-control NroNovoIntervaloMininoMax" type="text"  placeholder="9" maxlength="100" autocomplete="off">
+                        </div>
+                      </div>
+  
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-2 m-b-20">
+                          <label for="legenda_2">{% trans 'Limite Diário' %}</label>
+                          <input class="form-control LimiteDiario" type="text"  placeholder="200" maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-2 m-b-20">
+                          <label for="legenda_2">{% trans 'Limite Hora' %}</label>
+                          <input class="form-control LimiteHora" type="text"  placeholder="120" maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-2 m-b-20">
+                          <label for="legenda_2">{% trans 'Limite Minuto' %}</label>
+                          <input class="form-control LimiteMinuto" type="text"  placeholder="2" maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_2">{% trans 'Intervalo Mínino' %}</label>
+                          <input class="form-control IntervaloMininoMin" type="text"  placeholder="3"  maxlength="100" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="legenda_2">{% trans 'Intervalo Máximo' %}</label>
+                          <input class="form-control IntervaloMininoMax" type="text"  placeholder="6"  maxlength="100" autocomplete="off">
+                        </div>
+                      </div>
+
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-12 m-b-20">
+                          <label for="legenda_2">{% trans 'Provedor URL Api' %}</label>
+                          <input class="form-control provedor_url_api" type="text"  maxlength="500" autocomplete="off">
+                        </div>
+                      </div>
+
+                      {% if admin == 'ADMIN' %}
+                      <div class="col-sm-12 mb-2">
+                        <label for="provedor_teste">{% trans 'Provedor de teste' %}</label>
+                        <select class="form-control provedor_teste">
+                          <option value="N">{% trans 'Não' %}</option>
+                          <option value="S">{% trans 'Sim' %}</option>
+                        </select>
+                      </div>
+                    {%endif%}
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_provedor" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

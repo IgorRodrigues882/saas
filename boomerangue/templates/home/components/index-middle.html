@@ -1,0 +1,109 @@
+{% load static %}
+{% load sass_tags %}
+{% load tags %}
+<div class="col-xl-4 col-md-6 dash-35 dash-xl-50">
+  <div class="card ongoing-project">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Últimas campanhas </h5>
+        </div>
+        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+          <div class="icon-box-show onhover-show-div">
+            <ul>
+              <li> <a>
+                  Done</a></li>
+              <li> <a>
+                  Pending</a></li>
+              <li> <a>
+                  Rejected</a></li>
+              <li> <a>In Progress</a></li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive custom-scrollbar" style="height: 250px; overflow-x: scroll;">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>Campanha</span></th>
+              <th> <span>Encerramento</span></th>
+              <th> <span>Total</span></th>
+              <th> <span>Status</span></th>
+            </tr>
+          </thead>
+          <tbody id="tabela_campanhas">
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-xl-4 col-md-6 dash-31 dash-xl-50 box-col-6">
+  <div class="card news-update">
+    <div class="card-header card-no-border">
+      <div class="header-top">
+        <h5 class="m-0">Últimas {% get_string_personalizada 'vendas' %}</h5>
+        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+          <div class="icon-box-show onhover-show-div">
+            <ul>
+              <li> <a>
+                  Today</a></li>
+              <li> <a>
+                  Yesterday</a></li>
+              <li> <a>
+                  Tommorow</a></li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive custom-scrollbar" style="height: 250px; overflow-x: scroll;">
+        <table class="table table-bordernone">
+          <tbody id="tb_compras">
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-xl-4 col-md-6 dash-31 dash-xl-50 box-col-6">
+  <div class="card trading-activities ongoing-project">
+    <div class="card-header card-no-border">
+      <div class="media">
+        <div class="media-body">
+          <h5 class="mb-0">{% get_string_personalizada 'Produtos Mais Vendidos' %}</h5>
+        </div>
+        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+          <div class="icon-box-show onhover-show-div">
+            <ul>
+              <li> <a>
+                  Done</a></li>
+              <li> <a>
+                  Pending</a></li>
+              <li> <a>
+                  Rejected</a></li>
+              <li> <a>In Progress</a></li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive custom-scrollbar" style="height: 250px; overflow-x: scroll;">
+        <table class="table table-bordernone">
+          <tbody id="tb_produtos">
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

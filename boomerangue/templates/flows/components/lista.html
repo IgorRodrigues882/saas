@@ -1,0 +1,210 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+{% load tags %}
+
+<div class="col-xl-9 xl-60">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Flows</h5>
+        </div>
+        <h5 class="mb-0 me-3"><span id="cont">({{count}})</span></h5>
+        <a href="drawflow/" target="_blank" type="button" class="btn btn-primary">Criar</a>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive" id="div_scroll" style="height: 70vh; overflow-y: scroll;">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Flow' %}</span></th>
+              <th> <span>{% trans 'Descrição' %}</span></th>
+              <th> <span>{% trans 'Flow ID' %}</span></th>
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+          
+          </tbody>
+        </table>
+        <div class="loader-box mt-5" id="loader" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <nav aria-label="...">
+          <ul class="pagination pagination-primary" id="pagination">
+              <li class="page-item disabled" id="previous-page">
+                  <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+              </li>
+              <li class="page-item" id="next-page">
+                  <a class="page-link" href="javascript:void(0)">Próximo</a>
+              </li>
+          </ul>
+      </nav>
+    </div>
+  </div>
+  <!-- <div class="modal fade modal-bookmark" id="addcandidato" tabindex="-1" role="dialog"
+            aria-labelledby="addvaga" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Candidato' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                          
+                          <div class="col-md-6 col-sm-12 m-b-20">
+                              <label for="candidate">{% trans 'Candidato' %}</label>
+                              <input class="form-control" id="candidate" type="text" required maxlength="255">
+                          </div>
+                          
+                          <div class="col-md-6 col-sm-12 m-b-20">
+                              <label for="status_id">{% trans 'Status Candidato' %}</label>
+                              <select class="js-example-basic-single" id="status_id">
+                                  <option value="">Selecione</option>
+                                  {% for status in status_cadidate %}
+                                      <option value="{{status.status_id}}">{{status.status_description}}</option>
+                                  {% endfor %}
+                              </select>
+                          </div>
+                  
+                          
+                          <div class="col-md-4 col-sm-12 m-b-20">
+                              <label for="sex">{% trans 'Gênero' %}</label>
+                              <select class="form-control" id="sex">
+                                  <option value="">Selecionar</option>
+                                  <option value="M">Masculino</option>
+                                  <option value="F">Feminino</option>
+                              </select>
+                          </div>
+                  
+                          <div class="col-md-4 col-sm-12 m-b-20">
+                              <label for="phone">{% trans 'Celular (com DDD)' %}</label>
+                              <input class="form-control" id="phone" type="tel" maxlength="20">
+                          </div>
+                  
+                          <div class="col-md-4 col-sm-12 m-b-20">
+                              <label for="email">{% trans 'Email' %}</label>
+                              <input class="form-control" id="email" type="email" required maxlength="255">
+                          </div>
+                  
+                         
+                          <div class="col-md-6 col-sm-12 m-b-20">
+                              <label for="cpf">{% trans 'CPF' %}</label>
+                              <input class="form-control" id="cpf" type="text" maxlength="50">
+                          </div>
+                  
+                          <div class="col-md-6 col-sm-12 m-b-20">
+                              <label for="unidade_id">{% trans 'Unidade/Filial' %}</label>
+                              <select class="js-example-basic-single" id="unidade_id">
+                                  <option value="">Selecione</option>
+                                  {% for unidade in unidades %}
+                                    <option value="{{unidade.id}}">{{unidade.name}}</option>
+                                  {% endfor %}
+                                  
+                              </select>
+                          </div>
+                  
+                          
+                          <div class="col-md-6 col-sm-12 m-b-20">
+                              <label for="job_id">{% trans 'Vaga' %}</label>
+                              <select class="js-example-basic-single" id="job_id">
+                                {% for job in jobs %}
+                                  <option value="{{job.job_id}}">{{job.title}}</option>
+                                {% endfor %}
+                                  
+                              </select>
+                          </div>
+                  
+                          <div class="col-md-6 col-sm-12 m-b-20">
+                              <label for="recrutador_id">{% trans 'Recrutador' %}</label>
+                              <select class="js-example-basic-single" id="recrutador_id">
+                                  <option value="">Selecione</option>
+                                  {% for recrutador in recrutadores %}
+                                    <option value="{{recrutador.id}}">{{recrutador.nome}}</option>
+                                  {% endfor %}
+                                  
+                              </select>
+                          </div>
+                  
+                          
+                          <div class="col-md-4 col-sm-12 m-b-20">
+                              <label for="dtiniciopreenchimento">{% trans 'Data Início Processo' %}</label>
+                              <input class="form-control" id="dtiniciopreenchimento" type="datetime-local">
+                          </div>
+                  
+                          <div class="col-md-4 col-sm-12 m-b-20">
+                              <label for="dtenvioflow">{% trans 'Data Envio Flow' %}</label>
+                              <input class="form-control" id="dtenvioflow" type="datetime-local">
+                          </div>
+                  
+                          
+                          <div class="col-md-4 col-sm-12 m-b-20">
+                              <label for="tokencandidate">{% trans 'Token Candidato' %}</label>
+                              <input class="form-control" id="tokencandidate" type="text" maxlength="50">
+                          </div>
+                  
+                          <div class="col-sm-12 m-b-20">
+                              <label for="notasinternas">{% trans 'Notas Internas' %}</label>
+                              <textarea class="form-control" id="notasinternas" rows="3"></textarea>
+                          </div>
+                  
+                          <div class="col-sm-12 m-b-20">
+                              <label for="photo_candidate">{% trans 'Foto Candidato' %}</label>
+                              <input class="form-control" id="photo_candidate" type="file">
+                          </div>
+                      </div>
+                  </div>
+                    <input id="index_var" type="hidden" value="6">
+                    <button class="btn btn-secondary" id="salvar_candidate" data-set=""
+                      type="button">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+
+          <div class="modal fade modal-bookmark" id="exportVaga" tabindex="-1" role="dialog"
+          aria-labelledby="exportVaga" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% trans 'Exportar' %}</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form-bookmark needs-validation" id="" novalidate="">
+                  <div class="form-row">
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12 m-b-20">
+                        <label for="Title">{% trans 'Exportar' %}</label>
+                        <select id="export_format" class="form-select">
+                          <option value="xls">Excel</option>
+                          <option value="csv">CSV</option>
+                          <option value="pdf">PDF</option>
+                          <option value="xml">XML</option>
+                      </select>
+                      </div>
+                  </div>
+                  <input id="index_var" type="hidden" value="6">
+                  <button class="btn btn-secondary" id="export_btn" data-set=""
+                    type="button">{% trans 'Salvar' %}</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>

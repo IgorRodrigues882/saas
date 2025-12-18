@@ -1,0 +1,217 @@
+{% load static %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="form theme-form projectcreate">
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label>Nome</label>
+                  <input class="form-control" id="Nome" type="text" placeholder="Nome da Entidade" maxlength="100">
+                </div>
+                <div class="mb-3">
+                  <label>Nome Fantasia</label>
+                  <input class="form-control" id="Fantasia" type="text" placeholder="Nome Fantasia da Entidade" maxlength="100">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>CNPJ</label>
+                  <input class="form-control" id="CNPJ" type="text" placeholder="Informe o CNPJ da entidade" maxlength="20">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>Inscrição Estadual</label>
+                  <input class="form-control" id="InscricaoEstadual" type="text" placeholder="Informe a Inscrição Estadual" maxlength="20">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <div class="col-md-12">
+                  <div class="row">                    
+                      <div class="col-md-3">
+                          <label for="outro-campo">CEP</label>
+                          <input class="form-control" id="CEP" type="text" placeholder="Informe o CEP" maxlength="15">
+                      </div>
+
+                      <div class="col-md-3">
+                          <label>Endereço</label>
+                          <input class="form-control" id="Endereco" type="text" placeholder="Informe o Endereço" maxlength="70">
+                      </div>
+                      <div class="col-md-3">
+                          <label>Número</label>
+                          <input class="form-control" id="Numero" type="text" placeholder="Informe o Número" maxlength="20">
+                      </div>
+                      <div class="col-md-3">
+                          <label>Complemento</label>
+                          <input class="form-control" id="Complemento" type="text" placeholder="Informe o Complemento" maxlength="20">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label>Bairro</label>
+                    <input class="form-control" id="Bairro" type="text" placeholder="Informe o Bairro" maxlength="35">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                  <label for="outro-campo">UF</label>
+                  <input class="form-control" id="UF" type="text" placeholder="Informe o Estado" maxlength="20">
+                  <select class="form-select" id="UF">
+                    <option value="N">Não</option>
+                    <option value="S">Sim</option>
+                </select>                    
+              </div>
+          </div>
+
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="outro-campo">Cidade</label>
+                    <input class="form-control" id="Cidade" type="text" placeholder="Informe a Cidade" maxlength="20">
+                </div>
+            </div>
+            
+        </div>
+
+        
+          <div class="col-md-6">
+              <label for="outro-campo">País</label>
+              <input class="form-control" id="Pais" type="text" placeholder="Informe o País" maxlength="11">
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <div class="col-md-6">
+              <label for="outro-campo">Latitude</label>
+              <input class="form-control" id="CEP" type="text" placeholder="Informe a Latitude" maxlength="25">
+          </div>
+          <div class="col-md-6">
+              <label for="outro-campo">Longitude</label>
+              <input class="form-control" id="Pais" type="text" placeholder="Informe a Latitude" maxlength="25">
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-4">
+              <div class="mb-3">
+                  <label>Telefone 1</label>
+                  <input class="form-control" id="Telefone1" type="text" placeholder="Informe o Telefone" maxlength="25">
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="mb-3">
+                  <label for="outro-campo">Telefone 2</label>
+                  <input class="form-control" id="Telefone2" type="text" placeholder="Informe outro telefone" maxlength="25">
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="mb-3">
+                  <label for="outro-campo">WhatsApp Comercial</label>
+                  <input class="form-control" id="WhatsAppComercial" type="text" placeholder="Informe o WhatsApp Comercial" maxlength="50">
+              </div>
+          </div>
+         
+          <div class="mb-3 row">
+            <div class="col-md-6">
+                <label for="outro-campo">E-mail Comercial</label>
+                <input class="form-control" id="Email_Comercial" type="text" placeholder="Informe o Email" maxlength="100">
+            </div>
+            <div class="col-md-6">
+                <label for="outro-campo">E-mail Compras</label>
+                <input class="form-control" id="Email_Compras" type="text" placeholder="Informe o Email" maxlength="100">
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <div class="col-md-6">
+                <label for="outro-campo">E-mail NFE</label>
+                <input class="form-control" id="EMAIL_NFE" type="text" placeholder="Informe o Email" maxlength="100">
+            </div>
+            <div class="col-md-6">
+                <label for="outro-campo">E-mail Marketing</label>
+                <input class="form-control" id="EMAIL_Marketing" type="text" placeholder="Informe o Email" maxlength="100">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Atividade Principal</label>
+            <input class="form-control" id="AtvPrincipal" type="text" placeholder="Informe a Atividade Principal da Empresa">
+          </div>
+          
+          <div class="col-md-6">
+            <label for="outro-campo">Data de Abertura da Empresa</label>
+            <input class="form-control" id="DtAberturaEmpresa" type="text" placeholder="Informe a data">
+        </div>
+        <div class="col-md-6">
+          <label>Capital Social</label>
+          <input class="form-control" id="Capital_Social" type="text">
+      </div>            
+    </div>          
+          <div class="mb-3 row">
+              <div class="col-sm-6">
+                  <div class="mb-3">
+                      <label>Entidade ativa</label>
+                      <select class="form-select" id="CampanhaAtiva">
+                          <option value="N">Não</option>
+                          <option value="S">Sim</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-sm-6">
+                  <div class="mb-3">
+                      <label>Cliente</label>
+                      <select class="form-select" id="CampanhaAtiva">
+                        <option value="N">Não</option>
+                        <option value="S">Sim</option>
+                    </select>                    
+                  </div>
+              </div>
+          </div>
+          
+              <!-- <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Starting date</label>
+                  <input class="datepicker-here form-control" type="text" data-language="en">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Ending date</label>
+                  <input class="datepicker-here form-control" type="text" data-language="en">
+                </div>
+              </div> -->
+            </div>
+            <!-- <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label>Enter some Details</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+                </div>
+              </div>
+            </div> -->            
+            <div class="row">
+              <div class="col">
+                <div class="text-end"><a class="btn btn-secondary me-3" id="create_campaign" href="#">Criar</a><a class="btn btn-danger"
+                    href="#" id="cancel_create_campaign">Cancelar</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

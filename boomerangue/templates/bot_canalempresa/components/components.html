@@ -1,0 +1,40 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% for canal in canais %}
+<div class="tab-pane contact-tab-{{canal.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{canal.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{canal.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/avtar/canal.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{canal.pk}}</span></h5>
+        <p class="email_add_0">{{canal.pk}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{canal.pk}}')">{% trans 'Editar' %}</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{canal.pk}}')">{% trans 'Deletar' %}</a></li>
+          <!-- <li><a href="javascript:void(0)" onclick="printContact('{{canal.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">{% trans 'Imprimir' %}</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">{% trans 'Detalhes' %}</h6>
+      <ul>
+        <li>{% trans 'Canal Bot' %}<span class="font-primary first_name_0">{{canal.canal.canal}}</span></li>
+        <li>{% trans 'Bot' %}<span class="font-primary">{{canal.bot.bot }}</span></li>
+        <li>{% trans 'Canal Empresa Ativo' %}<span class="font-primary mobile_num_0">{% if canal.bcc_ativo == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Chave 1' %}<span class="font-primary mobile_num_0">{{canal.key1}}</span></li>
+        <li>{% trans 'Chave 2' %}<span class="font-primary mobile_num_0">{{canal.key2}}</span></li>
+        <li>{% trans 'Chave 3' %}<span class="font-primary mobile_num_0">{{canal.key3}}</span></li>
+        <li>{% trans 'Chave 4' %}<span class="font-primary mobile_num_0">{{canal.key4}}</span></li>
+        <li>{% trans 'Limite Diário' %}<span class="font-primary mobile_num_0">{{canal.limite_diario}}</span></li>
+        <li>{% trans 'Limite Semanal' %}<span class="font-primary mobile_num_0">{{canal.limite_semanal}}</span></li>
+        <li>{% trans 'Limite de Crescimento Semanal' %}<span class="font-primary mobile_num_0">{{canal.taxa_crescimento_semanal}}</span></li>
+        <li>{% trans 'Data Cadastro' %}<span class="font-primary email_add_0">{{canal.cadastro_dt|date:"d/m/Y"}}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

@@ -1,0 +1,206 @@
+{% load static %}
+{% load i18n %}
+{% load tags %}
+<style>
+  .statusSelect{
+    border:none;
+  }
+</style>
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-sm-6">
+          <div class="p-0">
+            <select class="js-example-basic-single" id="filtro_campanhas">
+              <option value="">Filtrar</option>
+              {% for key, value in choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+          </div>
+        </div>
+          <div class="col-sm-6 p-0 d-md-flex d-block">
+            <div class="form-group col-sm-5 mb-0 me-2">
+              <input type="text" class="form-control" placeholder="{% trans 'Pesquisar..'%}" id="pesquisar-campanha">
+            </div>
+            <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="/create_new_campaign"> <i
+                data-feather="plus-square"> </i>{% trans 'Criar nova campanha' %}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body" style="background-color: #F0F2FB;">
+          <div class="tab-content" id="top-tabContent">
+            <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+              <div class="row" id="div_body_campanha">
+
+              </div>
+              <div class="loader-box" id="loader" style="display: none;">
+                <div class="loader-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <nav aria-label="...">
+            <ul class="pagination pagination-primary" id="pagination">
+              {% if campanhas_page.has_previous %}
+                <li class="page-item" id="previous-page">
+                  <a class="page-link" href="javascript:void(0)" data-page="{{ campanhas_page.previous_page_number }}" tabindex="-1">Anterior</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled" id="previous-page">
+                  <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                </li>
+              {% endif %}
+        
+              {% for i in campanhas_page.paginator.page_range %}
+                {% if campanhas_page.number == i %}
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="javascript:void(0)" data-page="{{ i }}">{{ i }}</a>
+                  </li>
+                {% else %}
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" data-page="{{ i }}">{{ i }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+        
+              {% if campanhas_page.has_next %}
+                <li class="page-item" id="next-page">
+                  <a class="page-link" href="javascript:void(0)" data-page="{{ campanhas_page.next_page_number }}">Próximo</a>
+                </li>
+              {% else %}
+                <li class="page-item disabled" id="next-page">
+                  <a class="page-link" href="javascript:void(0)">Próximo</a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>        
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade modal-bookmark" id="modalRelatorioVendas" tabindex="-1" role="dialog"
+  aria-labelledby="modalRelatorioVendas" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRelatorioVendas">{% trans 'Relatório IA' %}</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+          <div class="form-row">
+            <div class="col call-chat-body">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="row chat-box">
+                    <!-- Chat right side start-->
+                    <div class="col chat-right-aside">
+                      <!-- chat start-->
+                      <div class="chat">
+                        <!-- chat-header start-->
+                        <div class="media chat-header clearfix"><img class="rounded-circle"
+                            src="{% static 'assets/images/user/8.jpg' %}" alt="">
+                          <div class="media-body">
+                            <div class="about">
+                              <div class="name">{% trans 'Inteligência Artificial'%}  <span class="font-primary f-12" id="texto_analise">Analisando campanha... <i class="fa fa-spin fa-spinner"></i></span></div>
+                              <div class="status digits">{% trans 'Aguarde' %}</div>
+                            </div>
+                          </div>
+                          <ul class="list-inline float-start float-sm-end chat-menu-icons">
+                            <li class="list-inline-item toogle-bar"><a href="javascript:void(0)"><i class="icon-menu"></i></a></li>
+                          </ul>
+                        </div>
+                        <!-- chat-header end-->
+                        <div class="chat-history chat-msg-box custom-scrollbar">
+                          <ul style="width: 100%;">
+                            <li id="relatorio_msg" >
+                              
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- end chat-message-->
+                        <!-- chat end-->
+                        <!-- Chat right side ends-->
+                      </div>
+                    </div>
+                    <div class="col chat-menu">
+                      <ul class="nav nav-tabs border-tab nav-primary" id="info-tab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-bs-toggle="tab" href="#info-home"
+                            role="tab" aria-selected="true">{% trans 'Opções' %}</a>
+                          <div class="material-border"></div>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="info-tabContent">
+                        <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
+                          <div class="people-list">
+                            <ul class="list digits custom-scrollbar">
+                              <li class="clearfix">
+                                <div class="media">
+                                  <div class="media-body">
+                                    <div class="about">
+                                      <button class="btn btn-primary" id="gerar_novo_relatorio">Gerar novo relatório <i class="fa fa-share font-success"></i></button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Container-fluid Ends-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-secondary"  id="save_pdf">{% trans 'Salvar PDF' %}</button>
+          <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="modalescolheBot" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">{% trans 'Envio de mensagens da campanha' %}</h5>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+        <div class="form-row mb-3">
+          <div class="row d-block d-sm-flex">
+            <label for="">Bot de envio</label>
+            <select class="js-example-basic-single" id="select_bot">
+              <option value="">Escolha o Bot</option>
+              {% for bot in bots %}
+                <option value="{{bot.pk}}">{{bot.bot}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-secondary" id="save_bot_update"
+          type="submit">{% trans 'Iniciar Envios' %}</button>
+        <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>

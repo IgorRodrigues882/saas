@@ -1,0 +1,101 @@
+{% load static %}
+{% load sass_tags %}
+<style>
+  .chat-container {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 70%;
+}
+
+.user-message {
+    background-color: #007BFF;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.chatbot-message {
+    background-color: #ccc;
+    color: #000;
+    align-self: flex-start;
+}
+.chat-output {
+    height: 250px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+}
+</style>
+<div class="col-12">
+  <div class="knowledgebase-bg"><img class="bg-img-cover bg-center"
+      src="{% static 'assets/images/knowledgebase/bg_1.jpg' %}" alt="looginpage"></div>
+  <div class="knowledgebase-search">
+      <div>
+          <div class="chat-container">
+            <div class="chat-output" id="chat-output">
+                <!-- As mensagens do chat serão exibidas aqui -->
+            </div>
+          </div>
+          <div class="mt-2">
+            <h2>Como posso ajudar?</h2>
+            <form class="form-inline" action="#" method="get">
+              <div class="form-group w-100 mb-0"><i data-feather="search"></i>
+                <input class="form-control-plaintext w-100" type="text" id="ia_quest" placeholder="Pergunte aqui" title="">
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="col-xl-4 xl-50 col-lg-6 box-col-6">
+  <div class="card bg-primary">
+    <div class="card-body">
+      <div class="media faq-widgets">
+        <div class="media-body"><a href="/knowledge_detail">
+            <h5>Criar slogans para sua campanha</h5>
+          </a>
+          <p>"Teste: Transformando Ideias em Realidade, Um Passo de Cada Vez!"</p>
+          <p>"Este Natal, Presentes que Encantam, Preços que Surpreendem!"</p>
+        </div><i data-feather="book-open"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xl-4 xl-50 col-lg-6 box-col-6">
+  <div class="card bg-primary">
+    <div class="card-body">
+      <div class="media faq-widgets">
+        <div class="media-body"><a href="/knowledge_detail">
+            <h5>Dicas de como elaborar campanhas</h5>
+          </a>
+          <p>"Escreva mensagens curtas, claras e envolventes."</p>
+          <p>"Crie ofertas especiais para os clientes do WhatsApp."</p>
+        </div><i data-feather="aperture"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xl-4 col-lg-12 xl-100 box-col-12">
+  <div class="card bg-primary">
+    <div class="card-body">
+      <div class="media faq-widgets">
+        <div class="media-body"><a href="/knowledge_detail">
+            <h5>Support</h5>
+          </a>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+            Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+        </div><i data-feather="file-text"></i>
+      </div>
+    </div>
+  </div>
+</div>

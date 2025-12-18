@@ -1,0 +1,32 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% for bot_canal in bot_canais %}
+<div class="tab-pane contact-tab-{{bot_canal.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{bot_canal.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{bot_canal.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/avtar/rede-de-bots.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{bot_canal.canal}}</span></h5>
+        <p class="email_add_0">{{bot_canal.pk}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{bot_canal.pk}}')">{% trans 'Editar' %}</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{bot_canal.pk}}')">{% trans 'Deletar' %}</a></li>
+          <!-- <li><a href="javascript:void(0)" onclick="printContact('{{bot_canal.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">{% trans 'Imprimir' %}</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">{% trans 'Detalhes' %}</h6>
+      <ul>
+        <li>{% trans 'Canal' %}<span class="font-primary first_name_0">{{bot_canal.canal}}</span></li>
+        <li>{% trans 'Bot Canal Ativo' %}<span class="font-primary mobile_num_0">{% if bot_canal.canal_ativo == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Data Cadastro' %}<span class="font-primary email_add_0">{{bot_canal.cadastro_dt|date:"d/m/Y"}}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

@@ -1,0 +1,126 @@
+{% load static %}
+{% load sass_tags %}
+<div class="tab-pane fade active show" id="pills-created" role="tabpanel" aria-labelledby="pills-created-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+      <h6 class="mb-0">Meus Templates</h6>
+      <ul>
+        <li><a class="grid-bookmark-view" href="javascript:void(0)"><i data-feather="grid"></i></a></li>
+        <li><a class="list-layout-view" href="javascript:void(0)"><i data-feather="list"></i></a></li>
+      </ul>
+    </div>
+    <div class="card-body pb-0">
+      <div class="details-bookmark text-center">
+        <div class="row" id="bookmarkData">
+          {% for template in templates %}
+          <div class="col-xl-3 col-lg-6 col-md-4 col-sm-6 xl-50 box-col-6">
+            <div class="card bookmark-card o-hidden">
+              <div class="details-website"><img class="img-fluid" src="/media/{{template.image_banner_mobile}}"
+                  alt="">
+                <div class="favourite-icon favourite_0" ><a href="javascript:void(0)"><i
+                      class="fa fa-star"></i></a></div>
+                <div class="desciption-data">
+                  <div class="title-bookmark">
+                    <h6 class="title_0">{{template.nome_template}}</h6>
+                    <p class="weburl_0">Ver Prévia</p>
+                    <div class="hover-block">
+                      <ul>
+                        <li><a href="" onclick="edit_template('{{template.pk}}')" data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"><i data-feather="edit-2"></i></a></li>
+                        <li><a href="boomerangue_previa/{{template.pk}}" target="_blank"><i data-feather="link"></i></a></li>
+                        <li><a href="" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" onclick="fetchTemplateMessages('{{template.pk}}')"><i data-feather="message-square"></i></a></li>
+                        <li><a href="javascript:void(0)" onclick="deleteTemplate('{{template.pk}}')"><i data-feather="trash-2"></i></a></li>
+                        <li class="pull-right text-end"><a href="javascript:void(0)"><i data-feather="tag"></i></a></li>
+                      </ul>
+                    </div>
+                    <div class="content-general">
+                      <p class="desc_0">Endless is beautifully crafted, clean and modern designed admin theme with 6
+                        different demos and light - dark versions.</p><span class="collection_0">General</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mySmallModalLabel">Mensagens</h4>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-xl-12 col-md-6 lg-50 box-col-6">
+          <div>
+            <div class="card">
+              <div class="card-header pb-0">
+                <div class="media">
+                  <div class="media-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h5>Templates de Mensagens</h5>
+                      <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#criar_template_mensagem">Criar novo</a>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body" id="mensagens_card"></div>
+            </div>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="criar_template_mensagem" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Criar Template de Mensagem</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+          <div class="row g-2">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="mb-3">
+                    <label class="control-label">Whatsapp Template</label>
+                    <select class="form-control" type="text" name="wpptemplate" id="select_wpp_templates" required="required">
+                      <option value="">Selecione uma opção</option>
+                      {% for wpp_template in wpp_templates %}
+                        <option value="{{ wpp_template.id }}">{{ wpp_template.template_name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="control-label">Uso Template</label>
+                    <select class="form-control" type="text" name="usotemplate" required="required">
+                      <option value="OPTIN">Optin</option>
+                      <option value="ENVIO">Envio</option>
+                    </select>
+                  </div>
+
+                  <button class="btn btn-secondary" type="button" id="salvar_template_mensagem" onclick="criarTemplateMessages()">Salvar</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

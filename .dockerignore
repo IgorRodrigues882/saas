@@ -1,0 +1,115 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+*.pot
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentação
+*.md
+docs/
+*.txt
+!requirements.txt
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.cache
+.sass-cache/
+
+# Media e Static (será coletado no container)
+media/
+staticfiles/
+static/
+
+# Logs
+logs/
+*.log
+
+# Banco de dados local
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificados e chaves (devem ser montados como volumes)
+*.pem
+*.key
+*.crt
+ssl/
+
+# Scripts de desenvolvimento
+scripts/
+*.sh
+*.bat
+
+# Testes
+tests/
+test_*.py
+*_test.py
+.coverage
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Node (se houver frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Backup
+*.backup
+*.bkp
+backup/
+
+# Outros
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.orig

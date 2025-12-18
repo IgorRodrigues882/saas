@@ -1,0 +1,121 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="form theme-form projectcreate">
+            <form action="#" id="form-addEmpresa">
+            <div class="row fv-row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Empresa' %}</label>
+                  <input class="form-control campo" type="text" maxlength="40" id="empresa" name="empresa_name" placeholder="Nome da empresa">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Apelido Empresa' %}</label>
+                  <input class="form-control campo" type="text" maxlength="20" id="empresa_apelido" name="apelido_empresa" placeholder="Apelido da empresa">
+                </div>
+              </div>
+            </div>
+            <div class="row fv-row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>CNPJ</label>
+                  <input class="form-control campo" type="text" id="cnpj" name="cnpj" placeholder="CNPJ">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>{% trans 'Tipo empresa' %}</label>
+                  <select class="form-select campo" id="tipoempresa_id" name="tipoempresa_id">
+                    <option value="">{% trans 'Tipo empresa' %}</option>
+                    <option value="M">{% trans 'Matriz' %}</option>
+                    <option value="F">{% trans 'Filial' %}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>{% trans 'Cód Puxada' %}</label>
+                  <input class="form-control campo" id="cod_puxada" name="cod_puxada" maxlength="50" type="text" placeholder="Código de puxada">
+                </div>
+              </div>
+            </div>
+            <div class="row fv-row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>{% trans 'Chave EDI' %}</label>
+                  <input class="form-control campo" id="chave_edi" name="chave_edi" maxlength="50" type="text" placeholder="Chave edi">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>{% trans 'Cód Empresa' %}</label>
+                  <input class="form-control campo" id="cod_empresa" name="cod_empresa" maxlength="50" type="text" placeholder="Cód Empresa">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>{% trans 'EDI Integração' %}</label>
+                  <input class="form-control campo" id="edi_integracao" name="edi_integracao" maxlength="50" type="text" placeholder="EDI Integração">
+                </div>
+              </div>
+            </div>
+            <div class="row fv-row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>{% trans 'Token API' %}</label>
+                    <input class="form-control campo" id="tokenapi" name="tokenapi maxlength="50" type="text" placeholder="Token API">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>{% trans 'Token BM' %}</label>
+                    <input class="form-control campo" id="tokenbmempresa" name="tokenbmempresa" maxlength="50" type="text" placeholder="Token BM">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>{% trans 'Telefone SAC' %}</label>
+                    <input class="form-control campo" id="telefonesac" name="telefonesac" maxlength="50" type="text" placeholder="Telefone SAC">
+                  </div>
+                </div>
+              </div>
+              <div class="row fv-row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>{% trans 'Cód Telefone' %}</label>
+                    <input class="form-control campo" id="codtelefone" name="codtelefone" maxlength="50" type="text" placeholder="Cód Telefone">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>{% trans 'Email pedido direto' %}</label>
+                    <input class="form-control campo" maxlength="50" name="emailpedidodireto" id="emailpedidodireto" type="text" placeholder="Email pedido direto">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>{% trans 'Email Pedido Empresa' %}</label>
+                    <input class="form-control campo" maxlength="50" name="emailpedidoempresa" id="emailpedidoempresa" type="text" placeholder="Email Pedido Empresa">
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col">
+                <div class="text-end"><a class="btn btn-secondary me-3" id="create_empresa" href="#">{% trans 'Salvar' %}</a><a class="btn btn-danger"
+                    href="#">{% trans 'Cancelar' %}</a></div>
+              </div>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

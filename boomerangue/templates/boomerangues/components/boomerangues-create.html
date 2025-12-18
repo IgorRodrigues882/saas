@@ -1,0 +1,195 @@
+{% load static %}
+{% load sass_tags %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <form class="form theme-form projectcreate needs-validation" novalidate="">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="mb-3">
+                  <label>Entidade</label>
+                  <select class="js-example-basic-single" id="entidade" required>
+                    <option value="">Selecione uma Entidade</option>
+                    {% for entidade in Entidades %}
+                      <option value="{{entidade.pk}}">{{entidade.Entidade}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-tooltip">Entidade não pode estar vazio</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Boomerangue Template</label>
+                  <select class="js-example-basic-single" id="template" required>
+                    <option value="">Selecione um Template</option>
+                    {% for template in templates %}
+                      <option value="{{template.pk}}">{{template.nome_template}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-tooltip">Boomerangue Template não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label  for="campanha">Campanha</label>
+                  <select class="js-example-basic-single" id="campanha" required>
+                    <option value="">Selecione uma campanha</option>
+                    {% for campanha in Campanhas %}
+                      <option value="{{campanha.pk}}">{{campanha.Campanha}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-tooltip">Campanha não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Prefixo</label>
+                  <input class="form-control" type="text" placeholder="Prefixo" maxlength="50" id="prefixo" required>
+                  <div class="invalid-tooltip">Prefixo não pode estar vazio</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Telefone</label>
+                  <input class="form-control" type="text" placeholder="Telefone de contato" id="telefone_bm" maxlength="20" required>
+                  <div class="invalid-tooltip">Telefone não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Data de Início da Campanha</label>
+                  <input class="datepicker-here form-control" id="data_inicio_campanha" type="text" data-language="pt-BR" required>
+                  <div class="invalid-tooltip">Data de Início da Campanha não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Data de Encerramento da Campanha</label>
+                  <input class="datepicker-here form-control" id="data_final_campanha" type="text" data-language="pt-BR" required>
+                  <div class="invalid-tooltip">Data de Encerramento da Campanha não pode estar vazio</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="mb-3 clockpicker">
+                  <label>Hora de Início</label>
+                  <input class="form-control" type="text" id="hora_inicio_envio" placeholder="Horário Início Campanha" maxlength="20" required><span class="input-group-addon"><span
+                    class="glyphicon glyphicon-time"></span></span>
+                  <div class="invalid-tooltip">Hora de Início não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3 clockpicker">
+                  <label>Hora Final</label>
+                  <input class="form-control" type="text" id="hora_final_envio" placeholder="Horário Encerramento Campanha" maxlength="20" required><span class="input-group-addon"><span
+                    class="glyphicon glyphicon-time"></span></span>
+                    <div class="invalid-tooltip">Hora Final não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label>URL Curta</label>
+                  <input class="form-control" type="text" id="short_url" placeholder="URL" maxlength="20" required>
+                  <div class="invalid-tooltip">URL Curta não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label>Usar Desconto Geral</label>
+                  <select class="js-example-basic-single" id="usar_desconto_geral" >
+                    <option value="S">SIM</option>
+                    <option value="N">NÃO</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label>Título Boomerangue</label>
+                  <input class="form-control" type="text" id="titulo_boomerangue" placeholder="Título" maxlength="255" required>
+                  <div class="invalid-tooltip">Título Boomerangue não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label>Cond Pagamento</label>
+                  <select class="js-example-basic-single form-control" id="condicoes_pagamento_id" required>
+                    <option value="">Condição de pagamento</option>
+                    {% for condicao in condicoes %}
+                      <option value="{{condicao.pk}}">{{condicao.condicoes_pagamento}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-tooltip">Cond Pagamento não pode estar vazio</div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label>Vendedor</label>
+                  <select class="js-example-basic-single" id="vendedor" required>
+                    <option value="">Vendedor</option>
+                    {% for vendedor in Vendedores %}
+                      <option value="{{vendedor.pk}}">{{vendedor.Vendedor}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="mb-3">
+                  <label>Transportadora</label>
+                  <select class="js-example-basic-single" id="transportadora" required>
+                    <option value="">Escolha Transportadora</option>
+                    {% for transportadora in transportadoras %}
+                      <option value="{{transportadora.pk}}">{{transportadora.Transportadora}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Valor Compra Mínima</label>
+                  <input class="form-control" type="text" id="compra_minima_vlr" maxlength="18" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Quantidade Mínima de Itens</label>
+                  <input class="form-control" type="text" id="compra_minima_qtd"  maxlength="18" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="mb-3">
+                  <label>Desconto Promocional</label>
+                  <input class="form-control" type="text" id="desconto_promocional"  maxlength="18" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label>Informação Extra</label>
+                  <textarea class="form-control" id="extra_info_4" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="text-end"><button class="btn btn-secondary me-3" type="submit">Salvar</button><a class="btn btn-danger"
+                    href="#">Cancelar</a></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

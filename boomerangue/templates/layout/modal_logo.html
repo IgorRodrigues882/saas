@@ -1,0 +1,47 @@
+<style>
+    .dz-remove_logo {
+        height: 20px ;
+        font-size: 12px;
+        text-align: center;
+        border: none;
+        background-color: #ff0000;
+        color: #ffffff;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .dz-remove_logo:hover {
+        background-color: #ff4444;
+    }
+    
+    </style>
+<div class="modal fade modal-bookmark" id="modal-importar-logo" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Importar Logo Empresa</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="col m-b-20">
+                      <form class="dropzone" id="ImportLogo" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="new_logo_empresa">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+

@@ -1,0 +1,159 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-xl-3 box-col-3 xl-30">
+  <div class="email-sidebar"><a class="btn btn-primary email-aside-toggle" href="javascript:void(0)">Opções</a>
+    <div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Novo Template</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col m-b-20">
+                    <label for="nome_template">Nome Template</label>
+                    <input class="form-control" id="nome_template" maxlength="100" type="text" required="" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm-4 m-b-20">
+                    <label for="texto_header">Texto Principal</label>
+                    <input class="form-control" id="texto_header" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col-sm-4 m-b-20">
+                    <label for="texto_footer">Texto Rodapé</label>
+                    <input class="form-control" id="texto_footer" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col-sm-4 m-b-20">
+                    <label for="texto_promocional">Texto Promocional</label>
+                    <input class="form-control" id="texto_promocional" placeholder="Pedido Express" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col m-b-20">
+                    <label for="link_footer">Link de Rodapé</label>
+                    <input class="form-control" id="link_footer" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                  <div class="form-group col m-b-20">
+                    <label for="link_marketing">Link Marketing</label>
+                    <input class="form-control" id="link_marketing" type="text" required="" maxlength="200" autocomplete="off">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col m-b-20">
+                    <label>Imagem de banner PC</label>
+                    <form class="dropzone" id="imagebannerpc" action="/api/bmm_template/">
+                      <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                          <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                              da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col m-b-20">
+                      <label>Imagem de banner para Celular</label>
+                      <form class="dropzone" id="imagebannermobile" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                                da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="new_template">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade modal-bookmark" id="csv_import" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{% trans 'Importar Template' %}</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col m-b-20">
+                    <label for="nome_template">{% trans 'Informe a campanha'%}</label>
+                    <select class="js-example-basic-single" id="template" > 
+                      <option value="">{% trans 'Escolha um Template' %}</option>
+                      {% for template in templates %}
+                        <option value="{{template.pk}}">{{template.nome_template}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                
+                
+                <div class="row">
+                  <div class="col-12 m-b-20">
+                      <label>Importe o CSV aqui!</label>
+                      <form class="dropzone" id="csvImportTemplate" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick"></span>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="new_template_csv">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="email-left-aside">
+      <div class="card">
+        <div class="card-body">
+          <div class="email-app-sidebar left-bookmark custom-scrollbar">
+            <div class="media">
+              <div class="media-size-email"><img class="me-3 rounded-circle"
+                  src="{% static 'assets/images/user/user.png' %}" alt=""></div>
+              <div class="media-body">
+                <h6 class="f-w-600">{{request.user.nome}}</h6>
+                <p>{{request.user.email}}</p>
+              </div>
+            </div>
+            <ul class="nav main-menu" role="tablist">
+              <li class="nav-item">
+                <button class="btn-primary badge-light btn-block btn-mail w-100" id="novo_template" type="button" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"><i class="me-2" data-feather="bookmark"></i>Novo Template</button>
+                  
+
+              </li>
+              <li class="nav-item"><span class="main-title"> Mais</span></li>
+              <li><a id="pills-created-tab" data-bs-toggle="pill" href="#pills-created" role="tab"
+                  aria-controls="pills-created" aria-selected="true"><span class="title"> Meus templates</span></a></li>
+              <li><a class="show" data-bs-toggle="modal"
+                data-bs-target="#csv_import"  id="upar_csv" href="#" role="tab" aria-selected="false"><span class="title"> Importar CSV</span></a></li>
+              <li>
+                <hr>
+              </li>
+              <!-- <li><span class="main-title"> Tags<span class="pull-right"><a href="javascript:void(0)"
+                      data-bs-toggle="modal" data-bs-target="#createtag"><i
+                        data-feather="plus-circle"></i></a></span></span></li>
+              <li><a class="show" id="pills-notification-tab" data-bs-toggle="pill" href="#pills-notification"
+                  role="tab" aria-controls="pills-notification" aria-selected="false"><span class="title">
+                    Notification</span></a></li>
+              <li><a class="show" id="pills-newsletter-tab" data-bs-toggle="pill" href="#pills-newsletter" role="tab"
+                  aria-controls="pills-newsletter" aria-selected="false"><span class="title"> Newsletter</span></a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

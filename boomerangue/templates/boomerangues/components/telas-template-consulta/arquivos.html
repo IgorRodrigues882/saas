@@ -1,0 +1,119 @@
+<!-- Chart widget top Ends-->
+{% load static %}
+<style>
+    .text-white {
+      color: white;
+  }
+</style>
+<div class="col-xl-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Arquivos Importados</h5>
+        </div>
+        <div id="remote" class="me-3">
+          <div>
+              <input class="typeahead form-control" type="text" placeholder="Pesquisar...">
+              <div class="input-group-append">
+                <span class="loading-indicator input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+              </div>
+            </div>
+        </div>
+        {% if template.campanha_motivo == 'VDP' or template.campanha_motivo == 'VDS' %}
+          <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modal-importar-arquivo">
+            Importar Arquivo
+          </a>
+        {%endif%}
+        <a class="btn btn-warning ms-3" href="{% static 'assets/csv_padrao/csv_padrao_itens.csv' %}">
+          Baixar modelo CSV
+        </a>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th><span>Nome Arquivo</span></th>
+              <th><span>Data Importação</span></th>
+              <th><span>Status</span></th>
+              <th><span>Observação</span></th>
+              <th><span>Mais</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for csv in csv_importados %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><i class="fa fa-file-excel-o txt-success"></i></div>
+                  <div class="media-body ps-2">
+                    <div class="avatar-details"><a href="/media/{{csv.Caminho}}">
+                        <h6>{{csv.NomeArquivo}}</h6>
+                      </a><span>{{csv.tipo_arquivo}}</span></div>
+                  </div>
+                </div>
+              </td>
+              <td class="img-content-box">
+                <h6>{{csv.DataHora|date:"d/m/Y"}}</h6>
+              </td>
+              <td>
+                <h6>{%if csv.statusarquivo_id == 'O' %}<span class="badge badge-success text-white">Processado</span>{% elif csv.statusarquivo_id == 'E' %}<span class="badge badge-danger text-white">Erro</span> {%else%} <span class="badge badge-info text-white">Aguardando</span> {%endif%}</h6>
+              </td>
+              <td>
+                <h6>{{csv.retorno_arquivo}}</h6>
+              </td>
+              <td>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">Opções</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item"
+                            href="#" onclick="deleteArquivo('{{csv.pk}}')">Excluir</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" onclick="Reprocessar_Arquivo('{{csv.pk}}')">Reprocessar Arquivo</a>
+                            <!-- <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ver_componentes"  onclick="ver_componentes('{{mensagem.wpptemplate.pk}}')">Ver Componentes</a> -->
+                        </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="modal fade modal-bookmark" id="modal-importar-arquivo" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Importar Arquivo</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="col m-b-20">
+                      <form class="dropzone" id="csvImportTemplate" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="new_template_csv">Importar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+

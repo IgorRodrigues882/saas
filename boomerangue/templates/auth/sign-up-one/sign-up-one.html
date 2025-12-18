@@ -1,0 +1,26 @@
+{% extends 'auth/base-other-page.html' %}{% load static %}
+{% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/sweetalert2.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/js/formvalidation/dist/css/formValidation.css' %}">
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+{% include 'auth//sign-up-one/components/sign-up-one.html' %}
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sweet-alert/sweetalert.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+<script src="{% static 'assets/js/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js' %}"></script>
+<script src="{% static 'assets/js/formvalidation/dist/js/FormValidation.full.js' %}"></script>
+<script src="{% static 'assets/js/formvalidation/dist/js/plugins/Bootstrap.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+<script src="{% static 'assets/js/auth/signup.js' %}"></script>
+<script src="{% static 'assets/js/form-wizard/form-wizard-three.js' %}"></script>
+<script src="{% static 'assets/js/form-wizard/jquery.backstretch.min.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

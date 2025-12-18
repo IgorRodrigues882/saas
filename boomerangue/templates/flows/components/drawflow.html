@@ -1,0 +1,876 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor de Fluxo do WhatsApp</title>
+    <!-- Drawflow CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/drawflow.min.css' %}">
+    <!-- Custom Styles (pode adaptar ou criar um novo) -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/beautiful.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/flow.css' %}" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Drawflow JS -->
+    <script src="{% static 'assets/js/drawflow/drawflow.min.js' %}"></script>
+
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <h2>Editor de Fluxo - WhatsApp</h2>
+            <!-- Formulário para conter o token CSRF e facilitar a coleta dos dados -->
+            <form id="flow-form" style="display: contents;">
+                 {% csrf_token %}
+                 <!-- O botão salvar fica aqui para estar associado ao form -->
+                 <button type="button" class="save-button" onclick="saveFlow()">
+                     <i class="fas fa-save"></i> Salvar Fluxo
+                 </button>
+            </form>
+        </header>
+
+        <!-- Campos de Título e Descrição -->
+        <div class="flow-meta">
+             <div>
+                 <label for="flow-title">Título do Fluxo:</label>
+                 <input type="text" id="flow-title" name="title" form="flow-form">
+             </div>
+             <div>
+                 <label for="flow-description">Descrição:</label>
+                 <input type="text" id="flow-description" name="description" form="flow-form">
+             </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="col-nodes">
+                <h3>Nós Disponíveis</h3>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="inicio">
+                    <i class="fas fa-play-circle"></i><span> Início</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="enviar_mensagem">
+                    <i class="fas fa-paper-plane"></i><span> Enviar Mensagem</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="aguardar_resposta">
+                    <i class="fas fa-clock"></i><span> Aguardar Resposta</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="condicao">
+                    <i class="fas fa-code-branch"></i><span> Condição</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="definir_variavel">
+                    <i class="fas fa-tags"></i><span> Definir Variável</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="chamada_api">
+                    <i class="fas fa-network-wired"></i><span> Chamada de API</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="atraso">
+                    <i class="fas fa-hourglass-half"></i><span> Atraso (Delay)</span>
+                </div>
+                <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="fim">
+                    <i class="fas fa-stop-circle"></i><span> Fim</span>
+                </div>
+            </div>
+
+            <!-- Área Principal do Drawflow -->
+            <div class="col-main">
+                <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Botões padrão do Drawflow (Exportar está oculto) -->
+                    <div class="btn-export" onclick="exportFlowData()">Export</div>
+                    <div class="btn-clear" onclick="clearFlow()">Clear</div>
+                    <div class="btn-lock">
+                        <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
+                        <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
+                    </div>
+                    <div class="bar-zoom">
+                        <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
+                        <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
+                        <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel de Propriedades do Nó -->
+            <div class="col-properties" id="properties-panel">
+                <h3>Propriedades do Nó</h3>
+                <div id="properties-content">
+                    Selecione um nó para ver suas propriedades.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const title = "{{flow.title}}" || '';
+        const description = "{{flow.description}}" || '';
+        const flow_json = '{{flow.flow_json}}' || [];
+        const flow_id = '{{flow.n8n_workflow_id}}' || '';
+        console.log('flow', flow_json);
+        const drawflowContainer = document.getElementById("drawflow");
+        const editor = new Drawflow(drawflowContainer);
+        editor.reroute = true;
+        editor.reroute_fix_curvature = true;
+        editor.force_first_input = false; // Permite nós iniciais sem input
+
+        const propertiesPanel = document.getElementById('properties-panel');
+        const propertiesContent = document.getElementById('properties-content');
+        const flowTitleInput = document.getElementById('flow-title');
+        const flowDescriptionInput = document.getElementById('flow-description');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // --- Dados do Fluxo (se editando) ---
+        let flowId = null;
+        let flowData = null;
+        try {
+            // const flowContext = JSON.parse('{{ flow }}' || 'null');
+            if (flow_id) {
+                flowId = flow_id;
+                flowTitleInput.value = title || '';
+                flowDescriptionInput.value = description || '';
+                if (flow_json) {
+                    flowData = typeof flow_json === 'string' ? JSON.parse(flow_json) : flow_json;
+                }
+                 console.log("Editando fluxo existente:", flowId);
+            } else {
+                 console.log("Criando novo fluxo.");
+            }
+        } catch (e) {
+            console.error("Erro ao processar dados do fluxo:", e);
+            console.log("Criando novo fluxo devido a erro ou ausência de dados.");
+        }
+
+        editor.start();
+
+        // Importa dados se estiver editando
+        if (flowData) {
+            if (typeof flowData === 'object' && flowData !== null && flowData.drawflow) {
+                 try {
+                    editor.import(flowData);
+                    console.log("Fluxo importado com sucesso.");
+                 } catch (importError) {
+                     console.error("Erro ao importar dados do Drawflow:", importError);
+                     Swal.fire('Erro', 'Não foi possível carregar a estrutura do fluxo existente.', 'error');
+                 }
+            } else {
+                console.warn("Dados do fluxo ('flow.data') não estão no formato esperado pelo Drawflow:", flowData);
+                 Swal.fire('Aviso', 'Os dados da estrutura do fluxo parecem estar corrompidos ou em formato inválido.', 'warning');
+            }
+        } else if (flowId) {
+             console.warn("Fluxo ID presente, mas sem dados de estrutura ('flow.data') para importar.");
+        }
+
+
+        // --- Definição dos Nós Customizados ---
+
+        function createNodeHTML(title, iconClass, initialData = {}) {
+            let nodeStructure = '';
+            let boxContent = '';
+
+            // Estrutura específica para cada nó com data attributes para atualização
+            switch (title) {
+                case 'Enviar Mensagem':
+                    // Usa || '' para garantir que não haja 'undefined' no HTML inicial
+                    boxContent = `
+                        <div class="message-content" data-df-text>${initialData.text || 'Configurar mensagem...'}</div>
+                        <div class="media-preview-container" style="${initialData.mediaUrl ? '' : 'display: none;'}">
+                            <img src="${initialData.mediaUrl || ''}" alt="Prévia da Mídia" class="media-preview" data-df-mediaUrl>
+                            <small data-df-mediaFilename>${initialData.mediaFilename ? `(${initialData.mediaFilename})` : ''}</small>
+                        </div>
+                         <div class="buttons-container">
+                            ${(initialData.buttons || []).map((btn, index) => `
+                                <div class="message-button">
+                                    <span>${btn.label || `Botão ${index + 1}`}</span>
+                                    <i class="fas fa-arrow-right" style="margin-left:5px;color:#666;"></i>
+                                </div>
+                            `).join('')}
+                        </div>`;
+                    break;
+                case 'Aguardar Resposta':
+                    boxContent = `<p>Solicitar input...</p><small>Salvar em: <span data-df-variableName>${initialData.variableName || '{{variableName}}'}</span></small>`;
+                    break;
+                case 'Condição':
+                    boxContent = `<p>Se <span data-df-variable>${initialData.variable || '{{variable}}'}</span> <span data-df-operator>${initialData.operator || '{{operator}}'}</span> <span data-df-value>${initialData.value || '{{value}}'}</span>...</p>`;
+                    break;
+                case 'Definir Variável':
+                     boxContent = `<p>Definir <span data-df-variableName>${initialData.variableName || '{{variableName}}'}</span> = ...</p>`;
+                     break;
+                case 'Chamada de API':
+                     boxContent = `<p>Chamar <span data-df-method>${initialData.method || '{{method}}'}</span> <span data-df-url>${initialData.url || '{{url}}'}</span>...</p>`;
+                     break;
+                case 'Atraso':
+                     boxContent = `<p>Aguardar <span data-df-delayTime>${initialData.delayTime || '{{delayTime}}'}</span> <span data-df-delayUnit>${initialData.delayUnit || '{{delayUnit}}'}</span>...</p>`;
+                     break;
+                default:
+                    // Para nós como Inicio, Fim, ou outros não listados que podem ter conteúdo simples
+                    boxContent = initialData.content || (title === 'Início' || title === 'Fim' ? '' : 'Conteúdo não definido');
+            }
+
+            nodeStructure = `
+            <div>
+              <div class="title-box"><i class="${iconClass}"></i> ${title}</div>
+              ${boxContent ? `<div class="box">${boxContent}</div>` : ''}
+            </div>`;
+
+            return nodeStructure;
+        }
+
+        function addNodeToDrawFlow(name, pos_x, pos_y) {
+            if (editor.editor_mode === 'fixed') {
+                return false;
+            }
+            pos_x = pos_x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * (editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)));
+            pos_y = pos_y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * (editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
+
+            let nodeData = {};
+            let nodeHTML = '';
+            let inputs = 1;
+            let outputs = 1;
+            let nodeClass = name;
+
+            switch (name) {
+                case 'inicio':
+                    nodeHTML = createNodeHTML('Início', 'fas fa-play-circle');
+                    inputs = 0;
+                    outputs = 1; // Permitir uma saída
+                    nodeData = {};
+                    break;
+                case 'enviar_mensagem':
+                        // Dados iniciais atualizados
+                        const initialMsgData = {
+                            messageType: 'text',
+                            text: '',
+                            mediaUrl: '',
+                            mediaFilename: '',
+                            buttons: [] // Array de objetos { label: 'Texto Botão' }
+                        };
+                        
+                        // Gerar HTML inicial com os botões
+                        nodeHTML = createNodeHTML('Enviar Mensagem', 'fas fa-paper-plane', initialMsgData);
+                        
+                        // Configurar inputs/outputs dinâmicos
+                        inputs = 1;
+                        outputs = 1 + initialMsgData.buttons.length; // Saída padrão + 1 por botão
+                        
+                        // Adicionar o nó ao editor
+                        editor.addNode(name, inputs, outputs, pos_x, pos_y, nodeClass, initialMsgData, nodeHTML);
+                        
+                        // Configurar saídas para os botões
+                        const nodeId = Object.keys(editor.drawflow.drawflow[editor.module].data).pop();
+                        const node = editor.getNodeFromId(nodeId);
+                        
+                        // Adicionar saída para cada botão
+                        initialMsgData.buttons.forEach((btn, index) => {
+                            node.outputs[`button_${index}`] = {
+                                connections: [],
+                                label: btn.label || `Botão ${index + 1}`
+                            };
+                        });
+                        
+                    break;
+                case 'condicao':
+                     // O HTML agora é gerado dinamicamente em createNodeHTML
+                    nodeHTML = createNodeHTML('Condição', 'fas fa-code-branch');
+                    inputs = 1;
+                    outputs = 2;
+                    nodeData = { variable: '', operator: '==', value: '' };
+                    break;
+                case 'definir_variavel':
+                     nodeHTML = createNodeHTML('Definir Variável', 'fas fa-tags', `<p>Definir {{variableName}} = ...</p>`);
+                    nodeData = { variableName: 'my_var', variableValue: '' };
+                    break;
+                case 'chamada_api':
+                    nodeHTML = createNodeHTML('Chamada de API', 'fas fa-network-wired', `<p>Chamar {{method}} {{url}}...</p>`);
+                    nodeData = { url: '', method: 'GET', headers: '{}', body: '{}', responseVariable: 'api_response' };
+                    break;
+                case 'atraso':
+                    nodeHTML = createNodeHTML('Atraso (Delay)', 'fas fa-hourglass-half', `<p>Aguardar {{delayTime}} {{delayUnit}}...</p>`);
+                    nodeData = { delayTime: 5, delayUnit: 'seconds' };
+                    break;
+                case 'fim':
+                    nodeHTML = createNodeHTML('Fim', 'fas fa-stop-circle');
+                    outputs = 0;
+                    nodeData = {};
+                    break;
+                default:
+                    console.warn("Tipo de nó desconhecido:", name);
+                    return;
+            }
+
+            editor.addNode(name, inputs, outputs, pos_x, pos_y, nodeClass, nodeData, nodeHTML);
+        }
+
+        // --- Painel de Propriedades Dinâmico ---
+
+        editor.on('nodeSelected', function(id) {
+            const node = editor.getNodeFromId(id);
+            if (!node) return;
+
+            propertiesPanel.classList.add('visible'); // Mostra o painel
+            propertiesContent.innerHTML = ''; // Limpa conteúdo anterior
+
+            const title = document.createElement('h3'); // Usar H3 como no HTML
+            title.textContent = `Propriedades: ${node.html.match(/<div class="title-box.*?>(.*?)<\/div>/)[1].replace(/<i.*?> <\/i>/, '').trim()} (ID: ${id})`; // Tenta pegar o título do HTML
+            propertiesContent.appendChild(title);
+
+            // Gera campos com base no tipo de nó
+            generatePropertyFields(node, id);
+        });
+
+        editor.on('nodeUnselected', function() {
+            propertiesPanel.classList.remove('visible'); // Esconde o painel
+            // Não limpar o conteúdo aqui, apenas esconder
+        });
+
+         editor.on('nodeDataChanged', function(id) {
+            const node = editor.getNodeFromId(id);
+            if (!node) return;
+
+            // Atualiza o HTML visível do nó para refletir mudanças (ex: nome da variável)
+            let newHtmlContent = '';
+             if (node.name === 'aguardar_resposta') {
+                 newHtmlContent = `<p>Solicitar input...</p><small>Salvar em: ${node.data.variableName || ' indefinido'}</small>`;
+             } else if (node.name === 'definir_variavel') {
+                 newHtmlContent = `<p>Definir ${node.data.variableName || 'indefinido'} = ...</p>`;
+             } else if (node.name === 'condicao') {
+                 newHtmlContent = `<p>Se ${node.data.variable || '?'} ${node.data.operator || '?'} ${node.data.value || '?'}...</p>`;
+             } else if (node.name === 'chamada_api') {
+                 newHtmlContent = `<p>Chamar ${node.data.method || '?'} ${node.data.url || '?'}...</p>`;
+             } else if (node.name === 'atraso') {
+                 newHtmlContent = `<p>Aguardar ${node.data.delayTime || '?'} ${node.data.delayUnit || '?'}...</p>`;
+             }
+             // Atualiza apenas o .box se ele existir e houver conteúdo novo
+             if (newHtmlContent) {
+                 const nodeElement = editor.drawflow.drawflow[editor.module].data[id];
+                 if (nodeElement && nodeElement.html) {
+                     const tempDiv = document.createElement('div');
+                     tempDiv.innerHTML = nodeElement.html;
+                     const boxElement = tempDiv.querySelector('.box');
+                     if (boxElement) {
+                         boxElement.innerHTML = newHtmlContent;
+                         // Atualiza o HTML no objeto do editor (importante para exportação)
+                         nodeElement.html = tempDiv.innerHTML;
+                         // Força a re-renderização visual (pode ser necessário dependendo da versão do Drawflow)
+                         editor.updateNodeHTML(id, tempDiv.innerHTML);
+                     }
+                 }
+             }
+
+
+            // Se o painel estiver visível e for do nó que mudou, atualiza as propriedades
+            const selectedNodeId = editor.selected_node;
+            if (propertiesPanel.classList.contains('visible') && selectedNodeId == id) {
+                 generatePropertyFields(node, id); // Redesenha as propriedades
+            }
+        });
+
+
+        function generatePropertyFields(node, nodeId) {
+            const data = node.data;
+            const form = document.createElement('form');
+            // Usar 'change' pode ser melhor que 'input' para selects e evitar updates excessivos
+            form.addEventListener('change', (event) => {
+                if (event.target.name) {
+                    const newData = { ...editor.getNodeFromId(nodeId).data };
+                    newData[event.target.name] = event.target.value;
+                    editor.updateNodeDataFromId(nodeId, newData);
+                    // O evento 'nodeDataChanged' será disparado, atualizando o painel e o nó visualmente
+                }
+            });
+             // Adiciona listener para 'input' em textareas e inputs de texto para update mais rápido se desejado
+             form.addEventListener('input', (event) => {
+                 if (event.target.tagName === 'INPUT' && event.target.type === 'text' || event.target.tagName === 'TEXTAREA') {
+                     if (event.target.name) {
+                         const newData = { ...editor.getNodeFromId(nodeId).data };
+                         newData[event.target.name] = event.target.value;
+                         editor.updateNodeDataFromId(nodeId, newData);
+                     }
+                 }
+             });
+
+
+            switch (node.name) {
+                case 'enviar_mensagem':
+                    // Campo de Texto Principal
+                    form.appendChild(createTextareaField('Texto da Mensagem', 'text', data.text, true));
+
+                    // Seção de Mídia (Upload e Preview)
+                    const mediaDiv = document.createElement('div');
+                    mediaDiv.style.marginTop = '15px';
+                    mediaDiv.style.borderTop = '1px solid #eee';
+                    mediaDiv.style.paddingTop = '10px';
+                    mediaDiv.innerHTML = '<label>Mídia (Imagem/Vídeo)</label>';
+
+                    // Preview da Mídia
+                    const mediaPreview = document.createElement('img');
+                    mediaPreview.src = data.mediaUrl || '';
+                    mediaPreview.alt = 'Prévia da Mídia';
+                    mediaPreview.style.maxWidth = '100%';
+                    mediaPreview.style.maxHeight = '150px';
+                    mediaPreview.style.display = data.mediaUrl ? 'block' : 'none';
+                    mediaPreview.style.marginBottom = '10px';
+                    mediaDiv.appendChild(mediaPreview);
+
+                    // Input de Upload
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.accept = "image/*,video/*"; // Aceita imagens e vídeos
+                    fileInput.style.display = 'block';
+                    fileInput.style.marginBottom = '5px';
+                    // Adiciona um ID único para referência posterior se necessário
+                    fileInput.id = `file-input-${nodeId}`;
+                    fileInput.addEventListener('change', (event) => handleMediaUpload(event, nodeId, mediaPreview, removeMediaButton)); // Passa o botão de remover
+                    mediaDiv.appendChild(fileInput);
+
+                    // Botão para Remover Mídia
+                    const removeMediaButton = document.createElement('button');
+                    removeMediaButton.type = 'button';
+                    removeMediaButton.textContent = 'Remover Mídia';
+                    removeMediaButton.style.fontSize = '0.8em';
+                    removeMediaButton.style.padding = '3px 6px';
+                    removeMediaButton.style.cursor = 'pointer';
+                    removeMediaButton.style.display = data.mediaUrl ? 'inline-block' : 'none'; // Mostra só se houver mídia
+                    removeMediaButton.onclick = () => {
+                        const currentData = editor.getNodeFromId(nodeId).data;
+                        currentData.mediaUrl = '';
+                        currentData.mediaFilename = '';
+                        editor.updateNodeDataFromId(nodeId, currentData);
+                        // O nodeDataChanged event vai cuidar de atualizar o preview e o botão
+                    };
+                    mediaDiv.appendChild(removeMediaButton);
+                    form.appendChild(mediaDiv);
+
+
+                    // Seção de Botões Interativos
+                    const buttonsDiv = document.createElement('div');
+                    buttonsDiv.style.marginTop = '15px';
+                    buttonsDiv.style.borderTop = '1px solid #eee';
+                    buttonsDiv.style.paddingTop = '10px';
+                    buttonsDiv.innerHTML = '<label>Botões Interativos (Máx. 3)</label>';
+
+                    const buttonsList = document.createElement('div');
+                    buttonsList.id = `buttons-list-${nodeId}`;
+                    buttonsDiv.appendChild(buttonsList);
+
+                    // Função para renderizar os campos dos botões DENTRO do escopo de generatePropertyFields
+                    const renderButtons = () => {
+                        buttonsList.innerHTML = ''; // Limpa a lista atual
+                        const currentData = editor.getNodeFromId(nodeId).data;
+                        const currentButtons = currentData.buttons || [];
+
+                        currentButtons.forEach((button, index) => {
+                            const btnGroup = document.createElement('div');
+                            btnGroup.style.display = 'flex';
+                            btnGroup.style.alignItems = 'center';
+                            btnGroup.style.marginBottom = '5px';
+
+                            const btnLabel = document.createElement('span');
+                            btnLabel.textContent = `Botão ${index + 1}:`;
+                            btnLabel.style.marginRight = '5px';
+                            btnLabel.style.width = '55px'; // Alinha os inputs
+                            btnLabel.style.flexShrink = '0';
+
+                            const btnInput = document.createElement('input');
+                            btnInput.type = 'text';
+                            btnInput.value = button.label || '';
+                            btnInput.placeholder = 'Texto do Botão';
+                            btnInput.style.flexGrow = '1';
+                            btnInput.style.marginRight = '5px';
+                            // Atualiza via 'input' para refletir imediatamente
+                            btnInput.addEventListener('input', (e) => {
+                                const updatedData = editor.getNodeFromId(nodeId).data;
+                                // Garante que o array de botões exista
+                                if (!updatedData.buttons) updatedData.buttons = [];
+                                // Garante que o objeto do botão exista no índice
+                                if (!updatedData.buttons[index]) updatedData.buttons[index] = {};
+                                updatedData.buttons[index].label = e.target.value;
+                                editor.updateNodeDataFromId(nodeId, updatedData);
+                                // O evento nodeDataChanged cuidará da atualização visual do nó
+                            });
+
+                            const removeBtn = document.createElement('button');
+                            removeBtn.type = 'button';
+                            removeBtn.textContent = 'X';
+                            removeBtn.title = 'Remover Botão';
+                            removeBtn.style.color = 'red';
+                            removeBtn.style.border = 'none';
+                            removeBtn.style.background = 'none';
+                            removeBtn.style.cursor = 'pointer';
+                            removeBtn.style.padding = '0 5px';
+                            removeBtn.onclick = () => {
+                                const updatedData = editor.getNodeFromId(nodeId).data;
+                                if (updatedData.buttons && updatedData.buttons.length > index) {
+                                    updatedData.buttons.splice(index, 1); // Remove o botão
+                                    editor.updateNodeDataFromId(nodeId, updatedData);
+                                    renderButtons(); // Re-renderiza a lista de botões no painel
+                                    // O evento nodeDataChanged cuidará da atualização visual do nó
+                                }
+                            };
+                            const connectIcon = document.createElement('i');
+                            connectIcon.className = 'fas fa-plug';
+                            connectIcon.style.marginLeft = '5px';
+                            connectIcon.style.cursor = 'pointer';
+                            connectIcon.title = 'Conectar ação deste botão';
+                            connectIcon.onclick = () => {
+                                editor.editor_mode = 'edit';
+                                editor.connection_node_id = nodeId;
+                                editor.connection_output = `button_${index}`;
+                            };
+                            
+                            buttonsList.appendChild(btnGroup);
+                            btnGroup.appendChild(connectIcon);
+
+                            btnGroup.appendChild(btnLabel);
+                            btnGroup.appendChild(btnInput);
+                            btnGroup.appendChild(removeBtn);
+                            buttonsList.appendChild(btnGroup);
+                            
+                        });
+
+                        // Adiciona botão "Adicionar Botão" se houver menos de 3
+                        const addButton = buttonsDiv.querySelector('.add-button');
+                        if (addButton) addButton.remove(); // Remove o botão antigo se existir
+                        
+                        if (currentButtons.length < 3) {
+                            const newAddButton = document.createElement('button');
+                            newAddButton.type = 'button';
+                            newAddButton.textContent = '+ Adicionar Botão';
+                            newAddButton.className = 'add-button'; // Para remover depois
+                            newAddButton.style.marginTop = '5px';
+                            newAddButton.style.cursor = 'pointer';
+                            newAddButton.onclick = () => {
+                            const newButtons = [...currentButtons, { label: '' }];
+                            const updatedData = { ...currentData, buttons: newButtons };
+                            
+                            // Atualizar o nó
+                            editor.updateNodeDataFromId(nodeId, updatedData);
+                            
+                            // Atualizar saídas
+                            const node = editor.getNodeFromId(nodeId);
+                            node.outputs[`button_${newButtons.length - 1}`] = {
+                                connections: [],
+                                label: ''
+                            };
+                            editor.updateNodeDataFromId(nodeId, node);
+                            
+                            renderButtons();
+                        };
+                            buttonsDiv.appendChild(newAddButton);
+                        }
+                        const updateNodeOutputs = () => {
+                            const node = editor.getNodeFromId(nodeId);
+                            const totalOutputs = 1 + currentButtons.length;
+                            
+                            // Atualiza o número de saídas
+                            node.outputs = {
+                                output_1: node.outputs.output_1 // Mantém a saída padrão
+                            };
+                            
+                            currentButtons.forEach((btn, index) => {
+                                node.outputs[`button_${index}`] = {
+                                    connections: [],
+                                    label: btn.label || `Botão ${index + 1}`
+                                };
+                            });
+                            
+                            editor.updateNodeDataFromId(nodeId, node);
+                        };
+                    };
+
+                    renderButtons(); // Renderiza os botões iniciais
+                    form.appendChild(buttonsDiv);
+                    break;
+                case 'aguardar_resposta':
+                    form.appendChild(createTextareaField('Mensagem de Solicitação', 'promptMessage', data.promptMessage, true)); // Habilita variáveis
+                    form.appendChild(createSelectField('Tipo Esperado', 'expectedType', data.expectedType, [
+                         { value: 'any', text: 'Qualquer' }, { value: 'text', text: 'Texto' },
+                         { value: 'number', text: 'Número' }, { value: 'email', text: 'Email' },
+                         { value: 'cnpj', text: 'CNPJ (Apenas Exemplo)' } // Exemplo de tipo customizado
+                    ]));
+                    form.appendChild(createInputField('Nome da Variável para Salvar', 'variableName', data.variableName));
+                    form.appendChild(createInputField('Timeout (segundos)', 'timeoutSeconds', data.timeoutSeconds, 'number'));
+                    break;
+                case 'condicao':
+                    form.appendChild(createInputField('Variável', 'variable', data.variable, 'text', true)); // Habilita variáveis
+                    form.appendChild(createSelectField('Operador', 'operator', data.operator, [
+                        { value: '==', text: 'Igual (==)' }, { value: '!=', text: 'Diferente (!=)' },
+                        { value: '>', text: 'Maior que (>)' }, { value: '<', text: 'Menor que (<)' },
+                        { value: '>=', text: 'Maior ou Igual (>=)' }, { value: '<=', text: 'Menor ou Igual (<=)' },
+                        { value: 'contains', text: 'Contém' }, { value: 'startsWith', text: 'Começa com' },
+                        { value: 'endsWith', text: 'Termina com' }
+                    ]));
+                    form.appendChild(createInputField('Valor para Comparar', 'value', data.value, 'text', true)); // Habilita variáveis
+                    const outputLabels = document.createElement('div');
+                    outputLabels.innerHTML = `<small>Saída 1: Verdadeiro (True)<br>Saída 2: Falso (False)</small>`;
+                    outputLabels.style.marginTop = '10px'; outputLabels.style.color = '#555';
+                    form.appendChild(outputLabels);
+                    break;
+                case 'definir_variavel':
+                    form.appendChild(createInputField('Nome da Variável', 'variableName', data.variableName));
+                    form.appendChild(createTextareaField('Valor da Variável', 'variableValue', data.variableValue, true)); // Habilita variáveis
+                    break;
+                case 'chamada_api':
+                    form.appendChild(createInputField('URL', 'url', data.url, 'text', true)); // Habilita variáveis
+                     form.appendChild(createSelectField('Método HTTP', 'method', data.method, [
+                        { value: 'GET', text: 'GET' }, { value: 'POST', text: 'POST' },
+                        { value: 'PUT', text: 'PUT' }, { value: 'PATCH', text: 'PATCH' }, { value: 'DELETE', text: 'DELETE' }
+                    ]));
+                    form.appendChild(createTextareaField('Cabeçalhos (JSON)', 'headers', data.headers, true)); // Habilita variáveis
+                    form.appendChild(createTextareaField('Corpo da Requisição (JSON)', 'body', data.body, true)); // Habilita variáveis
+                    form.appendChild(createInputField('Nome da Variável para Salvar Resposta', 'responseVariable', data.responseVariable));
+                    break;
+                case 'atraso':
+                    form.appendChild(createInputField('Tempo de Atraso', 'delayTime', data.delayTime, 'number'));
+                    form.appendChild(createSelectField('Unidade de Tempo', 'delayUnit', data.delayUnit, [
+                        { value: 'seconds', text: 'Segundos' }, { value: 'minutes', text: 'Minutos' }, { value: 'hours', text: 'Horas' }
+                    ]));
+                    break;
+                case 'inicio':
+                case 'fim':
+                    form.innerHTML = '<p>Este nó não possui propriedades configuráveis.</p>';
+                    break;
+                default:
+                     form.innerHTML = '<p>Configuração para este tipo de nó não implementada.</p>';
+            }
+
+            propertiesContent.appendChild(form);
+        }
+
+        // Funções auxiliares para criar campos do formulário
+        function createInputField(labelText, name, value, type = 'text', allowVariables = false) {
+            const div = document.createElement('div');
+            const label = document.createElement('label');
+            label.textContent = labelText + ':';
+            label.htmlFor = `prop-${name}`;
+            const input = document.createElement('input');
+            input.type = type;
+            input.id = `prop-${name}`;
+            input.name = name;
+            input.value = value || '';
+            div.appendChild(label);
+            div.appendChild(input);
+            if (allowVariables) {
+                const helpText = document.createElement('span');
+                helpText.className = 'help-text';
+                helpText.textContent = 'Use {{variavel}} para inserir variáveis.';
+                div.appendChild(helpText);
+            }
+            return div;
+        }
+
+        function createTextareaField(labelText, name, value, allowVariables = false) {
+            const div = document.createElement('div');
+            const label = document.createElement('label');
+            label.textContent = labelText + ':';
+            label.htmlFor = `prop-${name}`;
+            const textarea = document.createElement('textarea');
+            textarea.id = `prop-${name}`;
+            textarea.name = name;
+            textarea.value = value || '';
+            textarea.rows = 3; // Tamanho padrão menor
+            div.appendChild(label);
+            div.appendChild(textarea);
+             if (allowVariables) {
+                const helpText = document.createElement('span');
+                helpText.className = 'help-text';
+                helpText.textContent = 'Use {{variavel}} para inserir variáveis.';
+                div.appendChild(helpText);
+            }
+            return div;
+        }
+
+        function createSelectField(labelText, name, value, options) {
+            const div = document.createElement('div');
+            const label = document.createElement('label');
+            label.textContent = labelText + ':';
+            label.htmlFor = `prop-${name}`;
+            const select = document.createElement('select');
+            select.id = `prop-${name}`;
+            select.name = name;
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.text;
+                if (opt.value === value) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+            div.appendChild(label);
+            div.appendChild(select);
+            return div;
+        }
+
+
+        // --- Drag and Drop ---
+        var elements = document.getElementsByClassName('drag-drawflow');
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('touchend', drop, false);
+            elements[i].addEventListener('touchmove', positionMobile, false);
+            elements[i].addEventListener('touchstart', drag, false );
+        }
+        var mobile_item_selec = '';
+        var mobile_last_move = null;
+        function positionMobile(ev) { mobile_last_move = ev; }
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drag(ev) {
+            if (ev.type === "touchstart") { mobile_item_selec = ev.target.closest(".drag-drawflow").getAttribute('data-node'); }
+            else { ev.dataTransfer.setData("node", ev.target.getAttribute('data-node')); }
+        }
+        function drop(ev) {
+            let nodeName, clientX, clientY;
+            if (ev.type === "touchend") {
+                if (!mobile_item_selec || !mobile_last_move) return;
+                var parentdrawflow = document.elementFromPoint( mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY).closest("#drawflow");
+                if(parentdrawflow != null) {
+                    nodeName = mobile_item_selec; clientX = mobile_last_move.touches[0].clientX; clientY = mobile_last_move.touches[0].clientY;
+                    addNodeToDrawFlow(nodeName, clientX, clientY);
+                }
+                mobile_item_selec = ''; mobile_last_move = null;
+            } else {
+                ev.preventDefault(); nodeName = ev.dataTransfer.getData("node"); clientX = ev.clientX; clientY = ev.clientY;
+                addNodeToDrawFlow(nodeName, clientX, clientY);
+            }
+        }
+
+        // --- Validação de Conexão ---
+        editor.on('connectionCreated', function(connection) {
+            console.log('Connection created:', connection);
+            const outputNodeId = connection.output_id;
+            const outputNode = editor.getNodeFromId(outputNodeId);
+
+            // Validação: Nó 'inicio' só pode ter uma saída
+            if (outputNode && outputNode.name === 'inicio') {
+                const connections = editor.getNodeFromId(outputNodeId).outputs.output_1.connections;
+                if (connections.length > 1) {
+                    console.warn("Nó 'inicio' só pode ter uma conexão de saída. Removendo a última.");
+                    // Remove a conexão recém-criada (a última adicionada)
+                    editor.removeSingleConnection(connection.output_id, connection.input_id, connection.output_class, connection.input_class);
+                    Swal.fire('Aviso', 'O nó "Início" só pode ter uma conexão de saída.', 'warning');
+                }
+            }
+        });
+
+        editor.on('connectionRemoved', function(connection) {
+            console.log('Connection removed', connection);
+        });
+
+
+        // --- Funções Auxiliares (Exportar, Limpar, Modo) ---
+        function exportFlowData() {
+            const exportedData = editor.export();
+            
+            // Mapear conexões dos botões
+            exportedData.drawflow[editor.module].data.forEach(node => {
+                if (node.name === 'enviar_mensagem') {
+                    node.data.button_connections = {};
+                    Object.keys(node.outputs).forEach(outputKey => {
+                        if (outputKey.startsWith('button_')) {
+                            node.data.button_connections[outputKey] = node.outputs[outputKey].connections;
+                        }
+                    });
+                }
+            });
+            
+            console.log(exportedData);
+            Swal.fire({ title: 'Dados Exportados', html: `<pre>${JSON.stringify(exportedData, null, 2)}</pre>` });
+        }
+        function clearFlow() {
+             Swal.fire({
+                title: 'Limpar Fluxo?', text: "Remover todos os nós?", icon: 'warning',
+                showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, limpar!', cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    editor.clearModuleSelected();
+                    propertiesPanel.classList.remove('visible'); // Esconde painel
+                    Swal.fire('Limpo!', 'O fluxo foi limpo.', 'success');
+                }
+            });
+        }
+        function changeMode(option) {
+            const lockIcon = document.getElementById('lock'); const unlockIcon = document.getElementById('unlock');
+            if(option == 'lock') { lockIcon.style.display = 'none'; unlockIcon.style.display = 'block'; }
+            else { lockIcon.style.display = 'block'; unlockIcon.style.display = 'none'; }
+        }
+
+        // --- Salvar Fluxo (Integração API) ---
+        async function saveFlow() {
+            const title = flowTitleInput.value.trim();
+            const description = flowDescriptionInput.value.trim();
+            const flowJsonData = editor.export();
+
+            if (!title) {
+                Swal.fire('Erro', 'O título do fluxo é obrigatório.', 'error'); return;
+            }
+
+            // Validação básica: Verificar se existe um nó 'inicio'
+            let hasStartNode = false;
+            const nodes = flowJsonData.drawflow[editor.module].data;
+            for (const nodeId in nodes) {
+                if (nodes[nodeId].name === 'inicio') {
+                    hasStartNode = true;
+                    break;
+                }
+            }
+            if (!hasStartNode) {
+                 Swal.fire('Erro', 'O fluxo deve conter pelo menos um nó "Início".', 'error'); return;
+            }
+
+
+            const payload = {
+                title: title,
+                description: description,
+                flow_json: JSON.stringify(flowJsonData) // Envia como string JSON
+            };
+
+            let url = '/pt/api/flows/'; // URL corrigida (plural)
+            let method = 'POST';
+
+            if (flowId) {
+                url = `/pt/api/flows/${flowId}/`;
+                method = 'PATCH';
+            }
+
+            console.log(`Salvando fluxo... Método: ${method}, URL: ${url}`); // Payload removido do log por verbosidade
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log("Resposta da API:", result);
+                    Swal.fire('Sucesso!', 'Fluxo salvo com sucesso!', 'success');
+                    if (method === 'POST' && result.id) { // ou result.pk
+                        flowId = result.n8n_workflow_id; // ou result.pk
+                        console.log("Novo flowId definido:", flowId);
+                        // Opcional: Atualizar URL do navegador
+                        // try { window.history.pushState({}, '', `/url/para/editar/${flowId}/`); } catch(e) {}
+                    }
+                } else {
+                    const errorData = await response.json().catch(() => ({ detail: response.statusText })); // Tenta pegar JSON, senão usa statusText
+                    console.error('Erro ao salvar fluxo:', response.status, errorData);
+                    let errorMessage = `Erro ${response.status}: ${response.statusText}.`;
+                    if (errorData && typeof errorData === 'object') {
+                         errorMessage += '<br><br>Detalhes:<br>';
+                         for (const key in errorData) {
+                             errorMessage += `- ${key}: ${Array.isArray(errorData[key]) ? errorData[key].join(', ') : errorData[key]}<br>`;
+                         }
+                    }
+                    Swal.fire('Erro ao Salvar', errorMessage, 'error');
+                }
+            } catch (error) {
+                console.error('Erro de rede ou JavaScript ao salvar:', error);
+                Swal.fire('Erro', 'Ocorreu um erro de comunicação ao tentar salvar o fluxo.', 'error');
+            }
+        }
+
+    </script>
+</body>
+</html>

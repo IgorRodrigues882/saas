@@ -1,0 +1,38 @@
+{% load static %}
+{% load sass_tags %}
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex justify-content-between">
+      <h5>Lista de Usuários</h5><span class="f-14 pull-right mt-0">{{ usuarios|length }} Usuários</span>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-6">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% for usuario in usuarios %}
+              <a class="contact-tab-1 nav-link" id="contato-usuario-{{ usuario.id }}" data-bs-toggle="pill"
+              href="#tab-usuario-{{ usuario.id }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_1"
+                    src="{% static 'assets/images/user/8.jpg' %}" alt="">
+                  <div class="media-body">
+                    <h6><span class="usuario_name">{{ usuario.nome }}</h6>
+                    <p class="usuario_email">{{ usuario.email }}</p>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+            {% for usuario in usuarios %}
+              {% include 'painel_admin/usuarios/components/contact-byId.html' %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "painel_admin/usuarios/components/modal-permissoes.html" %}

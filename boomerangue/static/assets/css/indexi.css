@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+nav{
+    background:#fff;
+	border-bottom:1px solid rgb(211, 209, 209);
+    /*position:static !important;*/
+}
+body{
+font-family:'Open Sans', sans-serif;
+background:#F7F7F7;
+overflow-x:hidden;
+}
+.price{
+	opacity:0;
+	font-weight:600;
+	transition: all .2s;
+}
+
+#cpf2{
+	margin-top:-12px;
+}
+#abreModal{
+	opacity: 1;
+    transition:all .3s;
+}
+.preco_mobile{
+            cursor: pointer;
+           	position: fixed;
+			bottom: 0;
+			left:20vw;
+            width:60vw;
+            height:50px;
+            background-color:#3a4170;
+            border-radius:20px 20px 0px 0px;
+            z-index: 50;
+            opacity: 1;
+            transition:all .3s;
+			font-family:'Rubik', sans-serif;
+        }
+        .preco_mobile #soma{
+        	letter-spacing:1px;
+            font-size:0.8em;
+            color:white;
+            font-weight:600;
+        }
+		.preco_mobile .ttp{
+        	letter-spacing:1px;
+        	font-size:0.9em;
+            color:white;
+            font-weight:600;
+        	margin-top:-20px;
+        }
+		.preco_mobile .comp{
+        	letter-spacing:1px;
+        	transition: all .2s;
+        	font-size:0.9em;
+            color:white;
+            font-weight:600;
+        	width:100%;
+        	text-align:right;
+        	margin-left:-50px;
+        }
+
+.iconB{
+	margin-top:2px;
+	color:#fff;
+	font-size:1.5em;
+}
+
+		
+#titu,#titu2{
+	letter-spacing:1px;
+	color:#3a4170;
+	font-weight:700;
+} 
+.page-header-ui{
+	background:#005191;
+}
+
+
+
+
+
+/* IMAGE */
+
+
+
+/* INDEX */
+
+
+
+.listaOferta{
+	font-size:1.5em;
+
+}
+.opt-input{
+	max-width:25px;
+	width:25px;
+	margin: auto;
+	padding:0px;
+	font-weight: 800!important;
+	color:#FFF !important;	
+	font-size:20px;
+}
+
+@media(max-width: 950px) {
+	.btnn-block{
+    	display: block;
+    	width: 100%;
+	}
+}
+
+
+@media(max-width: 680px) {
+	#titu,#titu2{
+		font-size: 1.2em;
+    	letter-spacing:0px;
+    	
+	}
+    
+.preco_mobile{
+	width:100vw;
+	left:0vw;
+}
+.preco_mobile .comp{
+	text-align:left;
+	padding-right:20px;
+	margin-left:0px;
+}
+   
+	.cnt{
+		margin-left:0px !important;
+    	margin-right:0px !important;
+	}
+	
+
+
+@media(max-width: 450px) {
+	.container > .navbar-brand{
+    	display:none;
+	}
+	#titu{
+    	margin-left:-15px;
+}
+}
+@media(max-width:390px){
+	#titu2{
+		font-size: 1em;
+    	letter-spacing:0;
+    	margin-left:0px;
+    	
+	}
+#titu{
+		font-size: 1em;
+    	letter-spacing:0;
+}
+.preco_mobile .comp{
+	font-size:0.8em;
+}
+}
+@media(max-width:360px){
+	#titu2{
+    	margin-left:0px;
+    	
+	}
+}

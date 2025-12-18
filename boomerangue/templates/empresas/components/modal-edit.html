@@ -1,0 +1,196 @@
+<div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Empresa</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="row g-2">
+                <div class="col-md-12 mt-0 m-b-20">
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <label for="empresa">Nome</label>
+                      <input class="form-control" id="empresa" type="text" required="" maxlength="40" placeholder="Nome"
+                        autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="empresa_apelido">Apelido Empresa</label>
+                      <input class="form-control" maxlength="20" id="empresa_apelido" type="text" required=""
+                        autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-0 m-b-20">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="cnpj">CNPJ</label>
+                            <input class="form-control" id="cnpj" type="text" required="" autocomplete="off">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="tipoempresa_id">Tipo Empresa</label>
+                            <select class="form-control" id="tipoempresa_id">
+                                <option value="F">Filial</option>
+                                <option value="M">Matriz</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="cnpj">Cód Puxada</label>
+                            <input class="form-control" id="cod_puxada" maxlength="50" type="text" required="" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 my-0 m-b-20">
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <label for="tokenapi">Token API</label>
+                        <input class="form-control" id="tokenapi" type="text" required="" autocomplete="off"
+                        maxlength="50">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="tokenbmempresa">Token BM</label>
+                        <input class="form-control" id="tokenbmempresa" type="text" required="" autocomplete="off"
+                        maxlength="50">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="telefonesac">Telefone SAC</label>
+                        <input class="form-control" id="telefonesac" type="text" required="" autocomplete="off"
+                        maxlength="20">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-6">
+                          <label for="chave_edi">Chave EDI</label>
+                          <input class="form-control" id="chave_edi" type="text" required="" autocomplete="off"
+                          maxlength="50">
+                      </div>
+                      <div class="col-sm-6">
+                          <label for="edi_integracao">EDI Integração</label>
+                          <input class="form-control" id="edi_integracao" type="text" required="" autocomplete="off"
+                          maxlength="50">
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                          <label for="codtelefone">Cód telefone</label>
+                          <input class="form-control" id="codtelefone" type="text" required="" autocomplete="off"
+                          maxlength="45">
+                      </div>
+                      <div class="col-sm-4">
+                          <label for="emailpedidodireto">Email Pedido Direto</label>
+                          <input class="form-control" id="emailpedidodireto" type="text" required="" autocomplete="off"
+                          maxlength="50">
+                      </div>
+                      <div class="col-sm-4">
+                          <label for="emailpedidoempresa">Email Pedido Empresa</label>
+                          <input class="form-control" id="emailpedidoempresa" type="text" required="" autocomplete="off"
+                          maxlength="50">
+                      </div>
+                    </div>
+                  </div>
+
+                  {% if request.user.empresa.tipo_de_negocio.value_prefixo == 'ADMIN' %}
+                  <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-12">
+                          <label for="codtelefone">Prompt IA específico para empresa (Relatório Campanha)</label>
+                          <p>Use: {nBoomerangues} (Total Boomerangues), {Enviado} (Total Enviado), {ValorVendas} (Total Vendas) e {TicketMedio}</p>
+                          <textarea class="form-control" id="prompt_IA_especifico" rows="3"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-sm-6">
+                        <label for="prompt_IA_mapa">Prompt IA específico para empresa (Análise IA Mapa Interativo)</label>
+                      </div>
+                      <div class="col-sm-6 text-end">
+                        <button class="btn btn-info dropdown-toggle float-start" 
+                                title="Adicione termos na mensagem para incluir o nome do cliente, Potencial, etc.." 
+                                type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add Termos
+                        </button>
+                        <div class="dropdown-menu" style="overflow-y: auto; max-height: 200px;">
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('porte')">Porte</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('id_cliente')">ID Cliente</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('nome_cliente')">Nome Cliente</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('potencialCliente')">Potencial Cliente</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('potencialRegiao')">Potencial Região</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('diasUltimaCompra')">Dias Última Compra</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('ticket_medio')">Ticket Médio</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('total_compras')">Total Compras</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('total_gasto')">Total Gasto</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('tendencia_crescimento')">Tendência Crescimento</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('historico_vendas')">Histórico Vendas</a>
+                            <a class="dropdown-item" href="javascript:void(0)" onclick="add_termo_text('vendas_regiao')">Vendas Região</a>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <textarea class="form-control" id="prompt_IA_mapa" rows="3"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-sm-6 col-12">
+                          <label for="max_tokens_ia">Máximo de tokens</label>
+                          <input class="form-control" id="max_tokens_ia" type="text" autocomplete="off"
+                          maxlength="50">
+                      </div>
+                      <div class="col-sm-6 col-12">
+                        <label for="modelo_ia">Modelo IA Padrão</label>
+                        <select class="js-example-basic-single" id="modelo_ia">
+                          <option value="">Modelo IA Padrão</option>
+                          {% if gpt_modelo %}
+                            {% for modelo in gpt_modelo %}
+                              <option value="{{ modelo.id }}">{{ modelo.gpt_engine }}</option>
+                            {% endfor %}
+                          {% endif %}
+                        </select>
+                    </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-md-6 col-12">
+                        <label for="">Template optin Padrão</label>
+                        <select class="js-example-basic-single" id="template_optin_clinica">
+                          <option value="">Escolha o template optin padrão</option>
+                          
+                        </select>
+                      </div>
+                      <div class="col-md-6 col-12">
+                        <label for="">Template envio Padrão</label>
+                        <select class="js-example-basic-single" id="template_envio_clinica">
+                          <option value="">Escolha o template envio padrão</option>
+                          
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-md-6 col-12">
+                        <label for="">Template Envio Vendedores</label>
+                        <select class="js-example-basic-single" id="template_envio_vendedores">
+                          <option value="">Escolha o template de envio para vendedores</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 col-12">
+                        <label for="">Template Optin Vendedores</label>
+                        <select class="js-example-basic-single" id="template_optin_vendedores">
+                          <option value="">Escolha o template de envio para vendedores</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+              </div>
+              <input id="index_var" type="hidden" value="5">
+              <button class="btn btn-secondary" type="submit" id="btn_salvar">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

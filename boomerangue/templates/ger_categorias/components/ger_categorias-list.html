@@ -1,0 +1,150 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<div class="container-fluid">
+  <div class="email-wrap bookmark-wrap">
+    <div class="row">
+      <div class="col-xl-3 box-col-3 xl-30">
+        <div class="email-sidebar"><a class="btn btn-primary email-aside-toggle" href="javascript:void(0)">bookmark filter</a>
+          <div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Categoria' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="Categoria">{% trans 'Categoria Nome' %}</label>
+                          <input class="form-control" id="Categoria" type="text" required="" maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="TipoCategoria">{% trans 'Tipo Categoria' %}</label>
+                          <select class="js-example-basic-single" id="TipoCategoria">
+                            <option value="N">{% trans 'Normal' %}</option>
+                            <option value="TV">{% trans 'Top Vendas' %}</option>
+                            <option value="S">{% trans 'Sugestão' %}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-12 my-0 m-b-20">
+                        <label for="CategoriaDescricao">{% trans 'Categoria Descrição' %}</label>
+                        <textarea class="form-control" id="CategoriaDescricao" maxlength="255" autocomplete="off"></textarea>
+                      </div>
+                    </div>
+                    <input id="index_var" type="hidden" value="6">
+                    <button class="btn btn-secondary" id="salvar_categoria" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="email-left-aside">
+            <div class="card">
+              <div class="card-body">
+                <div class="email-app-sidebar left-bookmark">
+                  <div class="media">
+                    <div class="media-size-email"><img class="me-3 rounded-circle"
+                        src="{% static 'assets/images/user/user.png' %}" alt=""></div>
+                    <div class="media-body">
+                      <h6 class="f-w-600">{{request.user.nome}}</h6>
+                      <p>{{request.user.email}}</p>
+                    </div>
+                  </div>
+                  <ul class="nav main-menu custom-scrollbar" role="tablist">
+                    <li class="nav-item">
+                      <button class="btn-primary badge-light btn-block btn-mail w-100" onclick="newcat()" type="button"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="me-2"
+                          data-feather="check-circle"></i>{% trans 'Nova Categoria' %}</button>
+
+                    </li>
+                    <li class="nav-item"><span class="main-title">{% trans 'Opções' %}</span></li>
+                    <li><a id="pills-created-tab" data-bs-toggle="pill" href="#pills-created" role="tab"
+                        aria-controls="pills-created" aria-selected="true"><span class="title">{% trans 'Categorias' %}</span></a>
+                    </li>
+                    <li><a class="show" id="pills-todaytask-tab" data-bs-toggle="pill" href="#pills-todaytask"
+                        role="tab" aria-controls="pills-todaytask" aria-selected="false"><span class="title">{% trans 'Categorias produtos' %}</span></a></li>
+                      
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-9 box-col-9 col-md-12 xl-70">
+        <div class="email-right-aside bookmark-tabcontent">
+          <div class="card email-body radius-left">
+            <div class="ps-0">
+              <div class="tab-content">
+                <div class="tab-pane fade active show" id="pills-created" role="tabpanel"
+                  aria-labelledby="pills-created-tab">
+                  <div class="card mb-0">
+                    <div class="card-header d-flex">
+                      <h5 class="mb-0">{% trans 'Categorias' %}</h5><a href="#"><i class="me-2"
+                          data-feather="printer"></i>{% trans 'Imprimir' %}</a>
+                    </div>
+                    {% if ger_categorias %}
+                      <div class="card-body p-0">
+                        <div class="taskadd">
+                          <div class="table-responsive">
+                            <table class="table">
+                              {% for categoria in ger_categorias %}
+                              <tr>
+                                <td>
+                                  <h6 class="task_title_0">{{categoria.Categoria}}</h6>
+                                  <p class="project_name_0">{{ categoria.get_TipoCategoria_display }}</p>
+                                </td>
+                                <td>
+                                  <p class="task_desc_0">{{categoria.CategoriaDescricao}}</p>
+                                </td>
+                                <td class="ms-3">
+                                  <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editar_categoria('{{categoria.pk}}')"><i data-feather="edit-2"></i></a>
+                                  <a href="#" class="ms-2" onclick="delete_categoria('{{categoria.pk}}')"><i data-feather="trash-2"></i></a>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    {% else %}
+                        <div class="card-body">
+                          <div class="details-bookmark text-center">
+                            <div class="row" id="favouriteData"></div>
+                            <div class="no-favourite"><span>{% trans 'Nenhuma Categoria Encontrada' %}</span></div>
+                          </div>
+                        </div>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="fade tab-pane" id="pills-todaytask" role="tabpanel" aria-labelledby="pills-todaytask-tab">
+                  <div class="card mb-0">
+                    <div class="card-header d-flex">
+                      <h6 class="mb-0">Today's Tasks</h6><a href="javascript:void(0)"><i class="me-2"
+                          data-feather="printer"></i>{% trans 'Imprimir' %}</a>
+                    </div>
+                    <div class="card-body">
+                      <div class="details-bookmark text-center">
+                        <div class="row" id="favouriteData"></div>
+                        <div class="no-favourite"><span>No task due today.</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

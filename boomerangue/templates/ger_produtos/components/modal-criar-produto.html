@@ -1,0 +1,415 @@
+<div class="modal fade modal-bookmark" id="addModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Criar Produto</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+          <div class="row g-2">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                      <div class="stepwizard-step"><a class="btn btn-primary" id="step1" href="#step-1">1</a>
+                        <p>Informações Básicas</p>
+                      </div>
+                      <div class="stepwizard-step"><a class="btn btn-light" id="step2" href="#step-2">2</a>
+                        <p>Detalhes do Produto</p>
+                      </div>
+                      <div class="stepwizard-step"><a class="btn btn-light" id="step3" href="#step-3">3</a>
+                        <p>Configurações</p>
+                      </div>
+                      <div class="stepwizard-step"><a class="btn btn-light" id="step4" href="#step-4">4</a>
+                        <p>Categorias e Grupos</p>
+                      </div>
+                      <div class="stepwizard-step"><a class="btn btn-light" id="step5" href="#step-5">5</a>
+                          <p>Outros Detalhes</p>
+                      </div>
+                      <div class="stepwizard-step"><a class="btn btn-light" id="step6" href="#step-6">6</a>
+                        <p>Unidades e Medidas</p>
+                    </div>
+                    </div>
+                  </div>
+                    <div class="setup-content" id="step-1">
+                      <div class="col-xs-12">
+                        <div class="col-md-12">
+      
+                          <div class="mb-3">
+                              <label class="control-label">Marca</label>
+                              <select class="form-control" type="text" name="marca" placeholder="Marca">
+                                {% for marca in ger_marcas %}
+                                  <option value="{{ marca.id }}">{{ marca.Marca }}</option>
+                                {% endfor %}
+                              </select>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="EDI_Integracao">EDI Integração:</label>
+                            <input type="text" class="form-control" id="EDI_Integracao" name="EDI_Integracao" maxlength="50" required>
+                          </div>
+
+                          <div class="form-group">
+                              <label for="Marca_Filtro">Marca Filtro:</label>
+                              <input type="text" class="form-control" id="Marca_Filtro" name="Marca_Filtro" maxlength="50" required>
+                          </div>
+
+                          <div class="mb-3">
+                              <label class="control-label">SKU</label>
+                              <input class="form-control" type="text" name="SKU" placeholder="SKU" required="required">
+                          </div>
+                          <div class="mb-3">
+                              <label class="control-label">Codigo</label>
+                              <input class="form-control" type="text" name="Codigo" placeholder="Codigo" required="required">
+                          </div>
+                          <div class="mb-3">
+                              <label class="control-label">Codigo do Fornecedor</label>
+                              <input class="form-control" type="text" name="CodigoFornecedor" placeholder="Codigo do Fornecedor" required="required">
+                          </div>
+                        </div>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                      </div>
+                    </div>
+                    <div class="setup-content" id="step-2">
+                      <div class="col-xs-12">
+                        <div class="col-md-12">
+                          <div class="mb-3">
+                            <label class="control-label">Busca</label>
+                            <input class="form-control" type="text" name="Busca" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">EAN</label>
+                            <input class="form-control" type="text" name="EAN" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">DUN</label>
+                            <input class="form-control" type="text" name="DUN" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Agrupador</label>
+                            <input class="form-control" type="text" name="Agrupador" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Produto Busca</label>
+                            <input class="form-control" type="text" name="ProdutoBusca" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descrição</label>
+                            <input class="form-control" type="text" name="Descricao" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descrição Curta</label>
+                            <input class="form-control" type="text" name="Descricao_Curta" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descrição Longa</label>
+                            <input class="form-control" type="text" name="Descricao_Longa" placeholder="" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descrição Detalhada</label>
+                            <input class="form-control" type="text" name="Descrição_Detalhada" placeholder="" required="required">
+                          </div>
+                        </div>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                      </div>
+                    </div>
+                    <div class="setup-content" id="step-3">
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Destaque</label>
+                                          <label class="d-block" for="edo-ani">
+                                              <input class="radio_animated" id="edo-ani" type="radio" name="Destaque" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="edo-ani1">
+                                              <input class="radio_animated" id="edo-ani1" type="radio" value="N" name="Destaque"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Sai Lista Geral -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Sai Lista Geral</label>
+                                          <label class="d-block" for="sai-lista-geral-ani">
+                                              <input class="radio_animated" id="sai-lista-geral-ani" type="radio" name="SaiListaGeral" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="sai-lista-geral-ani1">
+                                              <input class="radio_animated" id="sai-lista-geral-ani1" type="radio" value="N" name="SaiListaGeral"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Tem Variação -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Tem Variação</label>
+                                          <label class="d-block" for="tem-variacao-ani">
+                                              <input class="radio_animated" id="tem-variacao-ani" type="radio" name="TemVariacao" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="tem-variacao-ani1">
+                                              <input class="radio_animated" id="tem-variacao-ani1" type="radio" value="N" name="TemVariacao"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Usar Descrição Personalizada -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Usar Descrição Personalizada</label>
+                                          <label class="d-block" for="usar-descricao-personalizada-ani">
+                                              <input class="radio_animated" id="usar-descricao-personalizada-ani" type="radio" name="UsarDescricaoPersonalizada" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="usar-descricao-personalizada-ani1">
+                                              <input class="radio_animated" id="usar-descricao-personalizada-ani1" type="radio" value="N" name="UsarDescricaoPersonalizada"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Usa Multiplicador -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Usa Multiplicador</label>
+                                          <label class="d-block" for="usa-multiplicador-ani">
+                                              <input class="radio_animated" id="usa-multiplicador-ani" type="radio" name="UsaMultiplicador" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="usa-multiplicador-ani1">
+                                              <input class="radio_animated" id="usa-multiplicador-ani1" type="radio" value="N" name="UsaMultiplicador"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Produto Ativo -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Produto Ativo</label>
+                                          <label class="d-block" for="produto-ativo-ani">
+                                              <input class="radio_animated" id="produto-ativo-ani" type="radio" name="produtoAtivo" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="produto-ativo-ani1">
+                                              <input class="radio_animated" id="produto-ativo-ani1" type="radio" value="N" name="produtoAtivo"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Grupo Ativo -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Grupo Ativo</label>
+                                          <label class="d-block" for="grupo-ativo-ani">
+                                              <input class="radio_animated" id="grupo-ativo-ani" type="radio" name="GrupoAtivo" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="grupo-ativo-ani1">
+                                              <input class="radio_animated" id="grupo-ativo-ani1" type="radio" value="N" name="GrupoAtivo"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  
+                      <!-- Linha Ativa -->
+                      <div class="col-xs-12">
+                          <div class="col-md-12">
+                              <div class="card-body animate-chk">
+                                  <div class="row">
+                                      <div class="col">
+                                          <label class="control-label">Linha Ativa</label>
+                                          <label class="d-block" for="linha-ativa-ani">
+                                              <input class="radio_animated" id="linha-ativa-ani" type="radio" name="LinhaAtiva" value="S" checked> Sim
+                                          </label>
+                                          <label class="d-block" for="linha-ativa-ani1">
+                                              <input class="radio_animated" id="linha-ativa-ani1" type="radio" value="N" name="LinhaAtiva"> Não
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                  </div>
+
+                    <div class="setup-content" id="step-4">
+                      <div class="col-xs-12">
+                        <div class="col-md-12">
+                          
+                          <div class="mb-3">
+                            <label class="control-label">Linha Produto</label>
+                            <select class="form-control mt-1" type="text" placeholder="ID Linha" name="LinhaProduto" required="required">
+                              {% for linha in ger_linhaprodutos %}
+                                <option value="{{ linha.id }}">{{ linha.LinhaProdutos }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Grupo Produtos</label>
+                            <select class="form-control mt-1" type="text" placeholder="ID Grupo" name="GrupoProdutos" required="required">
+                              {% for grupo in ger_grupoprodutos %}
+                                <option value="{{ grupo.id }}">{{ grupo.GrupoProdutos }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Categoria 1</label>
+                            <select class="form-control mt-1" type="text" placeholder="Categoria 1" name="Categoria1" required="required">
+                              {% for categoria in ger_categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Categoria 2</label>
+                            <select class="form-control mt-1" type="text" placeholder="Categoria 2" name="Categoria2"  required="required">
+                              {% for categoria in ger_categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Categoria 3</label>
+                            <select class="form-control mt-1" type="text" placeholder="Categoria 3" name="Categoria3" required="required">
+                              {% for categoria in ger_categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">CategoriaAPP 1</label>
+                            <select class="form-control mt-1" type="text" placeholder="CategoriaAPP 1" name="CategoriaApp1" required="required">
+                              {% for categoria in ger_categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">CategoriaAPP 2</label>
+                            <select class="form-control mt-1" type="text" placeholder="CategoriaAPP 2" name="CategoriaApp2" required="required">
+                              {% for categoria in ger_categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">CategoriaApp1 Ordem:</label>
+                            <input class="form-control mt-1" type="text" placeholder="CategoriaAPP1Ordem" name="CategoriaAPP1Ordem" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">CategoriaApp2 Ordem:</label>
+                            <input class="form-control mt-1" type="text" placeholder="CategoriaAPP2Ordem" name="CategoriaAPP2Ordem" required="required">
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+
+                    <div class="setup-content" id="step-5">
+                      <div class="col-xs-12">
+                        <div class="col-md-12">
+                          <div class="mb-3">
+                            <label class="control-label">CEST</label>
+                            <input class="form-control mt-1" type="text" name="CEST" placeholder="CEST" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">NCM</label>
+                            <input class="form-control mt-1" type="text" name="NCM" placeholder="NCM" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descricao Detalhada</label>
+                            <input class="form-control mt-1" type="text" placeholder="Descricao Detalhada" name="Descricao_Detalhada" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descricao Limpa</label>
+                            <input class="form-control mt-1" type="text" placeholder="Descricao Limpa" name="Descricao_Limpa" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descricao Amigavel</label>
+                            <input class="form-control mt-1" type="text" placeholder="Descricao Amigavel" name="Descricao_Amigavel" required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Descricao Personalizada</label>
+                            <input class="form-control mt-1" type="text" placeholder="Descricao Personalizada" name="Descricao_Personalizada" required="required">
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                    
+                    <div class="setup-content" id="step-6">
+                      <div class="col-xs-12">
+                        <div class="col-md-12">
+          
+                          <div class="mb-3">
+                            <label class="control-label">Unidade Medida Un</label>
+                            <select class="form-control mt-1" type="text" placeholder="Unidade Medida Un" name="UnidadeMedidaUn" required="required">
+                              {% for unidade in ger_unidademedidas %}
+                                <option value="{{ unidade.id }}">{{ unidade.UnidadeMedida }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Fator Unitario</label>
+                            <input class="form-control mt-1" type="number" placeholder="Fator Unitario" name="Fator_Unitario"  required="required">
+                          </div>
+                          <div class="mb-3">
+                            <label class="control-label">Unidade Medida Cx</label>
+                            <select class="form-control mt-1" type="text" placeholder="Unidade Medida Cx" name="UnidadeMedidaCx" required="required">
+                              {% for unidade in ger_unidademedidas %}
+                                <option value="{{ unidade.id }}">{{ unidade.UnidadeMedida }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="btn btn-secondary" type="submit" id="btn_salvar_item">Salvar</button>
+                      <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

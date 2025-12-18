@@ -1,0 +1,588 @@
+{% load static %}
+{% load tags %}
+
+<div class="col-xl-6 col-md-12 dash-xl-33 dash-lg-50 box-col-6">
+    <div class="card ongoing-project recent-orders">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Produtos comprados</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <!-- <ul>
+                <li> <a>
+                    Done</a></li>
+                <li> <a>
+                    Pending</a></li>
+                <li> <a>
+                    Rejected</a></li>
+                <li> <a>In Progress</a></li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive" style="height: 300px; overflow-y: scroll;">
+          <table class="table table-bordernone">
+            <thead>
+              <tr>
+                <th> <span>Produto</span></th>
+                <th> <span>Preço</span></th>
+                <th> <span>Quantidade</span></th>
+                <th> <span>Total</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for produto in Produtos %}
+                <tr>
+                  <td>
+                    <div class="media">
+                      <div class="square-box me-2"><img class="img-fluid b-r-5"
+                          src="{{produto.produto.PathProduto}}" alt="" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.onerror=null;this.src='{% static 'assets\images\banner\Produto-sem-foto.png' %}';"></div>
+                      <div class="media-body ps-2">
+                        <div class="avatar-details"><a href="#">
+                            <h6>{{produto.produto.Descricao_Amigavel}}</h6>
+                          </a><span></span></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="img-content-box">
+                    <h6>{{produto.valor_total_item}}</h6>
+                  </td>
+                  <td>
+                    {% if produto.QuantidadeCompradaUN != 0 %}
+                      <h6>{{produto.QuantidadeCompradaUN|floatformat:0}}</h6><span>UN</span>
+                    {% else %}
+                      <h6>{{produto.QuantidadeCompradaCX|floatformat:0}}</h6><span>CX</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <h6>{{produto.ValorTotalCompra|floatformat:2}}</h6>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<input type="hidden" id="id_bmm" value="{{Boomerangue.id}}">
+<input type="hidden" id="nome_cliente_" value="{{Boomerangue.entidade.Entidade}}">
+
+  <div class="col-xl-6 col-md-6">
+    <div class="card our-activities">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Últimos Logs</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <!-- <ul>
+                <li> <a>
+                    Latest </a></li>
+                <li> <a>
+                    Earlist</a></li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive" style="height: 300px; overflow-y: scroll;">
+          <table class="table table-bordernone">
+            <tbody>
+              {% for log in logs %}
+                <tr>
+                  <td>
+                    <div class="media">
+                      <div class="icon-wrappar"><i class="fa fa-file-text-o txt-info"></i></div>
+                      <div class="media-body"><a href="#">
+                          <h5>{{log.acao_id}}</h5>
+                        </a>
+                        <p>{{log.Complemento1}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-light-theme-light font-theme-light">{{log.DataLog|date:'d/m/Y H:i:s'}}</span></td>
+                </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 col-md-6 ">
+    <div class="card total-sale" style="height: 200px;">
+      <div class="card-header card-no-border">
+        <div class="media">
+          <div class="media-body">
+            <h5 class="mb-0">Total</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <!-- <ul>
+                <li><a>Done</a></li>
+                <li> <a>
+                    Pending</a></li>
+                <li> <a>
+                    Rejected</a></li>
+                <li> <a>In Progress</a></li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+        <div class="animat-block">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="sale-main">
+          <div class="sale-left">
+            <h6 class="font-danger"></h6>
+            <h5 class="font-primary">{{valor}}</h5>
+          </div>
+          <div class="sale-right">
+            <div id="total-sales-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-xl-5 col-md-6 ">
+    <div class="card special-discount">
+      <div class="card-body">
+        <div class="discount-slide owl-carousel owl-theme">
+          <div class="item">
+            <div class="row discount-block">
+              <div class="col-xl-7 col-lg-12 dash-xl-100">
+                <div class="discount-detail">
+                  <div>
+                    <h5>Transportadora</h5>
+                    <h3 class="m-auto">{% if Boomerangue.transportadora.Transportadora %} {{Boomerangue.transportadora.Transportadora}} {% else %} Nenhuma {% endif %}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-5 col-lg-12 dash-xl-100">
+                <div class="img-wrraper" style="display: flex; justify-content: center; align-items: center;">
+                    <img class="img-fluid ms-1" src="{% static 'assets/images/caminhao-de-entrega.png' %}" alt="" style="width: 70px; height: 70px;">
+                </div>
+            </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row discount-block">
+              <div class="col-xl-7 col-lg-12 dash-xl-100">
+                <div class="discount-detail">
+                  <div>
+                    <h5>Condição de pagamento</h5>
+                    <h3 class="m-auto">{% if Boomerangue.condicoes_pagamento.condicoes_pagamento %} {{Boomerangue.condicoes_pagamento.condicoes_pagamento}} {% else %} Nenhuma {% endif %} </h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-5 col-lg-12 dash-xl-100">
+                <div class="img-wrraper" style="display: flex; justify-content: center; align-items: center;"><img class="img-fluid ms-1" style="width: 70px; height: 70px;" src="{% static 'assets/images/dinheiro.png' %}"
+                    alt=""></div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="row discount-block">
+              <div class="col-xl-7 col-lg-12 dash-xl-100">
+                <div class="discount-detail">
+                  <div>
+                    <h5>Vendedor</h5>
+                    <h3 class="m-auto">{% if Boomerangue.vendedor.Vendedor %} {{Boomerangue.vendedor.Vendedor}} {% else %} Nenhum {% endif %}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-5 col-lg-12 dash-xl-100">
+                <div class="img-wrraper" style="display: flex; justify-content: center; align-items: center;"><img class="img-fluid"  style="width: 70px; height: 70px;" src="{% static 'assets/images/vendedor.png' %}"
+                    alt=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 box-col-12">
+    <div class="card" style="height: 200px;">
+      <div class="widget-feedback card-body">
+        <div class="feedback-top text-center">
+          <img src="{% static 'assets/images/entrega-rapida.png' %}"  style="width: 100px; height: 100px;" alt="">
+          <h3>Tipo Frete</h3>
+          <h6 class="font-roboto f-w-400">{% if Boomerangue.tipo_frete == 'F' %} FOB {% else %} CIF {% endif %}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3 xl-50 col-lg-6 box-col-6">
+    <div class="card social-widget-card">
+      <div class="card-body">
+        <div class="media">
+          <div class="social-font"><img src="{% static 'assets/images/information.png' %}" alt="" style="width: 60px; height: 60px;"></div>
+          <div class="media-body">
+            <h4>Infos adicionais</h4>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col text-center">
+            <h6 class="font-roboto">Boomerangue Enviado</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">{% if Boomerangue.data_pri_envio %} Sim {% else %} Não {% endif %}</h5>
+          </div>
+          <div class="col text-center">
+            <h6 class="font-roboto">Boomerangue Lido</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">{% if Boomerangue.data_leitura %} Sim {% else %} Não {% endif %}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3 xl-50 col-lg-6 box-col-6">
+    <div class="card social-widget-card">
+      <div class="card-body">
+        <div class="media">
+          <div class="social-font"><img src="{% static 'assets/images/calendar.png' %}" alt="" style="width: 50px; height: 50px;"></div>
+          <div class="media-body">
+            <h4>Datas</h4>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col text-center">
+            <h6 class="font-roboto">Data Envio</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">{% if Boomerangue.data_pri_envio %} {{Boomerangue.data_pri_envio|date:'d/m/Y'}} {% else %} Sem envio {% endif %}</h5>
+          </div>
+          <div class="col text-center">
+            <h6 class="font-roboto">Data Compra</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">{% if Boomerangue.data_aceite_bm %} {{Boomerangue.data_aceite_bm|date:'d/m/Y'}} {% else %} - {% endif %}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3 xl-50 col-lg-6 box-col-6">
+    <div class="card social-widget-card">
+      <div class="card-body">
+        <div class="media">
+          <div class="social-font"><img src="{% static 'assets/images/email.png' %}" style="width: 50px; height: 50px;" alt=""></div>
+          <div class="media-body">
+            <h4>Total Envios</h4>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col text-center">
+            <h6 class="font-roboto">Envios reforços</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">{{Boomerangue.nro_envios_reforcos}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xl-3 xl-50 col-lg-6 box-col-6">
+    <div class="card social-widget-card">
+      <div class="card-body">
+        <div class="media">
+          <div class="social-font"><img src="{% static 'assets/images/configuracoes.png' %}" style="width: 50px; height: 50px;" alt=""></div>
+          <div class="media-body">
+            <h4>Configs Boomerangue</h4>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col text-center">
+            <h6 class="font-roboto">Compra Mínima</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">R$ {{Boomerangue.compra_minima_vlr|floatformat:2}}</h5>
+          </div>
+          <div class="col text-center">
+            <h6 class="font-roboto">QTD Mínima</h6>
+            <h5 class="mb-0 font-roboto font-primary mt-1">{{Boomerangue.compra_minima_qtd|floatformat:0}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-12">
+      <div class="card special-discount">
+        <div class="card-body">
+          <div class="discount-slide owl-carousel owl-theme">
+            <div class="item">
+              <div class="row discount-block">
+                <div class="col-xl-7 col-lg-12 dash-xl-100">
+                  <div class="discount-detail">
+                    <div>
+                      <h5> Término da campanha em <span class="font-primary f-w-500">{{Boomerangue.campanha.data_fim|date:'d/m/Y'}}</span></h5>
+                      <h3 class="m-auto">Tempo restante da campanha <span class="font-primary"></span></h3>
+                      <ul class="timer-sec countdown">
+                        <li>
+                          <h6 class="font-primary m-0 days"></h6><span class="font-dark">Dias </span>
+                        </li>
+                        <li>
+                          <h6 class="font-primary m-0 hours"> </h6><span class="font-dark">Horas</span>
+                        </li>
+                        <li>
+                          <h6 class="font-primary m-0 minutes"> </h6><span class="font-dark">Min</span>
+                        </li>
+                        <li>
+                          <h6 class="font-primary m-0 seconds"> </h6><span class="font-dark">Seg</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-5 col-lg-12 dash-xl-100">
+                  <div class="img-wrraper" style="display: flex; justify-content: center; align-items: center;"><img class="img-fluid" style="width: 90px; height: 90px;" src="{% static 'assets/images/ampulheta.png' %}"
+                      alt=""></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="col-12">
+        <div class="card bg-primary get-support">
+          <div class="card-body">
+            <div class="support-sec-img"><img class="img-fluid" src="{% static 'assets/images/dashboard-2/support-img.png' %}"
+                alt=""></div>
+            <div class="support-detail">
+              {% if Boomerangue.template.campanha_motivo != 'MKT' %}
+                <h5>Dê uma olhada neste boomerangue!</h5>
+                <p>Cheque como a oferta está aparecendo </p><a class="btn btn-outline-white_color"
+                  href="/oferta/{{Boomerangue.token_bm}}" target="_blank">Ver</a>
+              {% else %}
+                <h5>Fique por dentro dos dados e do feedback dos leads!</h5>
+                <p>Acompanhe por aqui sua campanha e os dados do boomerangue enviado para {{Boomerangue.entidade.Entidade}}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </div>
+</div>
+
+<div class="col-12 call-chat-body">
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="row chat-box">
+        <!-- Chat right side start-->
+        <div class="col chat-right-aside">
+          <!-- chat start-->
+          <div class="chat">
+            <!-- chat-header start-->
+            <div class="media chat-header clearfix">
+              <div class="media-body">
+                <div class="about">
+                  <div class="name">Histórico de mensagens</div>
+                </div>
+              </div>
+              
+            </div>
+            <!-- chat-header end-->
+            <div class="chat-history chat-msg-box custom-scrollbar" id="chat_box_history">
+              <div class="loader-box" id="loader" style="display: none;">
+                <div class="loader-2"></div>
+              </div>
+              <ul id="tbody_msgs">
+                
+              </ul>
+            </div>
+            <!-- end chat-history-->
+            <div class="chat-message clearfix">
+              <div class="row">
+                <div class="col-xl-12 d-flex">
+                  <div class="smiley-box bg-primary">
+                    <div class="picker"><img src="{% static 'assets/images/smiley.png' %}" alt=""></div>
+                  </div>
+                  <div class="input-group text-box">
+                    <input class="form-control input-txt-bx" id="message-to-send" type="text" name="message-to-send"
+                      placeholder="Type a message......">
+                    <button class="btn btn-primary input-group-text" type="button">SEND</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end chat-message-->
+            <!-- chat end-->
+            <!-- Chat right side ends-->
+          </div>
+        </div>
+      </div>
+      <!-- Container-fluid Ends-->
+    </div>
+  </div>
+</div>
+
+
+<div class="col-xl-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Historico de {% get_string_personalizada 'Compras' %}</h5>
+        </div>
+        <div class="me-2">
+          <select class="form-control" id="filtro_status_doc" >
+            <option value="">Todas</option>
+            <option value="O">Validadas</option>
+            <option value="N">Não validadas</option>
+          </select>
+        </div>
+        <div class="me-2">
+          <a href="javascript:void(0)" class="btn btn-primary" id="export_historico">Exportar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th><span>Campanha</span></th>
+              <th><span>Valor</span></th>
+              <th><span>Data</span></th>
+              <th><span>Detalhes</span></th>
+            </tr>
+          </thead>
+          <tbody id="body_pagamentos_entidade">
+            
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader-pagamentos-entidade" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <nav aria-label="...">
+            <ul class="pagination pagination-primary" id="pagination-pagamentos-entidade">
+                <li class="page-item disabled" id="previous-page-pagamentos-entidade">
+                    <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item" id="next-page-pagamentos-entidade">
+                    <a class="page-link" href="javascript:void(0)">Próximo</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-bookmark" id="modal-pix-detalhes" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalhes do pagamento</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+            <div class="form-row">
+              <div class="row">
+                  <div class="col m-b-20">
+                    <label for="">Tipo pagamento</label>
+                    <select class="form-control" id="tipo_pagamento">
+                      <option value="PIX">Pix</option>
+                      <option value="CARTAO">Cartão</option>
+                      <option value="BOLETO">Boleto</option>
+                      <option value="DINHEIRO">Dinheiro</option>
+                    </select>
+                  </div>
+                  <div class="col m-b-20">
+                    <label for="">Valor</label>
+                    <input type="text" id="valor" maxlength="10" class="form-control">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col m-b-20">
+                    <label for="">Data de pagamento</label>
+                    <input type="text" id="data_tx" class="form-control">
+                  </div>
+                  <div class="col m-b-20">
+                    <label for="">recorrencia</label>
+                    <select class="form-control" id="recorrencia">
+                      <option value="UNICO">UNICO</option>
+                      <!-- <option value="APROVADO">APROVADO</option> -->
+                    </select>
+                  </div>
+                  <div class="col m-b-20">
+                    <label for="">Status</label>
+                    <select class="form-control" id="status">
+                      <option value="PENDENTE">PENDENTE</option>
+                      <option value="APROVADO">APROVADO</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col m-b-20 d-none" id="comprovante">
+                    <form class="dropzone" id="importComprovante" action="/api/bmm_template/">
+                      <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                          <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                      </div>
+                    </form>
+                </div>
+                <div class="col m-b-20 d-none" id="ver_comprovante">
+                  <a href="javascript:void(0)" class="btn btn-success text-white" target="_blank" id="btn_ver_comprovante">Ver comprovante</a>
+                  <a href="javascript:void(0)" class="btn btn-danger text-white ms-2" id="excluir_comprovante">Excluir Comprovante</a>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col m-b-20 d-none" id="pix">
+                  <label for="">Pix Copia e cola gerado</label>
+                    <textarea id="pix_copia_cola" rows="5" class="form-control"></textarea>
+                    <button type="button" class="btn btn-info mt-2" id="verifica_pagamento">Verificar pagamento</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" id="salvar_comprovante">Salvar</button>
+            <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  <script>
+    let data_final = '{{Boomerangue.campanha.data_fim|date:"d/m/Y"}}'
+    let hora_final = '{{Boomerangue.campanha.horario_fim}}'
+    let final = data_final +' '+hora_final;
+    let entidade_nome = '{{breadcrumb.child}}'
+
+  </script>

@@ -1,0 +1,124 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+{% load tags %}
+<div class="col-xl-9 xl-60">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">{% trans 'Histórico' %} {% get_string_personalizada 'vendas' %}</h5>
+        </div>
+        <h5 class="mb-0"><span id="cont">({{count}})</span> <span id="soma">R$ {{total|floatformat:2}} </span></h5>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive" id="div_scroll" style="height: 70vh; overflow-y: scroll;">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Lead' %}</span></th>
+              <th> <span>{% trans 'Total' %} {% get_string_personalizada 'Compra' %}</span></th>
+              <th> <span>{% trans 'Campanha' %}</span></th>
+              <th> <span>{% trans 'Data' %} {% get_string_personalizada 'Compra' %}</span></th>
+              <th> <span>{% trans 'Tipo' %}</span></th>
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+          
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <nav aria-label="...">
+          <ul class="pagination pagination-primary" id="pagination">
+              <li class="page-item disabled" id="previous-page">
+                  <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+              </li>
+              <li class="page-item" id="next-page">
+                  <a class="page-link" href="javascript:void(0)">Próximo</a>
+              </li>
+          </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="modal fade modal-bookmark" id="modal-importar-arquivo" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Importar Arquivo</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                  <div class="col m-b-20">
+                      <form class="dropzone" id="csvImportarquivo" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="new_csv">Importar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- <div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Grade' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="Grade">{% trans 'Grade Nome' %}</label>
+                          <input class="form-control" id="Grade" type="text" required="" maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="NroInicial">{% trans 'Nº Inicial' %}</label>
+                          <input class="form-control" id="NroInicial" type="text" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="NroFinal">{% trans 'Nº Final' %}</label>
+                          <input class="form-control" id="NroFinal" type="text" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="row d-block d-sm-flex" id="div_grades">
+                        <label for="">{% trans 'Grades' %}</label>
+                        <div class="col-sm-2 m-b-20">
+                          <input class="form-control" id="Grade01" data-cont="1" type="text" maxlength="50" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <input id="index_var" type="hidden" value="6">
+                    <button class="btn btn-success" id="add_grade" type="button" >{% trans 'Adicionar grade' %}</button>
+                    <button class="btn btn-danger" id="delete_grade" type="button" >{% trans 'Excluir grade' %}</button>
+                    <button class="btn btn-secondary" id="salvar_categoria" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> -->

@@ -1,0 +1,1117 @@
+{% load sass_tags %}
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+    <!-- Required meta tags -->
+	<meta name="theme-color" content="#FE4170">
+	<link rel="canonical" href="/oferta/{{dados.token_bm}}">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 	<meta name="apple-mobile-web-app-title" content="Boomerangue">
+ 	<link rel="apple-touch-icon" href="assets/img/logo/logo1.png">
+ 	<!-- <link rel="manifest" id="my-manifest-placeholder" href="../manifest.php?user="> -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:title" content="{{template.TextoPromocional}}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:description" content="{{template.TextoPromocional}}" />
+	<meta property="og:url" content="https://boomerangue.me/oferta/{{dados.token_bm}}"/>
+	<meta property="og:image" content="{{template.ImageBannerMobile}}" />
+	<meta property="og:image:secure_url" content="" /> 
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:site_name" content="Boomerangue" />
+	<link rel="manifest" href="{% url 'manifest' token=dados.token_bm %}">
+	<meta name="description" content="{{template.TextoPromocional}}">
+	<link rel="shortcut icon" href="{% static 'assets/images/logo/boomerangue.png' %}" type="image/x-icon"/>
+    {% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/font-awesome.css' %}">
+	<!-- ico-font-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/icofont.css' %}">
+	<!-- Themify icon-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/themify.css' %}">
+	<!-- Flag icon-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/flag-icon.css' %}">
+	<!-- Feather icon-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/feather-icon.css' %}">
+	<!-- Plugins css start-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/scrollbar.css' %}">
+
+	<!-- Plugins css Ends-->
+	<!-- Bootstrap css-->
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/bootstrap.css' %}">
+	<!-- App css-->
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}"> -->
+	<!-- Responsive css-->
+	<link rel="stylesheet" href="{% static 'assets/css/testi.css'%}" >
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+	<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/sweetalert2.scss' %}">
+	<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+    {% endblock css %}
+    <style>
+       	@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+		.banner{
+        	border-radius:10px;
+        }
+		.banner-pc {
+			display: none;
+		}
+
+		@media only screen and (min-width: 768px) {
+			.banner-pc {
+				display: block;
+			}
+			.banner-mobile {
+				display: none;
+			}
+		}
+        @media screen and (max-width:600px) {
+            body{
+                overflow-x:hidden;
+            }
+            .banner{
+                width:100%;
+            }
+            #desc{
+		font-size: 0.9em;
+		text-align: center;
+	    }
+        
+    }
+	
+    </style>
+    
+
+
+
+    <title>{{template.TextoPromocional}}</title>
+</head>
+    <!-- Not required if jQuery is already loaded -->
+
+<body>
+<script>
+
+// cadastra o token gerado em all_boomerangue_users    
+function enviaToken(token){
+		var data = {
+			userToken: token
+		};
+		fetch('{% url "send_token" %}',{
+			method:"POST",
+			headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: new URLSearchParams(data)
+		}).then((res)=>res.json())
+		.then(data=>{
+			console.log("Token Enviado!")
+		})
+}
+	// Cadastra o token gerado no topics 	
+	function cadastroTopic(token){
+		var url = window.location.hostname; // obtém o nome do host da URL
+		var parts = url.split('.'); // divide a URL em partes
+		var subdomain = parts[0]; // pega a primeira parte da URL que é o subdomínio
+
+		var data = {
+			userToken: token,
+			prefixo:subdomain
+		};
+		fetch('{% url "cadastro_topic" %}',{
+			method:"POST",
+			headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: new URLSearchParams(data)
+		}).then((res)=>res.json())
+		.then(data=>{
+			console.log("Topico cadastrado!")
+		})
+    	
+    }
+
+var tokenUser='{{dados.token_bm}}';
+if ("serviceWorker" in navigator) {
+ if (navigator.serviceWorker.controller) {
+ console.log("[PWA Builder] active service worker found, no need to register");
+ } else {
+ // Register the service worker
+ navigator.serviceWorker
+ .register("/pt/pwabuilder-sw.js",{scope:'./'})
+ .then(function (reg) {
+ console.log("[PWA Builder] Service worker has been registered for scope:"+reg.scope);
+ });
+
+
+ }
+}
+
+</script>
+    <div class="wrapper" id="loading" style="display:block;">
+        <div class="bolas"></div>
+        <div class="bolas"></div>
+        <div class="bolas"></div>
+        <div class="sombra"></div>
+        <div class="sombra"></div>
+        <div class="sombra"></div>
+        <span>Carregando Ofertas</span>
+    </div>
+
+<div id="conteudo" style="display:none;">
+    <!-- Navigation -->
+    <!-- Navigation -->
+    <div class="w-100 faixa fixed-top"></div>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mb-3">
+    <div class="container">
+        <div class="d-flex col-md-6 col-11 align-items-center">
+    		<div class='d-block d-lg-none'>
+    			<img class="mt-0 ms-0" height="26" width="32" alt="loginho"  src="assets/img/logo/logo1.png">
+    		</div>
+            <div class="col-lg-11 p-lg-0 col-md-12 col-11">
+            	<a class="navbar-brand " id="titu2" href="#">{{template.TextoHeader}}</a>
+            </div>
+			<div class="col-md-12  col-lg-8 text-center   align-items-center" id="ola">
+                <ul>
+                	<li><a class="float-end mbs pe-md-5 pe-auto" href="/campanhas_cliente/{{dados.token_bm}}">Campanhas</a></li>
+                	<li><a class="mbs float-start" href="/meus_pedidos/{{dados.token_bm}}">Meus Pedidos</a></li>
+                </ul>
+               
+            </div>
+        
+            <input type="checkbox" id="btMenu">
+        	<label for="btMenu" onclick="checado()" id="men"><i class="bi bi-list"></i></label>
+        </div>
+            <img id="logo" class="d-none d-lg-block" alt="Boomerangue" src="{% static 'assets/images/logo/boomerangue_logo3.png' %}">
+    </div>
+    </nav>
+
+
+ <div class="container" onclick="" style="margin-top:10vh;">
+    	<header class="">
+    	<div class="row justify-content-center ms-0 me-0">
+            
+			<img class="w-100 p-0 banner banner-pc" alt="Banner"    src="/media/{{image_banner_pc}}" />
+			<img class="w-100 p-0 banner banner-mobile" alt="Banner"    src="/media/{{image_banner_mobile}}" />         
+ 
+
+    	</div>
+	</header>
+       		<div class="row">
+        		<div class="col-12">
+        			<div class="col-12 text-danger fw-bold mb-0"  style="margin-top:2vh;" id="titulo">
+                		<p class="listaOferta" ><b>{{template.TextoPromocional}}</b></p>
+        			</div>
+        		</div>
+            </div>
+            <div class="row">
+      			<div class="col-md col-12">
+					<div class="d-flex">
+						<div class="col-6">
+							<div class="">
+								<span class="border-0 pe-0">Cliente</span><br>
+								<p class="fw-bold">{{dados.entidade.Entidade}}</p>
+								
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="">
+							{% with dados.entidade.CNPJ|remove_non_numeric as cnpj_numerico %}
+								{% if cnpj_numerico|length == 11 %}
+									<script>
+										var testt=1;
+									</script>
+									<span class="border-0 pe-0">CPF</span><br>
+								{% else %}
+									<span class="border-0 pe-0">CNPJ</span><br>
+								{% endif %}
+								<p id="cpfcnpj" class="fw-bold ">{{ cnpj }}</p>
+							{% endwith %}
+							</div>
+						</div>
+					</div>
+					<div class="d-flex mt-3">
+						<div class="col-6">
+							<div class="">
+								Pedido<BR><span class="fw-bold">{{dados.chave_busca}}</span>
+	
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="">
+								<class="mb-0">Validade<BR><span class="text-danger fw-bold ">{{dados.campanha.data_fim|date:"d/m/Y"}} às {{dados.campanha.horario_fim}}</span>
+		
+							</div>
+						</div>
+					</div>
+           		</div>
+				
+            	<div class="col-md-6 col-12 mt-md-0 mt-4">
+            	<div class="d-flex">
+            		<div class="col-6">
+                		<div class="">
+                    		<span class="border-0 pe-0">Prazo Pagamento</span><br>
+                            <div class="col-10">
+                                <select {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N'  %} disabled {% endif %} id="condicao_pagamento" class="js-example-basic-single col-12" >
+                                    <option value="">Condições de Pagamento</option>
+                                    {% for condicao in condicoes %}
+                                        <option value="{{condicao.pk}}" {% if dados.condicoes_pagamento.pk == condicao.pk %} selected {% endif %}>{{condicao.condicoes_pagamento}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                		</div>
+            		</div>
+            		<div class="col-6">
+    					<span class="border-0">Frete</span><br>
+                    	 <p class="fw-bold" style="color:black;">{% if dados.tipo_frete == 'C' %}CIF{% elif dados.tipo_frete == 'F' %}FOB{% endif %}</p>
+            		</div>
+                </div>
+					<div class="d-flex">
+            		<div class="col-6  pe-1" >
+                    	Distribuidor<BR><span class="fw-bold">{{distribuidor}}</span>
+            		</div>
+
+            		<div class="col-6 order-4">
+                		<div class="ms-0" >
+                        	<class="mb-0">{% get_string_personalizada 'Vendedor' %}<BR><span class="fw-bold" style="font-size:0.9em;"> {{dados.vendedor.Vendedor}}</span>
+                		</div>
+            		</div>
+                    </div>
+               </div>
+       		</div>
+            
+
+        <!-- CONTENT -->
+        
+    <!--</div>-->
+
+    {% if dados.bm_aceito == 'S'  %}
+        <p class="alert alert-success mt-2">Foi enviado em <b>{{dados.data_aceite_bm|date:'d/m/Y'}}</b>. Se você precisar fazer alterações, entre em contato com a área comercial. </p>
+    {% elif dados.bm_ativo == 'N' %}
+        <p class="alert alert-danger mt-2">Boomerangue Encerrado!</p>
+    {% endif %}
+    <div class="mt-lg-3 mt-0">
+        <div class="row justify-content-start mb-0">
+            {% for produto in produtos %}             
+            <div class="mt-md-0 mt-3 col-md-4 col-lg-3 col-6 tdf">
+                <div class="linhaa">
+                    <div class="inform">
+                        <a href="#produto" id="prdt" onclick="md(this, '{{produto.pk}}', '{{produto.valor_total_item|custom_floatformat:2}}', '{{produto.multiplo_boomerangue|floatformat:0}}', '{{produto.quantidade_minima|floatformat:0}}', '{{produto.quantidade_maxima|floatformat:0}}');">
+                        <div class="cat text-center">
+                            <img class="imp" loading="lazy" alt="imagem" onerror="this.onerror=null;this.src='{% static 'assets\images\banner\Produto-sem-foto.png' %}';" src="{{produto.produto.PathProduto}}">
+                        </div>
+                        <p class="ddesc"><b>{{produto.produto.Descricao_Amigavel}}</b></p>
+                        <p class="sku d-flex w-100"><span class='SKUcodigo'>SKU {{produto.produto.SKU}}</span> <span class="ms-lg-3 ms-1 caixaqtde">{% if produto.MultiploCaixa|floatformat:0 > 1 %} CX c/ {{produto.MultiploCaixa|floatformat:0}} DY {% else %} {{produto.MultiploCaixa|floatformat:0}} UN {% endif %}</span></p>
+                        <div class="uni">
+                            <div class="d-md-flex d-block descontos">
+                                <div class=" {% if produto.valor_total_item != produto.valor_sem_desconto %} d-flex {% else %} d-none {% endif %}" id='descontin'>
+                                    <span class="dell">de</span>
+                                    <span class="dell ms-1 fw-bold">R$ {{produto.valor_sem_desconto|custom_floatformat:2}}</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="dell {% if produto.valor_total_item != produto.valor_sem_desconto %} ms-lg-3 {% endif %}">por</span><span class="teste1 ms-lg-2 ms-1" >R$ {{produto.valor_total_item|custom_floatformat:2}}</span>
+                                    <span class="unidy"></span>
+                                </div>
+                            </div>
+                        </div>
+                        {% if produto.valor_total_item != produto.valor_sem_desconto %}
+                            <p class="cxx text-danger mt-md-2 mt-0">{{produto.percentual_desconto|custom_floatformat:2}}% Desconto</p>
+                        {% endif %}
+                        </a>
+                    </div>
+                    <div class="price-box mb-lg-0 mb-2 ">
+                        <div class="price1">
+                            
+                                <p class="price mt-lg-3 mt-0 text-lg-center text-left" id="cifrao_{{produto.pk}}"  style="{% if produto.ValorTotalCompra|floatformat:'0' > '0' %} opacity: 1;{% else %} opacity: 0;{% endif %}">R$ <span class="totalUnitario" id="somaProduto_{{produto.pk}}">{{produto.ValorTotalCompra|custom_floatformat:2}}</span></p>
+                            
+                        </div>
+                    
+
+                        <div class="input-group plus-minus-input">
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMenos" style="margin-right:2px;" class="button hollow circle btt" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N'  %} disabled {% endif %} onclick="sub('produto_{{produto.pk}}')">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                                    <input class="input-group-field qtdd quantidadeItens" name="produto_{{produto.pk}}" id="produto_{{produto.pk}}" value="{{produto.QuantidadeCompradaUN|floatformat:'0'}}" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N'  %} disabled {% endif %} data-id="{{produto.pk}}" data-unival="{{produto.valor_total_item|floatformat:'0'}}" data-usamulti="" data-multi="{{produto.multiplo_boomerangue|floatformat:'0'}}" type="number" min="{{produto.quantidade_minima|floatformat:'0'}}" max="{{produto.quantidade_maxima|floatformat:'0'}}" onchange="onChangeQuantidade(this)" {% if produto.quantidade_minima == produto.quantidade_maxima %} disabled {% endif %}>
+                                                                
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMais" style="margin-left:2px;" class="button hollow circle btt" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N'  %} disabled {% endif %} onclick="add('produto_{{produto.pk}}')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>
+               
+                </div>
+             
+            </div>
+            {% endfor %}
+		</div>
+    <div class="row justify-content-center mt-lg-4 mt-0" id="y">
+        <div class="me-5 col-12 ms-5 cnt mt-0">
+            <div class="card mt-0">
+                <div class="row justify-content-between d-flex align-items-center">
+				
+				<span id="somaTotalProdutos" class="d-none">{{dados.TotalProdutos|custom_floatformat:2}}</span>
+				<p class="text-muted small d-none">* Valor mínimo {{dados.compra_minima_vlr}} reais</p>
+                <div id="minval" class="d-none">{{dados.compra_minima_vlr}}</div>
+
+					
+
+                    <div class="col-lg-6 col-12 mt-4 order-lg-1 order-2 d-flex justify-content-md-start justify-content-center">
+                       
+
+						<div style="width: 180px; height:180px;">
+							<div class="sidebar-img-content">
+								<a href="{{template.LinkFooter}}" aria-label="Cadastre-se" target="_blank"  class="d-flex flex-wrap align-items-center imgmarket ms-lg-5 mt-xl-4 mt-sm-0">
+									<img class="img-fluid" src="/media/{{image_footer}}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+								</a>
+							</div>
+						</div>
+
+                        <!-- <a href="{{template.LinkFooter}}" aria-label="Cadastre-se" target="_blank"  class="d-flex flex-wrap align-items-center imgmarket ms-lg-5 mt-xl-4 mt-sm-0">
+                            <img class="mb-lg-5 mb-0 imgmarket" loading="lazy" alt="cadastre-se" width="255" height="125" src="/media/{{image_footer}}">
+                        </a> -->
+                      
+                    </div>
+                    <div class="col-lg-6 col-12 mt-2 order-lg-1 order-1">
+                            {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N' %}
+                        	    <p class='vlrminimo text-danger'>*Campanha encerrada</p>
+                            {% endif %}
+
+							
+                    		<p class='vlrminimo text-danger'>*Valor mínimo da {% get_string_personalizada 'Compra' %}: R$ {{dados.compra_minima_vlr|custom_floatformat:2}} </p>
+                        
+                        <p style="font-size: 90%"><BR>
+                			&nbsp✔️ A entrega será feita pelo Distribuidor:<B> {{distribuidor}} </B> da Sua Região<BR>
+                			&nbsp🙋🏼‍♀️  <I>Para maiores informações, entre em contato com seu vendedor <B>{{dados.vendedor.Vendedor}}</B> ou Central de Atedimento 📞 (0800) 077-1212</I>.</p>
+                    </div>
+                     
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+  </div>
+    
+    <a href="#comprar" class="{% if dados.bm_ativo == 'N' %} disabled {% endif %}" id="abreModal" onclick="abreModal();">                        
+    <div class="preco_mobile d-flex align-items-center {% if dados.TotalProdutos < dados.compra_minima_vlr or dados.bm_ativo == 'N' %} bg-dark {% endif %}" id="btn_preco">
+		<div class="mt-2 d-flex ms-4 col-6 totalsoma2">
+            <div class="iconB">
+                <div class="contadora" id="contadora"><p id="contagem"></p></div>
+            	<i class="bi bi-handbag"></i>
+        	</div>
+            <div class="ms-2 d-block">
+        		<p id="soma">Total</p> 
+            	<p class="ttp" id="soma2">R$ {{dados.TotalProdutos|custom_floatformat:2}}</p>
+            </div>
+		</div>
+        <div class="mt-2 divComp col-6">
+             <p class="comp" id="divComp">{% if dados.bm_aceito == 'S' %} Ver Pedido {% elif dados.bm_ativo == 'N' %} Campanha Encerrada {% else %} Clique aqui para {% get_string_personalizada 'Comprar' %} {%endif%} </p>
+        </div>
+     
+    </div>
+	</a>
+     <div class="modal" id="comprar" tabindex="-1">
+        <a href="#comprando" class="modal__overlay" aria-label="Fechar"></a>
+        <div class="modal__content">
+            <a href="#comprando" class="modal__close" aria-label="Fechar"><i class="bi bi-x-lg"></i></a>
+                    <h4 class="modalTitu">Carrinho de {% get_string_personalizada 'Compra' %}
+					</h4>
+         				<div class="container d-flex">
+                            <div class="d-block">
+                            	<div class="row d-lg-flex text-start d-none">
+                            		<div class="col-8   ">
+                            			<p class="ms-3">Produto</p>
+                            		</div>
+                            		<div class="col-2 ">
+                            			<p>Quantidade</p>
+                            		</div>
+                            		<div class="col-2 ">
+                            			<p>Total R$</p>
+                            		</div>
+                            	</div>
+            					<div class="row d-flex justify-content-center">
+                						<div class="items-modal" id="itemsM">		
+                            			</div>
+                        		</div>
+								<div class="d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-4">
+ 								 
+                            		<h4 class="tt3">Total:<h4 id="soma3" class="ms-1">R$ {{dados.TotalProdutos|custom_floatformat:2}}</h4></h4>
+                            	</div>
+                            <div class="d-flex justify-content-center">
+                            	{% if dados.bm_aceito == 'N' and dados.bm_ativo == 'S' %}
+                            	<form id="form-enviar" action="#" method="POST" class="col-lg-6 col-12">
+									<p class='vlrminimo'>*Valor mínimo da {% get_string_personalizada 'Compra' %}: R$ {{dados.compra_minima_vlr|custom_floatformat:2}}</p>
+               					 	<input id="cpf2" name="cnpj" class="form-control mb-3 col-12" type="text" maxlength="18" required placeholder="Informe seu CNPJ">
+                                	 <div class="row d-none justify-content-between px-4" id="tax"></div>
+                                    
+                                    	<script>
+                                    		setTimeout(()=>{
+                                					document.getElementById("msg").style.display="none";
+                                			},3000);
+                                    	</script>
+               						 	<p class="AlertaMsg" id="msg"></p>
+            						
+                                	<button id="buybtn" style="height:50px; border-radius:3px; font-size:1.2em;{% if dados.TotalProdutos < dados.compra_minima_vlr or dados.bm_ativo == 'N' %} bg-dark {% endif %}" {% if dados.TotalProdutos < dados.compra_minima_vlr or dados.bm_ativo == 'N' %} disabled {% endif %} class="btn-block btn-blue bg-primary mt-1 text-white fw-bold w-100 ">{% get_string_personalizada 'Comprar' %} <i class="bi bi-cart-check"></i></button>
+                                    <p id="textCnpj" class="text-danger mt-3"></p>
+            					</form>
+
+                        		{% else %}
+								
+                                    
+                        		
+                             		<div class="d-md-flex d-block">
+                                		
+                            			<a  style="color: #fff;" target="_blank" class="btn btn-danger">Campanha Encerrada</a>
+                                        
+                                		<a  style="color: #fff;" href="/gerar_pdf/{{dados.token_bm}}" target="_blank" class="btn imprimir ms-md-1 ms-0 mt-md-0 mt-2"><i class="bi bi-file-earmark-arrow-down"></i> Imprimir pedido</a>
+                                	</div>
+                        		
+                                {%endif%}
+                                
+                                
+
+
+                            </div>
+                                <div class="mt-2">
+						    {% if dados.bm_aceito == 'S' %}
+        						<p class="textomodal alert alert-success">Foi enviado em <b>{{dados.data_aceite_bm|date:'d/m/Y'}}</b>. Se você precisar fazer alterações, entre em contato com a área comercial. </p>     
+							{% endif %}                         
+   						</div>
+							</div>
+                		</div>
+              
+        	</div>
+    </div>
+           
+  <!-- MODAL PRODUTOS-->
+                                
+        <div class="modal" id="produto" tabindex="-1">
+        <a href="#comprando" class="modal__overlay" onclick="limpa();" aria-label="Fechar"></a>
+        <div class="modal__content">
+            <a href="#comprando" class="modal__close" onclick="limpa();" aria-label="Fechar"><i class="bi bi-x-lg"></i></a>
+            <div class="nopadding">
+              	<div class="col-12 align-items-center justify-content-center" id="mudafocus">
+                	<div id="img-container" class="col-lg-6 col-12 text-center">
+                    	<div id="lens"></div>
+                       	<div class="cat2">
+                    		<img id="modalImg">
+                        </div>
+                	</div>
+                	<div class="col-lg-6 col-12 text-lg-start text-center modaltexts mt-lg-0 mt-3">
+                        <div class="w-100 ">
+                    		<p id="modalNome"></p>
+                        </div>
+                        <div class="w-100">
+                    		<p id="modalDesc"></p>
+                        </div>
+                    	<div class="d-flex justify-content-lg-start justify-content-center w-100">
+                                <div class="d-block">
+                                	<p id="desconto"></p>
+                                	<div class="d-flex">
+                                	<p id="modalPreco" class="text-danger fw-bold"></p><p id="undy"></p>
+                               		</div>
+                                </div>
+                        </div>
+                        <div class="w-100">
+                    		<p id="promocao" class="text-danger"></p>
+                        </div>
+                	</div>
+                </div>
+                <div class="d-block align-items-center justify-content-center">
+                    <p id="smtotal" class="col-12"></p>
+ 					<div class="input-group plus-minus-input justify-content-center col-12">
+  						<div class="input-group-button">
+    						<button type="button" class="button hollow circle btt me-1" id="btnModalProdMenos" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N' %}disabled{% endif %}  onclick="subalt();">
+      							<i class="fa fa-minus" aria-hidden="true"></i>
+    						</button>
+  						</div>
+  						<input class="input-group-field qtdd  inputModal" type="number" value="0" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N' %}disabled{% endif %}   onchange="somatoria(this);">
+  					
+                    
+               			
+                    	<div class="input-group-button">
+    						<button type="button" class="button hollow circle btt ms-1" id="btnModalProdMais" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N' %}disabled{% endif %}  onclick="addalt();">
+      							<i class="fa fa-plus" aria-hidden="true"></i>
+    						</button>
+  						</div>
+        
+					</div>
+                    
+                </div>
+                 <div class="mt-lg-5 mt-4">
+                	  <a href="#comprando" aria-label="Fechar" type="button" class="btn  btnAdcarrinho" {% if dados.bm_aceito == 'S' or dados.bm_ativo == 'N' %}disabled{% endif %}  onclick="addCarrinho(this);">
+      							<i class="fa fa-plus" aria-hidden="true"></i> Adicionar ao carrinho
+    					</a>      
+                </div>
+
+            </div>
+        </div>
+    </div>                       
+                                
+                                
+    <footer class="bg-img-repeat mt-0 foot" id="foot">
+
+    <div class="page-header-ui-content">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-xl-12 col-lg-12 text-center mb-5">
+                        <h6 class="page-header-ui-title">© 2024 - Boomerangue. All rights reserved.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SXJE0BPHF6"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SXJE0BPHF6');
+    </script>                        
+                            
+    </footer>
+</div>
+
+
+    <!-- Page Content -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	<link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/css/indexi.css' %}" >
+	<script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+	<!-- Bootstrap js-->
+	<script src="{% static 'assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+	<!-- feather icon js-->
+	<script src="{% static 'assets/js/icons/feather-icon/feather.min.js' %}"></script>
+	<script src="{% static 'assets/js/icons/feather-icon/feather-icon.js' %}"></script>
+	<!-- scrollbar js-->
+	<!-- Sidebar jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.11.2/jquery.mask.js" integrity="sha512-bwanfE29Vxh7VGuxx44U2WkSG9944fjpYRTC3GDUjh0UJ5FOdCQxMJgKWBnlxP5hHKpFJKmawufWEyr5pvwYVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script src="{% static 'assets/js/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'assets/js/select2/select2-custom.js' %}"></script>
+	<script src="{% static 'assets/js/sweet-alert/sweetalert.min.js' %}"></script>
+    <script src="{% static 'assets/js/script2.js' %}"></script>
+	<script type='module' src="{% static 'assets/js/firebase.js' %}"></script>
+	<script src="{% static 'assets/js/mobile_menu.js' %}"></script>
+	<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+	<script src="{% static 'assets/js/notify/bootstrap-notify.min.js' %}"></script>
+	<script src="{% static 'assets/js/notify/notify-script.js' %}"></script>
+  
+	<script>
+	var languageCode = '{{ LANGUAGE_CODE }}';
+	
+	// Envia o token do usuario que instalou o app 	
+    function instaled(ins,chave){
+		const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+		// Extrai o valor do csrftoken do cookie
+		const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+    	var keygoo=''
+    	if(chave!=""){
+        	keygoo=chave;
+        }
+    	fetch('/pt/api/log_bmm/',{
+			method:"POST",
+			headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': csrftoken,
+			},
+			body:JSON.stringify({
+				tipolog_id: 'B',
+				acao_id:ins,
+				boomerangue: '{{dados.pk}}',
+				entidade_id:'{{dados.entidade.pk}}',
+				Token: '{{dados.token_bm}}',
+				Telefone: '{{dados.entidade.Telefone1}}',
+				Complemento2: keygoo,
+
+
+				
+			})
+		}).then((res)=>res.json())
+		.then(data=>{
+			console.log(data)
+		})
+
+    }
+	// verifica se o usuario entrou pelo app 	
+	function isRunningStandalone() {
+    return (window.matchMedia('(display-mode: standalone)').matches);
+	}
+	if (isRunningStandalone()) {
+    		var ins='INST';
+   			instaled(ins);
+	}
+	 window.addEventListener('appinstalled', () => {
+  	// If visible, hide the install promotion
+    		instaled(ins='INST');
+  // Log install to analytics
+  		console.log('INSTALL: Success');
+		});
+
+	$(".imprimir").on("click",function(){
+    	instaled(ins="PDF");
+    });
+	 function onChangeQuantidade(input){
+        console.log("Entrou aqui")
+    	contaItem();
+    	if(input.value < 0){
+        	input.value = 0;
+        }
+		
+    	inpt = $('#'+input.id)
+
+    	if(+(inpt.attr("min")) == +(inpt.attr("max"))){
+        	input.value = +(inpt.attr("min"));
+        	return;
+        }
+
+    	if(inpt.val() > +(inpt.attr("max"))){
+           input.value = +(inpt.attr("max"));
+        }
+
+    	if(inpt.val() > 0 && inpt.val() <= +(inpt.attr("min"))){
+        	input.value = +(inpt.attr("min"));
+        }
+
+    	//verificar se é multiplo de x
+    	while(inpt.val()%input.dataset.multi != 0){
+    	inpt.val(inpt.val()-1);
+    	}
+
+
+
+    	var id = input.dataset.id;
+        var valor_unid = input.dataset.unival;
+
+    	somarTotalUnitario(id, input.value, valor_unid);
+
+    	somarTotalDaCompra();
+    	setInput(input.name, valor_unid, "somaProduto_"+id, id); //Save in DB
+
+    	min = +($('#minval').text().replace(",","."));
+    	actual_val = +($("#somaTotalProdutos").text().replace(",","."));
+     	console.log("aqeqeq",$("#somaTotalProdutos").text())
+        document.getElementById("soma2").innerText="R$ "+actual_val.toLocaleString('pt-br', {minimumFractionDigits: 2});
+		document.getElementById("soma3").innerText="R$ "+actual_val.toLocaleString('pt-br', {minimumFractionDigits: 2});
+
+    	if(actual_val >= min){
+        	buybtn_status(true);
+        }else{
+        	buybtn_status(false);
+        }
+
+    }
+
+    function sub(id){
+		inpt = $('#'+id)
+		var multi = inpt.data("multi");
+
+    	if(inpt.val() > +(inpt.attr("min"))){
+    			inpt.val(inpt.val()-multi);
+        }else{
+        	inpt.val(0)
+        }
+    	onChangeQuantidade(document.getElementById(id));
+    }
+
+    function add(id){
+		inpt = $('#'+id)
+        var multi = parseInt(inpt.data("multi"));
+		var max  = parseInt(inpt.attr("max"))
+		var min  = parseInt(inpt.attr("min"))
+		var val  = parseInt(inpt.val())
+    	if(val < max){
+    		inpt.val((val+multi));
+        }else if(val == max){
+
+        }else{
+        	inpt.val(min)
+        }
+    	onChangeQuantidade(document.getElementById(id));
+    }
+
+    function buybtn_status(is_enabled){
+        console.log("Byu", is_enabled)
+    	btn = document.getElementById('buybtn')
+    	btn.disabled = !is_enabled;
+    	btnCompra=document.getElementById('btn_preco');
+    	if(!is_enabled){
+            //btn.style.backgroundColor = 'green' ;
+        	btn.classList.add("bg-dark");
+        	btnCompra.classList.add("bg-dark");
+        	return;
+        }
+    	
+    	btnCompra.classList.remove("bg-dark");
+    	btn.classList.remove("bg-dark");
+    }
+
+	function contaItem(){
+    	var inputs=document.querySelectorAll(".quantidadeItens");
+    	var c=0
+    	for(i=0;i<inputs.length;i++){
+        	if(inputs[i].value!=0){
+        		c+=parseInt(inputs[i].value);
+            }
+        }
+    	if(c!=0){document.getElementById("contadora").style.opacity="1";}
+    	else{document.getElementById("contadora").style.opacity="0";}
+    	console.log("aqui",c);
+    	document.getElementById("contagem").innerText=c;
+    	
+    }
+
+    function getTotalItens(){
+    	var quantItens = $('.quantidadeItens');//Soma quantidade quando acessado no mobile
+
+    	var totalItens = 0;
+    	for (var i = 0; i < quantItens.length; i++) {
+        	var item = $(quantItens[i]);
+        	cont = parseInt(item.val());
+
+        	totalItens = totalItens + cont;
+    	}
+    	return totalItens;
+
+    }
+
+	$(".inputModal").on("focus",function(){
+    var largura = window.screen.width;
+    console.log(largura);
+    	document.getElementById('abreModal').style.display="none";
+  		if(largura < 700){
+    		document.getElementById('mudafocus').style.display="none";
+        }
+    });
+
+    $(".inputModal").on("focusout",function(){
+    	var largura = window.screen.width;
+    	document.getElementById('abreModal').style.display="inline-block";
+    	if(largura < 700){
+    		document.getElementById('mudafocus').style.display="inline-block";
+        }
+    });
+    
+    $("#cpf2").on("focus",function(){
+    	var largura = window.screen.width;
+    	document.getElementById('abreModal').style.display="none";
+  		if(largura < 700){
+    		document.getElementById('itemsM').style.display="none";
+        }
+    })
+    
+    
+    $("#cpf2").on("focusout",function(){
+    	document.getElementById('abreModal').style.display="inline-block";
+    	document.getElementById('itemsM').style.display="inline-block";
+    })
+	
+     window.onload=function(){
+    	document.getElementById("loading").style.display = "none";
+    	document.getElementById("conteudo").style.display = "inline";
+    }
+
+    $(document).ready(function() {
+    	abreModal();
+    	contaItem();
+    	instaled(ins="OPEN");
+    	$("#cpf2").mask("99.999.999/9999-99");
+    	$("#textCnpj").text("Informe o CNPJ para prosseguir")
+    		if(testt==1){
+            	$("#cpf2").mask("999.999.999-99");
+    			document.getElementsByName('cnpj')[0].placeholder='Informe seu CPF';
+            	$("#textCnpj").text("Informe o CPF para comprar")
+    		}
+		});
+
+    $('#form-enviar').submit(function(e) {
+		const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+		// Extrai o valor do csrftoken do cookie
+		const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+		e.preventDefault();
+		// $.notify({
+		// 		title:'Email: Erica Fisher',
+		// 		message:'Investment, stakeholders micro-finance equity health Bloomberg; global citizens climate change. Solve positive social change sanitation, opportunity insurmountable challenges.'
+		// 	},
+		// 	{
+		// 		type:'warning',
+		// 		allow_dismiss:false,
+		// 		newest_on_top:false ,
+		// 		mouse_over:false,
+		// 		showProgressbar:true,
+		// 		spacing:10,
+		// 		timer:2000,
+		// 		placement:{
+		// 			from:'top',
+		// 			align:'right'
+		// 		},
+		// 		offset:{
+		// 			x:30,
+		// 			y:30
+		// 		},
+		// 		delay:1000 ,
+		// 		z_index:10000,
+		// 		animate:{
+		// 			enter:'animated rotateIn',
+		// 			exit:'animated swing'
+		// 		}
+		// 	});
+    	
+		if($("#condicao_pagamento").val()==''){
+			swal({
+                        text: "Ocorreu um erro: Escolha uma condição de pagamento!" ,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                });
+				return;
+		}
+
+		swal({
+				title: "Aguarde",
+				text: "Processando sua solicitação...",
+				icon: "info",
+				buttons: false,  // Desativa o botão de confirmação
+				onOpen: () => {
+					swal.showLoading();  // Ativa o ícone de carregamento
+				}
+			});
+		fetch('/pt/api/compra_efetuada/{{dados.pk}}/',{
+			method:"PATCH",
+			headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': csrftoken,
+			},
+			body:JSON.stringify({
+				CNPJ: $("#cpf2").val(),
+				condicoes_pagamento: $("#condicao_pagamento").val()
+
+			})
+		}).then((res)=>res.json())
+		.then(data=>{
+			console.log(data)
+			if(data.error){
+				swal({
+                        text: "Ocorreu um erro: "+ data.error ,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                });
+			}
+			else{
+				swal({
+				title: "Compra Confirmada!",
+				text: "",
+				icon: "success",
+				timer: 1500,
+				buttons: false,  // Desativa o botão de confirmação
+				onOpen: () => {
+					swal.showLoading();  // Ativa o ícone de carregamento
+				}
+			}).then(
+             window.location.href='/pt/pedido_realizado/{{dados.token_bm}}'
+            )
+			}
+		})
+
+	});
+ 	
+                            
+    // Obtém o prefixo do navegador em questão
+
+// Envia o tempo que o usuário ficou na página
+
+document.addEventListener('visibilitychange', function(event) {
+  if (!document.hidden){
+  	instaled(ins='OPEN');
+  } else {
+  	mandatempo();
+  }
+});
+var ini=moment(new Date()); 
+function mandatempo(){
+	const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+		// Extrai o valor do csrftoken do cookie
+		const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+	var temp=moment(new Date());
+	var test=moment.duration(ini.diff(temp));
+	var tempo=Math.abs(test.asSeconds());
+	console.log(tempo);
+	fetch('/pt/api/log_bmm/',{
+			method:"POST",
+			headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': csrftoken,
+			},
+			body:JSON.stringify({
+				tipolog_id: 'B',
+				acao_id:'Tempo de visualização',
+				boomerangue: '{{dados.pk}}',
+				entidade_id:'{{dados.entidade.pk}}',
+				Token: '{{dados.token_bm}}',
+				Telefone: '{{dados.entidade.Telefone1}}',
+				Complemento1: tempo,
+			})
+		}).then((res)=>res.json())
+		.then(data=>{
+			if(data.id){
+				console.log('Log enviado!')
+			}
+			else{
+				console.log('Falha ao enviar log')
+			}
+		})
+	 
+}
+//  MODAL
+
+var descri=document.querySelectorAll(".ddesc");
+var caixa=document.querySelectorAll(".caixaqtde");
+var sku=document.querySelectorAll(".SKUcodigo");
+var cxx=document.querySelectorAll(".uni");
+var imge=document.querySelectorAll(".imp");
+var principal=document.getElementById("itemsM");
+console.log(principal)                           
+function abreModal(){
+
+	var valor =document.querySelectorAll(".totalUnitario");
+		principal.innerHTML = "";
+		var conta=document.querySelectorAll(".qtdd");
+		for(i=0;i<conta.length;i++){
+			if(conta[i].value>0){
+				principal.innerHTML+='<div class="row d-lg-flex d-block divModal  justify-content-lg-start ms-lg-0 ms-2 mt-2 justify-content-center align-items-center"><div class="linha3 d-lg-flex d-block align-items-center"><div class="col-lg-8 descModal col-12 align-items-center d-lg-flex d-block"><img width="120" height="120" class="" src="'+imge[i].src+'" ><div class="d-block text-lg-start text-center ms-1 mt-lg-2 mt-0"><p class=""><b>'+sku[i].innerText+'</b></p><p class="txt "><b>'+descri[i].innerText+' - '+caixa[i].innerText+'</b></p><p class="txt"><b>'+cxx[i].innerText+'</b></p></div></div><div class="col-lg-2 col-12"><p class="text-danger qtdv"><b> <span class="d-lg-none d-inline-block">QTD</span><br>'+conta[i].value+'</b></p></div><div class="col-lg-2 col-12"><p class=""><b>R$ '+valor[i].innerText+'</b></p></div></div></div>'
+			}
+		}
+		conta='';
+	
+}
+// Faz o rodapé sumir ao chegar ao fim
+	
+    
+//modal produtos
+	// $("#prdt").on("click",function(){
+	// console.log(cards);
+	// })
+	function md(i,id,valorUni,multiplicador,qtdmin,qtdmax){
+		console.log(i, id, valorUni, multiplicador, qtdmin, qtdmax)
+    	$(".inputModal").attr("id","inputprod_"+id);
+    	$(".inputModal").attr("data-multi",multiplicador);
+    	$(".inputModal").attr("min",qtdmin);
+    	$(".inputModal").attr("max",qtdmax);
+    	$(".inputModal").attr("data-unival",valorUni);
+    	$(".btnAdcarrinho").attr("id",id);
+    	if($("#produto_"+id).val()>0){
+        	$(".inputModal").val($("#produto_"+id).val());
+        	somatoria(document.querySelector(".inputModal"));
+        }
+    	$("#modalImg").attr("src",i.children[0].children[0].src);
+    	$("#modalNome").text(i.children[1].innerText+' '+ i.children[2].children[1].innerText);
+    	$("#modalDesc").text(i.children[2].children[0].innerText);
+    	var tes=document.getElementById('descontin');
+    	if(tes.className=='d-none'){
+        	$("#desconto").text('');
+        }
+    	else{
+    		$("#desconto").text(i.children[3].children[0].children[0].innerText);
+        }
+    	$("#modalPreco").text(i.children[3].children[0].children[1].innerText);
+    	$("#promocao").text(i.children[4].innerText);
+    	$("#undy").text(i.children[3].children[1].innerText);
+    }
+    
+	function subalt(){
+    	var inpt = $(".inputModal")
+		var multi = inpt.data("multi");
+
+    	if(inpt.val() > +(inpt.attr("min"))){
+    			inpt.val(inpt.val() - multi);
+        }else{
+        	inpt.val(0)
+        }
+    	somatoria(document.querySelector(".inputModal"));
+    }
+    function addalt(){
+    	var inpt = $('.inputModal');
+        var multi = parseInt(inpt.data("multi"));
+		var min = parseInt(inpt.attr("min"));
+		var max  = parseInt(inpt.attr("max"));
+		var val =  parseInt(inpt.val());
+    	if(val < max){
+    		inpt.val((val+multi));
+        }else if(val == max){
+			
+        }else{
+        	inpt.val(min)
+        }
+		console.log(inpt.val())
+    	somatoria(document.querySelector(".inputModal"));
+    }  
+
+	function somatoria(input){
+    	if(input.value < 0){
+        	input.value = 0;
+        }
+    	var maximo = parseInt(input.getAttribute("max"));
+    	if(input.value > maximo){
+        	input.value = maximo;
+        }
+    	inpt = $('#'+input.id)
+    	if(+(inpt.attr("min")) == +(inpt.attr("max"))){
+        	input.value = +(inpt.attr("min"));
+        	return;
+        }
+
+    	if(inpt.val() > +(inpt.attr("max"))){
+           input.value = +(inpt.attr("max"));
+        }
+
+    	if(inpt.val() > 0 && inpt.val() <= +(inpt.attr("min"))){
+        	input.value = +(inpt.attr("min"));
+        }
+
+    	//verificar se é multiplo de x
+    	while(inpt.val() % input.dataset.multi != 0){
+    	inpt.val(inpt.val()-1);
+    	}
+    	
+    	var soma=input.value * input.getAttribute("data-unival");
+    	$('#smtotal').text(soma.toLocaleString('pt-br', {minimumFractionDigits: 2,style: 'currency', currency: 'BRL'}));
+    }
+	
+	function addCarrinho(btn){
+    	inptPrin=$("#produto_"+btn.id);
+    	inptPrin.val($(".inputModal").val());
+    	onChangeQuantidade(document.getElementById("produto_"+btn.id));
+    	limpa();
+    }
+	function limpa(){
+    	$(".inputModal").val(0);
+    	$('#smtotal').text('');
+    }
+
+	</script>
+</body>
+
+</html>

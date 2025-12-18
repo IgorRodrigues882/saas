@@ -1,0 +1,48 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/scss/vendors/animate.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/date-picker.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/range-slider.scss' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/dropzone.scss' %}"> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/timepicker.scss' %}">
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+
+  <!-- Container-fluid starts-->
+  <div class="container-fluid">
+    <div class="row learning-block">
+        {% include 'ger_empresas/unidades/components/lista.html' %}
+        {% include 'ger_empresas/unidades/components/filtro.html' %}
+    </div>
+</div>
+  <!-- Container-fluid Ends-->
+</div>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<!-- <script src="{% static 'assets/js/dropzone/dropzone.js' %}"></script> -->
+<script src="{% static 'assets/js/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js' %}"></script>
+<script src="{% static 'assets/js/form-validation-custom.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+<script src="{% static 'assets/js/datepicker/date-picker/datepicker.js' %}"></script>
+<script src="{% static 'assets/js/datepicker/date-picker/datepicker.pt-BR.js' %}"></script>
+<script src="{% static 'assets/js/datepicker/date-picker/datepicker.custom.js' %}"></script>
+<script src="{% static 'assets/js/time-picker/jquery-clockpicker.min.js' %}"></script>
+<script src="{% static 'assets/js/time-picker/highlight.min.js' %}"></script>
+<script src="{% static 'assets/js/time-picker/clockpicker.js' %}"></script>
+<script src="{% static 'assets/js/range-slider/ion.rangeSlider.min.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+<script src="{% static 'assets/js/ger_empresas/unidades.js' %}"></script>
+
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

@@ -1,0 +1,83 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<!-- Loader starts-->
+<div class="loader-wrapper">
+  <div class="loader">
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-ball"></div>
+  </div>
+</div>
+<!-- Loader ends-->
+<!-- page-wrapper Start-->
+<div class="container-fluid p-0">
+  <div class="row m-0">
+    <div class="col-xl-5 p-0"><img class="bg-img-cover bg-center" src="{% static 'assets/images/login/bg-boomerangue-auth.png' %}"
+        alt="looginpage"></div>
+    <div class="col-xl-7 p-0">
+      <div class="login-card">
+        <form id="form_login" class="theme-form login-form needs-validation" novalidate="">
+          <h4>Login</h4>
+          <h6>{% trans 'Bem vindo de volta! Entre novamente na sua conta.' %}</h6>
+          <div class="form-group">
+            <label>E-mail</label>
+            <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
+              <input class="form-control" type="email" name="email" placeholder="Email@gmail.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{% trans 'Senha' %}</label>
+            <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
+              <input class="form-control" type="password" name="senha" placeholder="*********">
+              <div class="show-hide"><span class="show"> </span></div>
+            </div>
+          </div>
+          <div class="form-group d-flex">
+            <div class="checkbox">
+              <input id="checkbox1" type="checkbox">
+              <label class="text-muted" for="checkbox1">{% trans 'Lembrar Senha' %}</label>
+            </div><a class="link" href="/forget_password" style="margin-left: auto;">{% trans 'Esqueceu sua senha?' %}</a>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" id="botao_login" type="button">{% trans 'Entrar' %}</button>
+          </div>
+          <!-- <div class="login-social-title">
+            <h5>Sign in with</h5>
+          </div>
+          <div class="form-group">
+            <ul class="login-social">
+              <li><a href="https://www.linkedin.com/login" target="_blank"><i data-feather="linkedin"></i></a></li>
+              <li><a href="https://twitter.com" target="_blank"><i data-feather="twitter"></i></a></li>
+              <li><a href="https://www.facebook.com" target="_blank"><i data-feather="facebook"></i></a></li>
+              <li><a href="https://www.instagram.com/login" target="_blank"><i data-feather="instagram"> </i></a></li>
+            </ul>
+          </div> -->
+          <p>{% trans 'Não tem uma conta?' %}<a class="ms-2" href="/signup">{% trans 'Criar Conta' %}</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>

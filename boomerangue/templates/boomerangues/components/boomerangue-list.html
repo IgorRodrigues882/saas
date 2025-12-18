@@ -1,0 +1,88 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0">
+            <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+              <li class="nav-item"><a class="nav-link active" id="todas" data-bs-toggle="tab" href="#top-home"
+                  role="tab" aria-controls="top-home" aria-selected="true"><i data-feather="target"></i>Todas</a></li>
+              <li class="nav-item"><a class="nav-link" id="em-andamento" data-bs-toggle="tab" href="#top-profile"
+                  role="tab" aria-controls="top-profile" aria-selected="false"><i data-feather="info"></i>Em andamento</a></li>
+              <li class="nav-item"><a class="nav-link" id="encerrada" data-bs-toggle="tab" href="#top-contact"
+                  role="tab" aria-controls="top-contact" aria-selected="false"><i
+                    data-feather="check-circle"></i>Encerradas</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 p-0 d-md-flex d-block">
+            <div class="form-group col-sm-5 mb-0 me-2">
+              <input type="text" class="form-control" placeholder="Pesquisar.." id="pesquisar-boomerangue">
+            </div>
+            <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="/create_new_boomerangues"> <i
+                data-feather="plus-square"> </i>Criar novo Boomerangue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="tab-content" id="top-tabContent">
+            <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+              <div class="row">
+                {% for boomerangue in Boomerangues %}
+                  <div class="col-xxl-4 box-col-6 col-lg-6 card-principal" id="{% if boomerangue.campanha.CampanhaAtiva == 'S' %}em-andamento{% else %}encerrada{% endif %}">
+                    <div class="project-box"><span class="badge {% if boomerangue.campanha.CampanhaAtiva == 'S' %} badge-primary {% else %} badge-warning {% endif %}">{% if boomerangue.campanha.CampanhaAtiva == 'S' %} Em andamento {% else %} Encerrada {% endif %}</span>
+                      <h6 id="nome-boomerangue">{{boomerangue.titulo_boomerangue}}</h6>
+                      <div class="media"><img class="img-20 me-2 rounded-circle"
+                          src="{% static 'assets/images/user/3.jpg' %}" alt="" data-original-title="" title="">
+                        <div class="media-body">
+                          <p></p>
+                        </div>
+                      </div>
+                      <p>{{boomerangue.campanha_nome}}</p>
+                      <div class="row details">
+                        <div class="col-6"><span>Itens Vendidos </span></div>
+                        <div class="col-6 font-primary">12 </div>
+                        <div class="col-6"> <span>Compradores</span></div>
+                        <div class="col-6 font-primary">5</div>
+                        <div class="col-6"> <span>Total de vendas</span></div>
+                        <div class="col-6 font-primary">R$ 700,00</div>
+                      </div>
+                      <div class="customers">
+                        <ul>
+                          <li class="d-inline-block"><img class="img-30 rounded-circle"
+                              src="{% static 'assets/images/products_examples/heineken.png' %}" alt="" data-original-title="Heineken" title="Heineken"></li>
+                          <li class="d-inline-block"><img class="img-30 rounded-circle"
+                              src="{% static 'assets/images/products_examples/nescau.jpeg' %}" alt="" data-original-title="Nescau" title="Nescau"></li>
+                          <li class="d-inline-block"><img class="img-30 rounded-circle"
+                              src="{% static 'assets/images/products_examples/pcgamer.jpg' %}" alt="" data-original-title="PC Gamer" title="PC Gamer"></li>
+                          <li class="d-inline-block ms-2">
+                            <p class="f-12">Top 3 Mais vendidos</p>
+                          </li>
+                        </ul>
+
+                      </div>
+                      <div class="project-status mt-4 mb-3">
+                        <div class="media mb-0">
+                          <p>70% </p>
+                          <div class="media-body text-end"><span>Taxa de conversão</span></div>
+                        </div>
+                        <div class="progress" style="height: 5px">
+                          <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar"
+                            style="width: 70%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                      <a href="/boomerangue_consulta/{{boomerangue.pk}}" class="btn btn-primary">Ver mais</a>
+                    </div>
+                  </div>
+                  {%endfor%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

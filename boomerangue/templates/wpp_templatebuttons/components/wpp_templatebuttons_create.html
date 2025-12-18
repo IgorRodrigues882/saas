@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <h2>Formulário de Canal Provedor</h2>
+    <form id="create_form">
+        <div class="form-group mb-3">
+            <label for="component_id">ID do Componente ao Qual o Item de Lista Pertence</label>
+            <input type="text" class="form-control" id="component_id" name="component_id">
+        </div>
+        <div class="form-group mb-3">
+            <label for="button_type">Tipo de Botão</label>
+            <select class="form-control" id="button_type" name="button_type">
+                <option value="QUICK_REPLY">QUICK_REPLY</option>
+                <option value="CALL_TO_ACTION">CALL_TO_ACTION</option>
+            </select>
+        </div>
+        <div class="form-group mb-3">
+            <label for="button_text">Texto do Botão</label>
+            <input type="text" class="form-control" id="button_text" name="button_text">
+        </div>
+        <div class="form-group mb-3">
+            <label for="statusregistro_id">ID do Status do Registro</label>
+            <input type="text" class="form-control" id="statusregistro_id" name="statusregistro_id">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<script>
+
+let form = document.getElementById("create_form");
+
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // 1: get form data
+    const formData = new FormData(form);
+    // 2: store form data in object
+    const jsonObject = Object.fromEntries(formData);
+    // 3: convert form data object to a JSON string
+    const jsonString = JSON.stringify(jsonObject);
+
+    console.log(jsonString);
+
+    fetch('/api/wpp_templatebuttons/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonObject)
+    })
+    .then(function(response){
+        console.log(response);
+        if (response.status == 201){
+            window.location.href = "../wpp_templatebuttons";
+        }
+    })
+});
+</script>

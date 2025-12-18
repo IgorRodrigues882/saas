@@ -1,0 +1,101 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+      <h5>{% trans 'Template Componentes' %}</h5><span class="f-14 pull-right mt-0"></span>
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddcomponente">{% trans 'Add Componente' %}</a>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% if wpp_componente %}
+                {% for componente in wpp_componente %}
+                <a class="contact-tab-{{componente.pk}} nav-link  {% if forloop.first %} active{% endif %}" id="v-pills-user-tab" data-bs-toggle="pill" onclick="activeDiv('{{componente.pk}}')"
+                href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">
+                <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_0"
+                    src="{% static 'assets/images/avtar/whatsapp.png' %}" alt="">
+                    <div class="media-body">
+                    <h6><span class="first_name_0"></span>{{componente.component_type}}</h6>
+                    <p class="email_add_0">{{componente.pk}}</p>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <p class="text-center">
+                        Não Há Componentes cadastrados!
+                    </p>
+                </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'wpp_components/components/components.html' %}
+
+          </div>
+          <div class="contact-editform">
+            <form>
+              <div class="row g-2">
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="template">{% trans 'Template' %}</label>
+                        <select class="js-example-basic-single" id="template">
+                            <option value="">Escolha um template</option>
+                            {% for template in templates %}
+                              <option value="{{ template.pk }}">{{ template.template_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                        <label for="component_type">{% trans 'Tipo de componente' %}</label>
+                            <select class="js-example-basic-single" id="component_type">
+                              <option value="">Escolha um componente</option>
+                              {% for componente in componentes %}
+                                <option value="{{ componente }}">{{ componente }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-12 mb-2">
+                        <label for="format">{% trans 'Formato' %}</label>
+                          <select class="js-example-basic-single" id="format">
+                            <option value="">Escolha um Formato</option>
+                            {% for formato in formatos %}
+                              <option value="{{ formato }}">{{ formato }}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+
+                    </div>
+                </div>
+
+                <div class="mt-0 mb-3 col-md-12">
+                    <div class="row g-2">
+                      <div class="col-sm-12 mb-2">
+                          <label for="format">{% trans 'Texto' %}</label>
+                            <textarea id="text_content" class="form-control"></textarea>
+                        </div>
+  
+                      </div>
+                  </div>
+
+              <button class="btn btn-secondary update-contact mt-0" type="button">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary mt-3" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

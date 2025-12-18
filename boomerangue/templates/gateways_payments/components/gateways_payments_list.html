@@ -1,0 +1,169 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<style>
+   .CodeMirror-scroll{
+   max-height: 200px;
+   overflow-y: auto;
+   }
+   .CodeMirror{
+   font-size: 1.5em;
+   }
+   .dz-remove {
+   height: 20px ;
+   font-size: 12px;
+   text-align: center;
+   border: none;
+   background-color: #ff0000;
+   color: #ffffff;
+   cursor: pointer;
+   border-radius: 5px;
+   }
+   .dz-remove:hover {
+   background-color: #ff4444;
+   }
+</style>
+<div class="col-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">{% trans 'Gateway Pagamentos' %}</h5>
+        </div>
+        <a href="#" class="btn btn-primary" onclick="new_gateway()" data-bs-toggle="modal" data-bs-target="#modalAddwpp">{% trans 'Add Gateway' %}</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Nome' %}</span></th>
+              <th> <span>{% trans 'Gateway' %}</span></th>
+              <th> <span>{% trans 'Cadastro' %}</span></th>
+              <!-- <th> <span>{% trans 'Número Final' %}</span></th>  -->
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in lista %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><img class="img-fluid b-r-5"
+                      src="{% if item.gateway_type == 'BB' %} {% static 'assets/images/logo_bancos/banco-do-brasil-5.png' %} {% elif item.gateway_type == 'MP' %} {% static 'assets/images/logo_bancos/mercado-pago-logo-18C70D8C77-seeklogo.com.png' %} {% else %} {% static 'assets/images/logo_bancos/png-transparent-bank-logo-system-of-credit-unions-of-brazil-bancoob-symbol-text-yellow-line.png' %} {% endif %}" alt=""></div>
+                  <div class="media-body ps-2">
+                    <div class="avatar-details">
+                        <h6>{{item.gateway_name}}</h6>
+                      <span>{{item.id}}</span></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <h6>{{item.get_gateway_type_display}}</h6>
+              </td>
+              <td>
+                <h6>{{item.cadastro_dt|date:'d/m/Y'}}</h6>
+              </td>
+              <!-- <td>
+                <h6>{{grade.NroInicial}}</h6>
+              </td> -->
+              <td>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddwpp" onclick="editar_gateway('{{item.pk}}')"><i data-feather="edit-2"></i></a>
+                <a href="#" class="ms-2" onclick="delete_gateway('{{item.pk}}')"><i data-feather="trash-2"></i></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-bookmark" id="modalAddwpp" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Payment Gateway' %}</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                  <div class="row d-block d-sm-flex">
+                    <div class="col-sm-4 m-b-20">
+                        <label for="template_name">{% trans 'Nome' %}</label>
+                        <input class="form-control" id="gateway_name" type="text" required="" maxlength="255" autocomplete="off">
+                    </div>
+                    <div class="col-sm-4 m-b-20">
+                        <label for="category">{% trans 'Gateway' %}</label>
+                        <select class="js-example-basic-single" required id="gateway_type">
+                          <option value="">Escolha uma categoria</option>
+                          {% for sigla, nome in gateways %}
+                          <option value="{{ sigla }}">{{ nome }}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-4 m-b-20">
+                      <label for="category">{% trans 'Tempo expiração pix (segundos)' %}</label>
+                      <input class="form-control" type="number" min="0" required id="expiration_time">
+                    </div>
+
+                    <div class="col-sm-6 m-b-20">
+                      <label for="category">{% trans 'Chave Pix' %}</label>
+                      <input class="form-control" type="text" required id="pix_key">
+                    </div>
+
+
+                    <div class="col-sm-6 m-b-20">
+                      <label for="category">{% trans 'Developer Key' %}</label>
+                      <input class="form-control" type="password" required id="dev_key">
+                      <button type="button" class="btn btn-info" onmousedown="mostrarSenha('dev_key')" onmouseup="ocultarSenha('dev_key')" onmouseleave="ocultarSenha('dev_key')">Mostrar</button>
+                    </div>
+
+                    <div class="col-sm-6 m-b-20">
+                      <label for="category">{% trans 'Client_id' %}</label>
+                      <input class="form-control" type="password" required id="client_id">
+                      <button type="button" class="btn btn-info" onmousedown="mostrarSenha('client_id')" onmouseup="ocultarSenha('client_id')" onmouseleave="ocultarSenha('client_id')">Mostrar</button>
+
+                    </div>
+
+                    <div class="col-sm-6 m-b-20">
+                      <label for="category">{% trans 'Client_secret' %}</label>
+                      <input class="form-control" type="password" required id="client_secret" >
+                      <button type="button" class="btn btn-info" onmousedown="mostrarSenha('client_secret')" onmouseup="ocultarSenha('client_secret')" onmouseleave="ocultarSenha('client_secret')">Mostrar</button>
+                    </div>
+
+                    <div class="col-sm-6 m-b-20">
+                      <label for="category">{% trans 'Certificados' %}</label>
+                      <input class="form-control" type="file" required id="certificados" multiple>
+                    </div>
+
+                    <div class="col-sm-6 m-b-20">
+                      <label for="category">{% trans 'Certificado Senhas' %}</label>
+                      <input class="form-control" type="file" required id="certificados_senhas" multiple>
+                    </div>
+                    
+                    <div class="col-sm-6 m-b-20 d-none" id="certificados_a">
+                      <a href="#" target="_blank" id="certificados_a_tag" class="btn btn-light">Ver Certificado</a>
+                    </div>
+                    <div class="col-sm-6 m-b-20 d-none" id="certificados_senhas_a">
+                      <a href="#" target="_blank" id="certificados_senhas_a_tag" class="btn btn-secondary">Ver Certificado Senhas</a>
+                    </div>
+                  </div>
+              </div>
+              <button class="btn btn-secondary" id="save_gateway" type="submit">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+   var fields = JSON.parse('{{ json_fields|escapejs }}');
+</script>

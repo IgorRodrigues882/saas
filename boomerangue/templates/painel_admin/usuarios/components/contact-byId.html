@@ -1,0 +1,33 @@
+{% load static %}
+{% load sass_tags %}
+<div class="tab-pane contact-tab-0 tab-content-child fade {% if forloop.first %} show active {% endif %}" id="tab-usuario-{{ usuario.id }}" role="tabpanel"
+  aria-labelledby="v-pills-user-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/user/2.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="usuario_name">{{ usuario.nome }}</span></h5>
+        <p class="usuario_email">{{ usuario.email }}</p>
+        <ul>
+          <li><a href="#" data-bs-toggle="modal" data-bs-target="#modal_permissoes" id="botao_permissoes" data-id="{{ usuario.id }}" data-nome="{{ usuario.nome }}">Permissões</a></li>
+          <li><a href="#" data-bs-toggle="modal" data-bs-target="#modal_editar_usuario" id="editar_usuario" data-id="{{ usuario.id }}">Editar</a></li>
+          <li><a href="#" id="botao_excluir" data-id="{{ usuario.id }}">Excluir</a></li>
+          {% comment %} <li><a href="javascript:void(0)" onclick="history(0)">History</a></li>
+          <li><a href="javascript:void(0)" onclick="printContact(0)" data-bs-toggle="modal"
+              data-bs-target="#printModal">Print</a></li> {% endcomment %}
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">General</h6>
+      <ul>
+        <li>Nome<span class="font-primary first_name_0">{{ usuario.nome }}</span></li>
+        <li>Telefone<span class="font-primary mobile_num_0">{{ usuario.telefone }}</span></li>
+        <li>E-mail<span class="font-primary email_add_0">{{ usuario.email }}</span></li>
+        <li>Grupo de Permissão<span class="font-primary email_add_0">{{ usuario.grupo.nome }}</span></li>
+        <li>Data de Cadastro<span class="font-primary email_add_0">{{ usuario.cadastro_dt|date:"d/m/Y" }}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>

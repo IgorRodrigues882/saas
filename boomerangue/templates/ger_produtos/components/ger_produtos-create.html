@@ -1,0 +1,280 @@
+{% load static %}
+{% load sass_tags %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        <h5>Form Wizard And Validation</h5><span>Validation Step Form Wizard</span>
+      </div>
+      <div class="card-body">
+        <div class="stepwizard">
+          <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step"><a class="btn btn-primary" id="step1" href="#step-1">1</a>
+              <p>Informações Básicas</p>
+            </div>
+            <div class="stepwizard-step"><a class="btn btn-light" id="step2" href="#step-2">2</a>
+              <p>Detalhes do Produto</p>
+            </div>
+            <div class="stepwizard-step"><a class="btn btn-light" id="step3" href="#step-3">3</a>
+              <p>Step 3</p>
+            </div>
+            <div class="stepwizard-step"><a class="btn btn-light" id="step4" href="#step-4">4</a>
+              <p>Step 4</p>
+            </div>
+            <div class="stepwizard-step"><a class="btn btn-light" id="step5" href="#step-5">5</a>
+                <p>Step 5</p>
+            </div>
+            <div class="stepwizard-step"><a class="btn btn-light" id="step5" href="#step-6">6</a>
+              <p>Step 6</p>
+          </div>
+          </div>
+        </div>
+        <form action="#" method="POST">
+          <div class="setup-content" id="step-1">
+            <div class="col-xs-12">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label class="control-label">EDI Integracao</label>
+                  <input class="form-control" type="text" placeholder="EDI Integracao" required="required">
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">ID da Marca</label>
+                    <input class="form-control" type="text" placeholder="ID Marca" >
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">SKU</label>
+                    <input class="form-control" type="text" placeholder="SKU" required="required">
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">Codigo</label>
+                    <input class="form-control" type="text" placeholder="Codigo" required="required">
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">Codigo do Fornecedor</label>
+                    <input class="form-control" type="text" placeholder="Codigo do Fornecedor" required="required">
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="setup-content" id="step-2">
+            <div class="col-xs-12">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label class="control-label">Detalhes do Produto</label>
+                  <input class="form-control" type="text" placeholder="name@example.com" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Password</label>
+                  <input class="form-control" type="password" placeholder="Password" required="required">
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="setup-content" id="step-3">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="control-label">Configurações</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="configuracoes" value="sim"> Sim</label>
+                            <label><input type="radio" name="configuracoes" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Destaque</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="destaque" value="sim"> Sim</label>
+                            <label><input type="radio" name="destaque" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class= "control-label">Sai Lista Geral</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="saiListaGeral" value="sim"> Sim</label>
+                            <label><input type="radio" name="saiListaGeral" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Tem Variacao</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="temVariacao" value="sim"> Sim</label>
+                            <label><input type="radio" name="temVariacao" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Usar Descrição Personalizada</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="usarDescricaoPersonalizada" value="sim"> Sim</label>
+                            <label><input type="radio" name="usarDescricaoPersonalizada" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Usar Multiplicador</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="usaMultiplicador" value="sim"> Sim</label>
+                            <label><input type="radio" name="usaMultiplicador" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Produto Ativo</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="produtoAtivo" value="sim"> Sim</label>
+                            <label><input type="radio" name="produtoAtivo" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Grupo Ativo</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="grupoAtivo" value="sim"> Sim</label>
+                            <label><input type="radio" name="grupoAtivo" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">Linha Ativa</label>
+                        <div class="radio-buttons">
+                            <label><input type="radio" name="linhaAtiva" value="sim"> Sim</label>
+                            <label><input type="radio" name="linhaAtiva" value="nao"> Não</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+        
+          <div class="setup-content" id="step-4">
+            <div class="col-xs-12">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label class="control-label">Categorias e Grupos</label>
+                  <input class="form-control mt-1" type="text" placeholder="State" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Linha Produto</label>
+                  <input class="form-control mt-1" type="text" placeholder="ID Linha" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Grupo Produtos</label>
+                  <input class="form-control mt-1" type="text" placeholder="ID Grupo" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Categoria 1</label>
+                  <input class="form-control mt-1" type="text" placeholder="Categoria 1" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Categoria 2</label>
+                  <input class="form-control mt-1" type="text" placeholder="Categoria 2" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Categoria 3</label>
+                  <input class="form-control mt-1" type="text" placeholder="Categoria 3" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CategoriaAPP 1</label>
+                  <input class="form-control mt-1" type="text" placeholder="CategoriaAPP 1" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CategoriaAPP 2</label>
+                  <input class="form-control mt-1" type="text" placeholder="CategoriaAPP 2" required="required">
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="setup-content" id="step-5">
+            <div class="col-xs-12">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label class="control-label">Outros Detalhes</label>
+                  <input class="form-control mt-1" type="text" placeholder="State" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CEST</label>
+                  <input class="form-control mt-1" type="text" placeholder="CEST" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">NCM</label>
+                  <input class="form-control mt-1" type="text" placeholder="NCM" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Detalhada</label>
+                  <input class="form-control mt-1" type="text" placeholder="Descricao Detalhada" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Limpa</label>
+                  <input class="form-control mt-1" type="text" placeholder="Descricao Limpa" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Amigavel</label>
+                  <input class="form-control mt-1" type="text" placeholder="Descricao Amigavel" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Personalizada</label>
+                  <input class="form-control mt-1" type="text" placeholder="Descricao Personalizada" required="required">
+                </div>
+                <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="setup-content" id="step-6">
+            <div class="col-xs-12">
+              <div class="col-md-12">
+                <div class="mb-3">
+                  <label class="control-label">Unidades e Medidas</label>
+                  <input class="form-control mt-1" type="text" placeholder="State" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Unidade Medida</label>
+                  <input class="form-control mt-1" type="text" placeholder="Unidade Medida" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Fator Unitario</label>
+                  <input class="form-control mt-1" type="text" placeholder="Fator Unitario" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Unidade Medida Cx_id</label>
+                  <input class="form-control mt-1" type="text" placeholder="Unidade Medida" required="required">
+                </div>
+                <button class="btn btn-secondary pull-right" type="submit">Finish!</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  let form = document.getElementById("create_form");
+  
+  form.addEventListener('submit', function (event) {
+      event.preventDefault();
+  
+      // 1: get form data
+      const formData = new FormData(form);
+      // 2: store form data in object
+      const jsonObject = Object.fromEntries(formData);
+      // 3: convert form data object to a JSON string
+      const jsonString = JSON.stringify(jsonObject);
+  
+      console.log(jsonString);
+  
+      fetch('api/ger_produtos/', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonObject)
+      })
+      .then(function(response){
+          console.log(response);
+          if (response.status == 201){
+              window.location.href = "../ger_produtos";
+          }
+      })
+  });
+</script>

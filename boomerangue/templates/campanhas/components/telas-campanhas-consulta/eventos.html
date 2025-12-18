@@ -1,0 +1,143 @@
+{% load static %}
+{% load sass_tags %}
+<!-- Chart widget top Ends-->
+<style>
+  .text-white {
+    color: white;
+}
+</style>
+<div class="col-xl-12">
+<div class="card ongoing-project recent-orders">
+  <div class="card-header card-no-border">
+    <div class="media media-dashboard">
+      <div class="media-body">
+        <h5 class="mb-0">Eventos</h5>
+      </div>
+      <div id="" class="col-4">
+        <div>
+            <select class="js-example-basic-single" id="filtro_evento" >
+              <option value="">Filtrar</option>
+              {% for opcao in tipoevento_ids %}
+                <option value="{{opcao}}">{{opcao}}</option>
+              {% endfor %}
+            </select>
+          </div>
+      </div>
+      <!-- <a class="btn btn-secondary" data-bs-toggle="modal" id="criar_template_mensagem_btn" data-bs-target="#criar_template_mensagem">
+        Criar mensagem
+      </a> -->
+      
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <div class="table-responsive">
+      <table class="table table-bordernone" id="item-table-eventos">
+        <thead>
+          <tr>
+            <th><span>Tipo de evento</span></th>
+            <th><span>Origem do evento</span></th>
+            <th><span>Data da geração</span></th>
+            <th><span>Protocolo da geração</span></th>
+            <th><span>Data Programada</span></th>
+            <th><span>Status evento</span></th>
+            <th><span>Chave do BOT</span></th>
+            <th><span>Nome do BOT</span></th>
+            <th><span>Data do BOT</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for evento in eventos %}
+          <tr>
+            <td>
+              <div class="media">
+                <div class="square-box me-2"><i class="fa fa-calendar text-success"></i></div>
+                <div class="media-body ps-2">
+                  <div class="avatar-details"><a href="#">
+                      <h6>{{evento.tipoevento_id}}</h6>
+                    </a><span>{{evento.pk}}</span></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <h6>{{evento.origemevento_id}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.DataGeracao|date:'d/m/Y'}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.ProtocoloGeracao}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.DataProgramada|date:'d/m/Y H:i:s'}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.statusevento_id}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.ChaveBot}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.NomeBot}}</h6>
+            </td>
+            <td>
+              <h6>{{evento.DataBot}}</h6>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="loader-box" id="loader_eventos" style="display: none;">
+        <div class="loader-2"></div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="modal fade modal-bookmark" id="criar_template_mensagem" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Criar Template de Mensagem</h5>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+        <div class="row g-2">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="mb-3">
+                  <label class="control-label">Whatsapp Template</label>
+                  <select class="js-example-basic-single" type="text" name="wpptemplate" id="select_wpp_templates" required="required">
+                    <option value="">Selecione uma opção</option>
+                    {% for wpp_template in wpp_templates %}
+                      <option value="{{ wpp_template.id }}">{{ wpp_template.template_name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="control-label">Uso Template</label>
+                  <select class="form-control" type="text" name="usotemplate" id="usotemplate" required="required">
+                    <option value="OPTIN">Optin</option>
+                    <option value="ENVIO">Envio</option>
+                  </select>
+                </div>
+
+                <button class="btn btn-secondary" type="button" id="salvar_template_mensagem" onclick="criarTemplateMessages()">Salvar</button>
+                <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+

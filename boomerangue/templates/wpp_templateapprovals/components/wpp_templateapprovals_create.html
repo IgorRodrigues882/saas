@@ -1,0 +1,67 @@
+<div class="container mt-5">
+    <h2>Formulário de Canal Provedor</h2>
+    <form id="create_form">
+        <div class="form-group mb-3">
+            <label for="template_id">Identificador do Template</label>
+            <input type="text" class="form-control" id="template_id" name="template_id">
+        </div>
+        <div class="form-group mb-3">
+            <label for="template_id">ID do Template</label>
+            <input type="text" class="form-control" id="template_id" name="template_id">
+        </div>
+        <div class="form-group mb-3">
+            <label for="aprovado_por">Aprovado por</label>
+            <input type="text" class="form-control" id="aprovado_por" name="aprovado_por">
+        </div>
+        <div class="form-group mb-3">
+            <label for="status_aprovacao">Status de Aprovação</label>
+            <select class="form-control" id="status_aprovacao" name="status_aprovacao">
+                <option value="PENDENTE">Pendente</option>
+                <option value="APROVADO">Aprovado</option>
+                <option value="REJEITADO">Rejeitado</option>
+            </select>
+        </div>
+        <div class="form-group mb-3">
+            <label for="comentarios_aprovacao">Comentários de Aprovação</label>
+            <textarea class="form-control" id="comentarios_aprovacao" name="comentarios_aprovacao" rows="4"></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="statusregistro_id">ID do Status do Registro</label>
+            <input type="text" class="form-control" id="statusregistro_id" name="statusregistro_id">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<script>
+
+let form = document.getElementById("create_form");
+
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // 1: get form data
+    const formData = new FormData(form);
+    // 2: store form data in object
+    const jsonObject = Object.fromEntries(formData);
+    // 3: convert form data object to a JSON string
+    const jsonString = JSON.stringify(jsonObject);
+
+    console.log(jsonString);
+
+    fetch('/api/wpp_templateapprovals/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonObject)
+    })
+    .then(function(response){
+        console.log(response);
+        if (response.status == 201){
+            window.location.href = "../wpp_templateapprovals";
+        }
+    })
+});
+</script>

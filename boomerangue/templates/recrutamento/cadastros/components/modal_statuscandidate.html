@@ -1,0 +1,48 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+{% load tags %}
+<div class="modal fade modal-bookmark" id="addstatuscandidate" tabindex="-1" role="dialog"
+            aria-labelledby="addstatuscandidate" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Status Candidato' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="" novalidate="">
+                      <div class="row">
+                        <div class="col-sm-12 m-b-20">
+                          <label for="status_description">{% trans 'Status Candidato' %}</label>
+                          <div class="d-flex align-items-center">
+                            <input class="form-control" id="status_description" type="text" required="" maxlength="255" autocomplete="off">
+                            <button class="btn btn-primary ms-2 mb-2" type="button" id="emoji-button">
+                              <img src="{% static 'assets/images/smiley.png' %}" alt="" style="height: 1.3em; width: auto;">
+                            </button>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 m-b-20">
+                            <label for="Title">{% trans 'Status Reduzido' %}</label>
+                            <input class="form-control"  id="status_description_short" type="text" required="" maxlength="20" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 col-12 m-b-20">
+                            <label for="Title">{% trans 'Status Agrupado' %}</label>
+                            <input class="form-control"  id="status_agrupado" type="text" required="" maxlength="40" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 col-12 m-b-20">
+                            <label for="Title">{% trans 'Cor' %}</label>
+                            <input class="form-control"  id="corkankan" type="color" required="" maxlength="40" autocomplete="off">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary" id="salvar_statuscandidate" data-set=""
+                      type="button">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+

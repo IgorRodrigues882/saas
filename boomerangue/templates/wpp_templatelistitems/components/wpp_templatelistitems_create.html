@@ -1,0 +1,59 @@
+<div class="container mt-5">
+    <h2>Formulário de Canal Provedor</h2>
+    <form id="create_form">
+        <div class="form-group mb-3">
+            <label for="component_id">ID do componente ao qual o item de lista pertence</label>
+            <input type="text" class="form-control" id="component_id" name="component_id">
+        </div>
+        <div class="form-group mb-3">
+            <label for="item_title">Título do Item</label>
+            <input type="text" class="form-control" id="item_title" name="item_title">
+        </div>
+        <div class="form-group mb-3">
+            <label for="item_description">Descrição do Item</label>
+            <textarea class="form-control" id="item_description" name="item_description"></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="button_id">ID do botão associado ao item de lista</label>
+            <input type="text" class="form-control" id="button_id" name="button_id">
+        </div>
+        <div class="form-group mb-3">
+            <label for="statusregistro_id">ID do Status do Registro</label>
+            <input type="text" class="form-control" id="statusregistro_id" name="statusregistro_id">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+
+<script>
+
+let form = document.getElementById("create_form");
+
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    // 1: get form data
+    const formData = new FormData(form);
+    // 2: store form data in object
+    const jsonObject = Object.fromEntries(formData);
+    // 3: convert form data object to a JSON string
+    const jsonString = JSON.stringify(jsonObject);
+
+    console.log(jsonString);
+
+    fetch('/api/wpp_templatelistitems/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonObject)
+    })
+    .then(function(response){
+        console.log(response);
+        if (response.status == 201){
+            window.location.href = "../wpp_templatelistitems";
+        }
+    })
+});
+</script>

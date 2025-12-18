@@ -1,0 +1,34 @@
+{% load static %}
+{% load sass_tags %}
+{% for transportadora in transportadoras %}
+<div class="tab-pane contact-tab-{{transportadora.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{transportadora.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{transportadora.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/user/2.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{transportadora.Transportadora}}</span></h5>
+        <p class="email_add_0">{{transportadora.empresa_id.empresa}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{transportadora.pk}}')">Editar</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{transportadora.pk}}')">Deletar</a></li>
+          <li><a href="javascript:void(0)" onclick="printContact('{{transportadora.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">Imprimir</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">Detalhes</h6>
+      <ul>
+        <li>Nome <span class="font-primary first_name_0">{{transportadora.Transportadora}}</span></li>
+        <li>Empresa <span class="font-primary">{{transportadora.empresa.empresa}}</span></li>
+        <li>Transportadora Padrão<span class="font-primary mobile_num_0">{% if transportadora.TransportadoraPadrao == 'S' %} Sim {% else %} Não {%endif%}</span></li>
+        <li>Transportadora Ativa<span class="font-primary email_add_0">{% if transportadora.TransportadoraAtivo == 'S' %} Sim {% else %} Não {%endif%}</span></li>
+        <li>EDI Integração<span class="font-primary url_add_0">{{transportadora.EDI_Integracao}}</span></li>
+        <li>Sincronizado<span class="font-primary mobile_num_0">{% if transportadora.Sincronizado == 'S' %} Sim {% else %} Não {%endif%}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

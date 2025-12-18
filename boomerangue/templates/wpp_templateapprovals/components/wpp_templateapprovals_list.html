@@ -1,0 +1,61 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0"></div>
+          <div class="col-md-6 p-0">
+            <a class="btn btn-primary" href="/wpp_templateapprovals_create">Criar novo Approval</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="tab-content" id="top-tabContent">
+            <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+              <div class="row">
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>ID do Template</th>
+                        <th>Aprovado por</th>
+                        <th>Status de Aprovação</th>
+                        <th>Data de Aprovação</th>
+                        <th>Comentários de Aprovação</th>
+                        <th>Criado em</th>
+                        <th>Atualizado em</th>
+                        <th>Data de Cadastro</th>
+                        <th>Data de Alteração</th>
+                        <th>ID do Status do Registro</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Inserir dados da lista aqui -->
+                      {% for approval in approvals %}
+                        <tr>
+                          <td>{{ approval.template_id }}</td>
+                          <td>{{ approval.aprovado_por }}</td>
+                          <td>{{ approval.get_status_aprovacao_display }}</td>
+                          <td>{{ approval.data_aprovacao }}</td>
+                          <td>{{ approval.comentarios_aprovacao }}</td>
+                          <td>{{ approval.criado_em }}</td>
+                          <td>{{ approval.atualizado_em }}</td>
+                          <td>{{ approval.cadastro_dt }}</td>
+                          <td>{{ approval.alteracao_dt }}</td>
+                          <td>{{ approval.statusregistro_id }}</td>
+                        </tr>
+                      {%endfor%}
+                      <!-- Adicione mais linhas conforme necessário -->
+                  </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

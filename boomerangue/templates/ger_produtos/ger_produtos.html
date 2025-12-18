@@ -1,0 +1,24 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/scss/vendors/animate.scss' %}">
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+
+  <!-- Container-fluid starts-->
+  {% include 'ger_produtos/components/ger_produtos-list.html' %}
+  <!-- Container-fluid Ends-->
+</div>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<script src="{% static 'assets/js/form-validation-custom.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+<script src="{% static 'assets/js/form-wizard/form-wizard-two.js' %}"></script>
+<script src="{% static 'assets/js/ger_produtos/ger_produtos.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

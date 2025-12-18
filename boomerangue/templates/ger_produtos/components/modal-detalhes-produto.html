@@ -1,0 +1,237 @@
+<div class="modal fade modal-bookmark" id="detalhes_produto" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalhes do Produto</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-2">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="mb-3">
+                  <label class="control-label">Marca</label>
+                  <select disabled class="form-control" type="text" name="marca" placeholder="Marca">
+                    {% for marca in ger_marcas %}
+                      <option value="{{ marca.id }}">{{ marca.Marca }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="EDI_Integracao">EDI Integração:</label>
+                  <input disabled type="text" class="form-control" id="EDI_Integracao" name="EDI_Integracao" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="Marca_Filtro">Marca Filtro:</label>
+                    <input disabled type="text" class="form-control" id="Marca_Filtro" name="Marca_Filtro" maxlength="50" required>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">SKU</label>
+                    <input disabled class="form-control" type="text" name="SKU" placeholder="SKU" required="required">
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">Codigo</label>
+                    <input disabled class="form-control" type="text" name="Codigo" placeholder="Codigo" required="required">
+                </div>
+                <div class="mb-3">
+                    <label class="control-label">Codigo do Fornecedor</label>
+                    <input disabled class="form-control" type="text" name="CodigoFornecedor" placeholder="Codigo do Fornecedor" required="required">
+                </div>
+
+
+                <div class="mb-3">
+                  <label class="control-label">Busca</label>
+                  <input disabled class="form-control" type="text" name="Busca" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">EAN</label>
+                  <input disabled class="form-control" type="text" name="EAN" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">DUN</label>
+                  <input disabled class="form-control" type="text" name="DUN" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Agrupador</label>
+                  <input disabled class="form-control" type="text" name="Agrupador" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Produto Busca</label>
+                  <input disabled class="form-control" type="text" name="ProdutoBusca" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descrição</label>
+                  <input disabled class="form-control" type="text" name="Descricao" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descrição Curta</label>
+                  <input disabled class="form-control" type="text" name="Descricao_Curta" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descrição Longa</label>
+                  <input disabled class="form-control" type="text" name="Descricao_Longa" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descrição Detalhada</label>
+                  <input disabled class="form-control" type="text" name="Descricao_Detalhada" placeholder="" required="required">
+                </div>
+
+
+                <div class="mb-3">
+                  <label class="control-label">Destaque</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="Destaque" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Sai Lista Geral</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="SaiListaGeral" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Tem Variação</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="TemVariacao" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Usar Descrição Personalizada</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="UsarDescricaoPersonalizada" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Usa Multiplicador</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="UsaMultiplicador" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Produto Ativo</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="produtoAtivo" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Grupo Ativo</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="GrupoAtivo" placeholder="" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Linha Ativa</label>
+                  <input disabled data-tipo="check" class="form-control" type="text" name="LinhaAtiva" placeholder="" required="required">
+                </div>
+
+
+                <div class="mb-3">
+                  <label class="control-label">Linha Produto</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="ID Linha" name="LinhaProduto" required="required">
+                    {% for linha in ger_linhaprodutos %}
+                      <option value="{{ linha.id }}">{{ linha.LinhaProdutos }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Grupo Produtos</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="ID Grupo" name="GrupoProdutos" required="required">
+                    {% for grupo in ger_grupoprodutos %}
+                      <option value="{{ grupo.id }}">{{ grupo.GrupoProdutos }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Categoria 1</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="Categoria 1" name="Categoria1" required="required">
+                    {% for categoria in ger_categorias %}
+                      <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Categoria 2</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="Categoria 2" name="Categoria2"  required="required">
+                    {% for categoria in ger_categorias %}
+                      <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Categoria 3</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="Categoria 3" name="Categoria3" required="required">
+                    {% for categoria in ger_categorias %}
+                      <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CategoriaAPP 1</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="CategoriaAPP 1" name="CategoriaApp1" required="required">
+                    {% for categoria in ger_categorias %}
+                      <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CategoriaAPP 2</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="CategoriaAPP 2" name="CategoriaApp2" required="required">
+                    {% for categoria in ger_categorias %}
+                      <option value="{{ categoria.id }}">{{ categoria.Categoria }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CategoriaApp1 Ordem:</label>
+                  <input disabled class="form-control mt-1" type="text" placeholder="CategoriaAPP1Ordem" name="CategoriaAPP1Ordem" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">CategoriaApp2 Ordem:</label>
+                  <input disabled class="form-control mt-1" type="text" placeholder="CategoriaAPP2Ordem" name="CategoriaAPP2Ordem" required="required">
+                </div>
+
+                
+                <div class="mb-3">
+                  <label class="control-label">CEST</label>
+                  <input disabled class="form-control mt-1" type="text" name="CEST" placeholder="CEST" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">NCM</label>
+                  <input disabled class="form-control mt-1" type="text" name="NCM" placeholder="NCM" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Detalhada</label>
+                  <input disabled class="form-control mt-1" type="text" placeholder="Descricao Detalhada" name="Descricao_Detalhada" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Limpa</label>
+                  <input disabled class="form-control mt-1" type="text" placeholder="Descricao Limpa" name="Descricao_Limpa" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Amigavel</label>
+                  <input disabled class="form-control mt-1" type="text" placeholder="Descricao Amigavel" name="Descricao_Amigavel" required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Descricao Personalizada</label>
+                  <input disabled class="form-control mt-1" type="text" placeholder="Descricao Personalizada" name="Descricao_Personalizada" required="required">
+                </div>
+                
+
+                <div class="mb-3">
+                  <label class="control-label">Unidade Medida Un</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="Unidade Medida Un" name="UnidadeMedidaUn" required="required">
+                    {% for unidade in ger_unidademedidas %}
+                      <option value="{{ unidade.id }}">{{ unidade.UnidadeMedida }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Fator Unitario</label>
+                  <input disabled class="form-control mt-1" type="number" placeholder="Fator Unitario" name="Fator_Unitario"  required="required">
+                </div>
+                <div class="mb-3">
+                  <label class="control-label">Unidade Medida Cx</label>
+                  <select disabled class="form-control mt-1" type="text" placeholder="Unidade Medida Cx" name="UnidadeMedidaCx" required="required">
+                    {% for unidade in ger_unidademedidas %}
+                      <option value="{{ unidade.id }}">{{ unidade.UnidadeMedida }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0">
+          </div>
+          <div class="col-md-6 p-0">
+            <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="ger_marcas/create">Criar novo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h1>Tabela de Marcas</h1>
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Empresa ID</th>
+                      <th>EDI Integração</th>
+                      <th>Marca</th>
+                      <th>Site</th>
+                      <th>Logo Marca</th>
+                      <th>Marca Padrão</th>
+                      <th>Ordem Marca</th>
+                      <th>Sincronizado</th>
+                      <th>Data de Sincronização</th>
+                      <th>Versão do Sincronizador</th>
+                      <th>ID do Sincronizador</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for marca in marcas %}
+                      <tr>
+                          <td>{{ marca.id }}</td>
+                          <td>{{ marca.empresa_id }}</td>
+                          <td>{{ marca.EDI_Integracao }}</td>
+                          <td>{{ marca.Marca }}</td>
+                          <td>{{ marca.Site }}</td>
+                          <td>{{ marca.LogoMarca }}</td>
+                          <td>{{ marca.get_MarcaPadrao_display }}</td>
+                          <td>{{ marca.OrdemMarca }}</td>
+                          <td>{{ marca.get_Sincronizado_display }}</td>
+                          <td>{{ marca.dtSincronizacao }}</td>
+                          <td>{{ marca.verSincronizador }}</td>
+                          <td>{{ marca.idSincronizador }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

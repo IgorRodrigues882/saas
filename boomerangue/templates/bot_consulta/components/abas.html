@@ -1,0 +1,46 @@
+{% load static %}
+{% load sass_tags %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="row product-page-main">
+          <div class="col-sm-12">
+            <ul class="nav nav-tabs border-tab mb-0" id="top-tab" role="tablist">
+              <li class="nav-item"><a class="nav-link active" id="top-tab-dashboard" data-bs-toggle="tab" href="#top-dashboard"
+                  role="tab" aria-controls="top-home" aria-selected="false">Dashboard</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="top-tab-canalempresa" data-bs-toggle="tab" href="#top-canalempresa"
+                  role="tab" aria-controls="top-profile" aria-selected="false">Canal Empresa</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="top-tab-chats" data-bs-toggle="tab" href="#top-chats"
+                role="tab" aria-controls="top-profile" aria-selected="false">Chat</a>
+              <div class="material-border"></div>
+            </li>
+          </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    
+    <div class="tab-content" id="top-tabContent">
+        <div class="tab-pane fade active show" id="top-dashboard" role="tabpanel" aria-labelledby="top-tab-dashboard">
+            <div class="row">
+                {% include 'bot_consulta/components/nav-items/dashboard.html' %}
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="top-canalempresa" role="tabpanel" aria-labelledby="top-tab-canalempresa">
+            <div class="row">
+                {% include 'bot_consulta/components/nav-items/canal-empresa.html' %}
+            </div> 
+        </div>
+
+        <div class="tab-pane fade" id="top-chats" role="tabpanel" aria-labelledby="top-tab-chats">
+          <div class="row">
+              {% include 'bot_consulta/components/nav-items/chats.html' %}
+          </div> 
+      </div>
+        
+    </div>
+</div>

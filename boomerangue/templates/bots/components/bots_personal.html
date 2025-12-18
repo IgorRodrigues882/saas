@@ -1,0 +1,103 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+      <h5>Bots</h5><span class="f-14 pull-right mt-0"></span>
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddbot">{% trans 'Criar Bot' %}</a>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% if bots %}
+                {% for bot in bots %}
+                <a class="contact-tab-{{bot.pk}} nav-link  {% if forloop.first %} active{% endif %}" id="v-pills-user-tab" data-bs-toggle="pill" onclick="activeDiv('{{bot.pk}}')"
+                href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">
+                <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_0"
+                    src="{% static 'assets/images/avtar/bot.png' %}" alt="">
+                    <div class="media-body">
+                    <h6><span class="first_name_0"></span>{{bot.bot}}</h6>
+                    <p class="email_add_0">{% if bot.bot_ativo == 'S' %} <span class="badge badge-success">{% trans 'Ativo' %}</span> {% else %} <span class="badge badge-danger">{% trans 'Inativo'%}</span> {%endif%}</p>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <p class="text-center">
+                        Não Há bots cadastrados!
+                    </p>
+                </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'bots/components/components.html' %}
+
+          </div>
+          <div class="contact-editform">
+            <form>
+              <div class="row g-2">
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="bot">{% trans 'Bot' %}</label>
+                      <input class="form-control" id="bot" type="text" required="" maxlength="45" placeholder="{% trans 'Bot' %}"
+                        value="">
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                        <label for="">{% trans 'Bot Apelido' %}</label>
+                        <input class="form-control" id="bot_apelido" type="text" required="" maxlength="20" autocomplete="off">
+                      </div>
+
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="bot_ativo">{% trans 'Bot Ativo' %}</label>
+                        <select class="form-control" id="bot_ativo" >
+                          <option value="S">{% trans 'Sim' %}</option>
+                          <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-6 mb-2">
+                        <label for="bot_passivo">{% trans 'Bot Passivo' %}</label>
+                              <select class="form-control" id="bot_passivo" >
+                                <option value="S">{% trans 'Sim' %}</option>
+                                <option value="N">{% trans 'Não' %}</option>
+                              </select>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="mt-0 mb-3 col-md-12">
+                    <div class="row g-2">
+                      <div class="col-sm-6 mb-2">
+                        <label for="bot_tipo">{% trans 'Bot Tipo' %}</label>
+                        <select class="js-example-basic-single" id="bot_tipo">
+                          {% for tipo in bots_tipos %}
+                            <option value="{{tipo}}">{{tipo}}</option>
+                          {% endfor %}
+                        </select>
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                          <label for="bot_numero">{% trans 'Bot Número' %}</label>
+                          <input class="form-control" id="bot_numero" type="text" required="" maxlength="20" autocomplete="off">
+                        </div>
+                      </div>
+                  </div>
+              <button class="btn btn-secondary update-contact mt-0" type="button">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary mt-3" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

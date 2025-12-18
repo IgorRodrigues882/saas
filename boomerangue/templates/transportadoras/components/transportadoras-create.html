@@ -1,0 +1,39 @@
+{% load static %}
+{% load sass_tags %}
+<div class="card">
+  <div class="card-header pb-0">
+    <h5>Cadastro Transportadora</h5>
+  </div>
+  <div class="card-body">
+    <form class="row g-3 needs-validation" novalidate="">
+      <div class="col-md-6 position-relative">
+        <label class="form-label" for="Transportadora">Transportadora</label>
+        <input class="form-control" id="Transportadora" maxlength="100" type="text" required="">
+        <div class="invalid-tooltip">Nome da transportadora não pode estar vazio</div>
+      </div>
+      <div class="col-md-6 position-relative">
+        <label class="form-label" for="TransportadoraAtivo">Transportadora Ativa</label>
+        <select class="form-select" id="TransportadoraAtivo" required="">
+          <option value="S">Sim</option>
+          <option value="N">Não</option>
+        </select>
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="TransportadoraPadrao">Transportadora Padrão</label>
+        <select class="form-select" id="TransportadoraPadrao" required="">
+          <option value="S">Sim</option>
+          <option value="N">Não</option>
+        </select>
+      </div>
+      <div class="col-md-9 position-relative">
+        <label class="form-label" for="EDI_Integracao">EDI Integração</label>
+        <input class="form-control" id="EDI_Integracao" type="text" maxlength="50" required>
+        <div class="invalid-tooltip">EDI Integração não pode estar vazio!</div>
+      </div>
+      
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit" id="create_condPagamento">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

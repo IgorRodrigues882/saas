@@ -1,0 +1,136 @@
+{% load static %}
+{% load sass_tags %}
+{% load tags %}
+{% load i18n %}
+  <!-- <div class="col-12">
+    <div class="card">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">{% trans 'Mapa Interativo de Leads' %}</h5>
+            <span>Exibindo localização dos leads cadastradas.</span>
+          </div>
+          <h5 class="mb-0"><span id="cont"></span></h5>
+          <button id="updateCoordinates" class="btn btn-success ms-2">Atualizar Leads</button>
+             <ul class="list-inline float-start float-sm-end chat-menu-icons">
+              <li class="list-inline-item toogle-bar"><a href="javascript:void(0)" id="open-menu" class="btn btn-primary ms-2">Filtros</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="map-js-height" id="map1" style="height: 500px;"></div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="col call-chat-body">
+    <div class="card">
+      <div class="card-body p-0">
+        <div class="row chat-box">
+          <!-- Chat right side start-->
+          <div class="col chat-right-aside">
+            <!-- chat start-->
+            <div class="chat">
+              <!-- chat-header start-->
+              <div class="media chat-header clearfix">
+                <div class="media-body">
+                  <h5 class="mb-0">{% trans 'Mapa Interativo de Leads' %}</h5>
+                  <span>Exibindo localização dos leads cadastrados.</span>
+                </div>
+                <ul class="list-inline float-start float-sm-end chat-menu-icons">
+                  <!-- <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-search"></i></a></li>
+                  <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-clip"></i></a></li>
+                  <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-headphone-alt"></i></a></li>
+                  <li class="list-inline-item"><a href="javascript:void(0)"><i class="icon-video-camera"></i></a></li> -->
+                  <h5 class="mb-0 me-2"><span id="cont"></span></h5>
+                  <button id="updateCoordinates" class="btn btn-success me-2">Atualizar Leads</button>
+                  <li class="list-inline-item toogle-bar"><a href="javascript:void(0)" id="open-menu" class="btn btn-primary">Filtrar</a></li>
+                </ul>
+              </div>
+              <!-- chat-header end-->
+              <div class="card-body">
+                <div class="map-js-height" id="map1" style="height: 500px;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col chat-menu" style="max-height: calc(100% - 150px); overflow-y: auto;">
+            <ul class="nav nav-tabs border-tab nav-primary" id="info-tab" role="tablist">
+              <li class="nav-item"><a class="nav-link active" id="info-transferir-tab" data-bs-toggle="tab" href="#info-transferir"
+                  role="tab" aria-selected="true">Filtragem</a>
+                <div class="material-border"></div>
+              </li>
+            </ul>
+            <div class="tab-content" id="info-tabContent">
+              <div class="tab-pane fade show active" id="info-transferir" role="tabpanel" aria-labelledby="info-transferir-tab">
+                <div class="people-list">
+                        <div class="row">
+                          <div class="col-12">
+                                <div class="filter-cards-view animate-chk">
+                                  <div class="job-filter">
+                                    <div class="faq-form">
+                                      <input class="typeahead form-control" id="lead" type="text" placeholder="Pesquisar lead.."><i class="search-icon"
+                                        data-feather="search"></i>
+                                        <div class="input-group-append">
+                                          <span class="loading-indicator-itens input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="checkbox-animated mt-0">
+                                    <div class="learning-header">
+                                      <h5 class="f-w-600">Região</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <select class="js-example-basic-single" id="regiao">
+                                        <option value="">Selecione</option>
+                                        {% for regiao in regioes %}
+                                          <option value="{{regiao.pk}}">{{regiao.Regiao}}</option>
+                                        {% endfor %}
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="checkbox-animated mt-0">
+                                    <div class="learning-header">
+                                      <h5 class="f-w-600">Estado</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <select class="js-example-basic-single" id="estado">
+                                        <option value="">Selecione</option>
+                                        {% for estado in uf %}
+                                            <option value="{{estado.pk}}">{{estado.uf}}</option>
+                                        {% endfor %}
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="checkbox-animated mt-0">
+                                    <div class="learning-header">
+                                      <h5 class="f-w-600">Cidade</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <select class="js-example-basic-single" id="cidade">
+                                        
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="checkbox-animated mt-0">
+                                    <div class="learning-header">
+                                      <h5 class="f-w-600">Bairro</h5>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <select class="js-example-basic-single" id="bairro">
+                                        
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <button class="btn btn-primary text-center" id="filtrar" type="button">Filtrar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        <!-- Container-fluid Ends-->
+      </div>
+    </div>

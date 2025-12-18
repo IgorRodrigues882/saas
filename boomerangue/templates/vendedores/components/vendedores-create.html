@@ -1,0 +1,101 @@
+{% load static %}
+{% load sass_tags %}
+<div class="card">
+  <div class="card-header pb-0">
+    <h5>Cadastro Vendedores</h5>
+  </div>
+  <div class="card-body">
+    <form class="row g-3 needs-validation" novalidate="">
+      <div class="col-md-6 position-relative">
+        <label class="form-label" for="Vendedor">Nome Vendedor</label>
+        <input class="form-control" id="Vendedor" maxlength="50" type="text" required="">
+        <div class="invalid-tooltip">Nome do Vendedor não pode estar vazio</div>
+      </div>
+
+      <div class="col-md-6 position-relative">
+        <label class="form-label" for="CodigoVendedor"> Cód Vendedor</label>
+        <input class="form-control" id="CodigoVendedor" maxlength="25" type="text" >
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="VendedorBM">Vendedor BM</label>
+        <input class="form-control" id="VendedorBM" maxlength="50" type="text" >
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="VendedorOriginal">Vendedor Original</label>
+        <input class="form-control" id="VendedorOriginal" maxlength="50" type="text" >
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="Apelido">Apelido</label>
+        <input class="form-control" id="Apelido" maxlength="40" type="text" required="">
+        <div class="invalid-tooltip"> Apelido não pode estar vazio</div>
+      </div>
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="LegendaVendedor">Legenda vendedor</label>
+        <input class="form-control" id="LegendaVendedor" maxlength="50" type="text" >
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="TelefoneVendedor">Telefone vendedor</label>
+        <input class="form-control" id="TelefoneVendedor" maxlength="50" type="text" required>
+        <div class="invalid-tooltip">Telefone vendedor não pode estar vazio</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="VendedorPadrao">Vendedor Padrão</label>
+        <select class="form-control" id="VendedorPadrao">
+            <option value="N">Não</option>
+            <option value="S">Sim</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="Integracao_EDI">EDI Integração</label>
+        <input class="form-control" id="Integracao_EDI" maxlength="50" type="text" >
+        <div class="invalid-tooltip">EDI Integração não pode estar vazio</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="Integracao_EDI2">EDI Integração 2</label>
+        <input class="form-control" id="Integracao_EDI2" maxlength="50" type="text">
+        <div class="invalid-tooltip">EDI Integração 2 não pode estar vazio</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="ComissaoVenda">Comissão Venda</label>
+        <input class="form-control" id="ComissaoVenda" maxlength="18" type="text" value="0" required >
+        <div class="invalid-tooltip">Comissão venda não pode estar vazio</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="CondicaoPgtoPadrao_id">Condição de pagamento</label>
+        <select class="js-example-basic-single" id="CondicaoPgtoPadrao_id" > 
+              <option value="">Condição Pagamento</option>
+              {% for condicao in condicoes %}
+                <option value="{{condicao.pk}}">{{condicao.condicoes_pagamento}}</option>
+              {% endfor %}
+        </select>
+        <div class="invalid-tooltip">Selecione uma Condição de pagamento</div>
+      </div>
+
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="TransportadoraPadrao_id">Transportadora</label>
+        <select class="js-example-basic-single" id="TransportadoraPadrao_id" > 
+              <option value="">Selecione transportadora</option>
+              {% for transportadora in transportadoras %}
+                <option value="{{transportadora.pk}}">{{transportadora.Transportadora}}</option>
+              {% endfor %}
+        </select>
+      </div>
+      
+      <div class="col-md-3 position-relative">
+        <label class="form-label" for="MarcaPadrao">Marca Padrão</label>
+        <input class="form-control" id="MarcaPadrao" maxlength="50" type="text" required>
+        <div class="invalid-tooltip">Marca Padrão não pode estar vazio</div>
+      </div>
+      
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit" id="create_vendedor">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

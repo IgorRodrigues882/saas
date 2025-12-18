@@ -1,0 +1,284 @@
+/* Chat Toggle Button */
+#chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #FE4170;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  #chat-toggle i {
+    font-size: 24px;
+    color: azure;
+  }
+  
+  /* Chat Widget */
+  #chat-widget {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    z-index: 1001;
+  }
+  
+  #chat-header-bot {
+    background-color: #FE4170;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  #chat-header-bot span {
+    font-weight: bold;
+  }
+  
+  #chat-header-bot button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  #chat-body {
+    padding: 10px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column-reverse; /* Mantém as mensagens na ordem */
+    overflow-y: auto;
+  }
+  
+  .message-bot {
+    margin: 10px 0;
+  }
+  
+  .bot-message {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .bot-options button {
+    display: block;
+    background-color: #FE4170;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  
+  #chat-footer {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    gap: 10px;
+  }
+  
+  #chat-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #send-message-bot {
+    background-color: #FE4170;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* Balões de Mensagens */
+.user-message {
+    align-self: flex-end;
+    background-color: #FE4170;
+    color: white;
+    padding: 10px;
+    border-radius: 15px 15px 0 15px;
+    margin: 5px 0;
+    max-width: 70%;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .bot-message {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 10px;
+    border-radius: 15px 15px 15px 0;
+    margin: 5px 0;
+    max-width: 70%;
+    animation: slideIn 0.3s ease-in-out;
+  }
+  
+  /* Animação de espera */
+  #typing-indicator {
+    margin: 10px 0;
+    font-style: italic;
+    color: gray;
+  }
+  
+  /* Histórico */
+  #chat-history {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  #history-header {
+    background-color: #FE4170;
+    color: white;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  #history-body {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  /* Botão Voltar */
+#back-to-chat {
+    background-color: #FE4170; /* Cor de fundo combinando com o tema */
+    color: white; /* Texto branco */
+    font-size: 16px; /* Tamanho do texto */
+    padding: 10px 20px; /* Padding para dar espaço interno */
+    border: none; /* Remove borda */
+    border-radius: 25px; /* Borda arredondada */
+    cursor: pointer; /* Mostra o cursor de pointer quando em cima do botão */
+    transition: background-color 0.3s, transform 0.3s; /* Efeitos de transição suaves */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+#back-to-chat:hover {
+    background-color: #e3375f; /* Cor de fundo mais escura quando o botão for sobrevoado */
+    transform: translateY(-2px); /* Animação de "levitação" */
+}
+
+#back-to-chat:active {
+    background-color: #d32e56; /* Cor de fundo mais escura quando pressionado */
+    transform: translateY(0); /* Retorna a posição normal ao pressionar */
+}
+  
+.history-card {
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.history-card:hover {
+  background: #e6f7ff;
+}
+
+.channel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.channel-header .channel-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.channel-header .channel-time {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.channel-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff; /* Fundo branco para evitar tom de cinza */
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.channel-card:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.channel-avatar {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  background-image: url('/static/assets/images/avtar/bot.png'); /* Substitua pela URL do avatar do bot */
+  background-size: cover;
+  background-position: center;
+}
+
+.channel-info {
+  flex-grow: 1;
+}
+
+.channel-info .channel-message {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 5px;
+  display: -webkit-box; /* Define um contêiner flexível */
+  -webkit-box-orient: vertical; /* Define a orientação como vertical */
+  -webkit-line-clamp: 3; /* Limita a 3 linhas */
+  overflow: hidden; /* Esconde o conteúdo excedente */
+}
+
+  /* Animações */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  

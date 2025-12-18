@@ -1,0 +1,688 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-30 18:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:25
+msgid "Bem vindo de volta! Entre novamente na sua conta."
+msgstr "Welcome back! Log in to your account again."
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:33
+msgid "Senha"
+msgstr "Password"
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:42
+msgid "Lembrar Senha"
+msgstr "Remember Password"
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:43
+msgid "Esqueceu sua senha?"
+msgstr "Forgot your password?"
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:46
+msgid "Entrar"
+msgstr "Log In"
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:59
+msgid "Não tem uma conta?"
+msgstr "Don't have an account?"
+
+#: boomerangue/templates/auth/login-bs-tt-validation/components/login-bs-tt-validation.html:59
+msgid "Criar Conta"
+msgstr "Create Account"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:16
+msgid "Encerradas"
+msgstr "Closed"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:21
+msgid "Pesquisar.."
+msgstr "Search..."
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:24
+msgid "Criar nova campanha"
+msgstr "Create a new campaign"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:37
+msgid "Em andamento"
+msgstr "In progress"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:37
+msgid "Encerrada"
+msgstr "Closed"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:47
+msgid "Itens Vendidos"
+msgstr "Items Sold"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:49
+msgid "Compradores"
+msgstr "Buyers"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:51
+msgid "Total de vendas"
+msgstr "Total Sales"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:63
+msgid "Top 3 Mais vendidos"
+msgstr "Top 3 Best Sellers"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:71
+msgid "Taxa de conversão"
+msgstr "Conversion Rate"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:80
+msgid "Ver mais"
+msgstr "See more"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:101
+msgid "Relatório IA"
+msgstr "AI Report"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:120
+msgid "Inteligência Artificial"
+msgstr "Artificial Intelligence"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:121
+msgid "Aguarde"
+msgstr "Please wait"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:144
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:68
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:23
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:23
+msgid "Opções"
+msgstr "Options"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:174
+msgid "Salvar PDF"
+msgstr "Save PDF"
+
+#: boomerangue/templates/campanhas/components/campanhas-list.html:175
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:109
+#: boomerangue/templates/empresas/components/empresas-create.html:112
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:43
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:100
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:98
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: boomerangue/templates/campanhas/components/create_new.html:12
+msgid "Título da campanha"
+msgstr "Campaign Title"
+
+#: boomerangue/templates/campanhas/components/create_new.html:20
+msgid "Texto Título"
+msgstr "Title Text"
+
+#: boomerangue/templates/campanhas/components/create_new.html:26
+msgid "Texto Rodapé"
+msgstr "Footer Text"
+
+#: boomerangue/templates/campanhas/components/create_new.html:34
+msgid "Link Rodapé"
+msgstr "Footer Link"
+
+#: boomerangue/templates/campanhas/components/create_new.html:40
+msgid "Texto Promocional"
+msgstr "Promotional Text"
+
+#: boomerangue/templates/campanhas/components/create_new.html:48
+msgid "Campanha ativa"
+msgstr "Active Campaigns"
+
+#: boomerangue/templates/campanhas/components/create_new.html:50
+#: boomerangue/templates/condicao-pagamentos/components/components.html:29
+#: boomerangue/templates/condicao-pagamentos/components/components.html:30
+#: boomerangue/templates/condicao-pagamentos/components/components.html:33
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:32
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:39
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:67
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:80
+msgid "Não"
+msgstr "No"
+
+#: boomerangue/templates/campanhas/components/create_new.html:51
+#: boomerangue/templates/condicao-pagamentos/components/components.html:29
+#: boomerangue/templates/condicao-pagamentos/components/components.html:30
+#: boomerangue/templates/condicao-pagamentos/components/components.html:33
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:31
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:38
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:66
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:79
+msgid "Sim"
+msgstr "Yes"
+
+#: boomerangue/templates/campanhas/components/create_new.html:57
+msgid "Link Marketing"
+msgstr "Marketing Link"
+
+#: boomerangue/templates/campanhas/components/create_new.html:85
+msgid "Imagem de banner para PC"
+msgstr "PC Banner Image"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:15
+msgid "Editar"
+msgstr "Edit"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:16
+msgid "Deletar"
+msgstr "Delete"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:18
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:93
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:133
+msgid "Imprimir"
+msgstr "Print"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:23
+msgid "Detalhes"
+msgstr "Details"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:25
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:37
+msgid "Nome"
+msgstr "Name"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:26
+#: boomerangue/templates/empresas/components/empresas-create.html:14
+msgid "Empresa"
+msgstr "Company"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:27
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:48
+msgid "Valor Mínimo"
+msgstr "Minimum Value"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:28
+msgid "Nº de Parcelas"
+msgstr "Number of Installments"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:29
+msgid "Condinção Padrão"
+msgstr "Default Payment Condition"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:30
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:77
+msgid "Condição Ativa"
+msgstr "Payment Condition Active"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:31
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:53
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:93
+#: boomerangue/templates/empresas/components/empresas-create.html:64
+msgid "EDI Integração"
+msgstr "EDI Integration"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:32
+msgid "Prazo Médio"
+msgstr "Average Term"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:32
+msgid "dias"
+msgstr "days"
+
+#: boomerangue/templates/condicao-pagamentos/components/components.html:33
+msgid "Sincronizado"
+msgstr "Synchronized"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:6
+msgid "Cadastro condição de pagamento"
+msgstr "Payment Condition Registration"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:11
+msgid "Nome condição de pagamento"
+msgstr "Payment Condition Name"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:13
+msgid "Nome da condição não pode estar vazio"
+msgstr "Payment condition name cannot be empty"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:17
+msgid "Valor mínimo"
+msgstr "Minimum value"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:20
+msgid "Valor mínimo não pode estar vazio"
+msgstr "Minimum value cannot be empty"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:24
+msgid "Número de parcelas"
+msgstr "Number of installments"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:26
+msgid "Número de parcelas não pode estar vazio"
+msgstr "Number of installments cannot be empty"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:29
+msgid "Condição Pagamento padrão"
+msgstr "Default Payment Condition"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:36
+msgid "Condição Pagamento Ativa"
+msgstr "Payment Condition Active"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:43
+msgid "Prazo Condição Pag (Dias)"
+msgstr "Payment Condition Term (Days)"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:45
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:50
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:65
+msgid "Prazo médio não pode estar vazio"
+msgstr "Average term cannot be empty"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:48
+msgid "Cód Tipo Documento Cobrança"
+msgstr "Code Document Collection Type"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:55
+msgid "EDI Integração não pode estar vazio!"
+msgstr "EDI Integration cannot be empty!"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:58
+msgid "Status condição de pagamento"
+msgstr "Payment condition status"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:60
+msgid "Status condição de pagamento não pode estar vazio!"
+msgstr "Payment condition status cannot be empty!"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:63
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:103
+msgid "Condição Amigável"
+msgstr "Friendly Condition"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento.html:69
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:108
+#: boomerangue/templates/empresas/components/empresas-create.html:111
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:42
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:99
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:97
+msgid "Salvar"
+msgstr "Save"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:7
+msgid "Condições de Pagamento"
+msgstr "Payment Conditions"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:52
+msgid "Status condição"
+msgstr "Payment condition status"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:60
+msgid "Nº Parcelas"
+msgstr "Number of Installments"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:64
+msgid "Condição Pagamento Padrão"
+msgstr "Default Payment Condition"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:84
+msgid "Prazo médio (Dias)"
+msgstr "Average Term (Days)"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:97
+msgid "Cód documento cobrança"
+msgstr "Code Document Collection"
+
+#: boomerangue/templates/condicao-pagamentos/components/condicao_pagamento_personal.html:107
+msgid "Editar Mais Informações"
+msgstr "Edit More Information"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:20
+msgid "Apelido Empresa"
+msgstr "Company nickname"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:34
+#: boomerangue/templates/empresas/components/empresas-create.html:36
+msgid "Tipo empresa"
+msgstr "Company Type"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:37
+msgid "Matriz"
+msgstr "Headquarters"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:38
+msgid "Filial"
+msgstr "Branch"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:44
+msgid "Cód Puxada"
+msgstr "Pull Code"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:52
+msgid "Chave EDI"
+msgstr "EDI Key"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:58
+msgid "Cód Empresa"
+msgstr "Company Code"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:72
+msgid "Token API"
+msgstr "API Token"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:78
+msgid "Token BM"
+msgstr "BM Token"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:84
+msgid "Telefone SAC"
+msgstr "SAC telephone"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:92
+msgid "Cód Telefone"
+msgstr "Code Phone"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:98
+msgid "Email pedido direto"
+msgstr "E-mail pedido direto"
+
+#: boomerangue/templates/empresas/components/empresas-create.html:104
+msgid "Email Pedido Empresa"
+msgstr "E-mail Pedido Empresa"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:14
+msgid "Add Categoria"
+msgstr "Add Category"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:23
+msgid "Categoria Nome"
+msgstr "Category Name"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:27
+msgid "Tipo Categoria"
+msgstr "Category Type"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:29
+msgid "Normal"
+msgstr "Normal"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:30
+#, fuzzy
+msgid "Top Vendas"
+msgstr "Total Sales"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:31
+msgid "Sugestão"
+msgstr "Suggestion"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:36
+msgid "Categoria Descrição"
+msgstr "Category Description"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:65
+msgid "Nova Categoria"
+msgstr "New Category"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:70
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:92
+msgid "Categorias"
+msgstr "Categories"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:73
+msgid "Categorias produtos"
+msgstr "Product Categories"
+
+#: boomerangue/templates/ger_categorias/components/ger_categorias-list.html:123
+msgid "Nenhuma Categoria Encontrada"
+msgstr "No Category Found"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:9
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:89
+msgid "Grades"
+msgstr "Grades"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:11
+msgid "Criar grade"
+msgstr "Create Grade"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:19
+msgid "Grade"
+msgstr "Grade"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:20
+msgid "Data Cadastro"
+msgstr "Registration Date"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:21
+msgid "Número inicial"
+msgstr "Initial Number"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:22
+msgid "Número Final"
+msgstr "Final Number"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:67
+msgid "Add Grade"
+msgstr "Add Grade"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:76
+msgid "Grade Nome"
+msgstr "Grade Name"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:80
+msgid "Nº Inicial"
+msgstr "Initial Number"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:84
+msgid "Nº Final"
+msgstr "Final Number"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:96
+msgid "Adicionar grade"
+msgstr "Add Grade"
+
+#: boomerangue/templates/ger_grade/components/ger_grade-list.html:97
+msgid "Excluir grade"
+msgstr "Delete Grade"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:9
+msgid "Grupo Produtos"
+msgstr "Product Groups"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:11
+msgid "Criar Grupo"
+msgstr "Create Group"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:19
+msgid "Grupo Produto"
+msgstr "Product Group"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:20
+msgid "Grupo Ativo"
+msgstr "Active Group"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:21
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:84
+msgid "Ordem"
+msgstr "Order"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:22
+msgid "Cadastro"
+msgstr "Registration"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:71
+msgid "Add Grupo Produtos"
+msgstr "Add Product Group"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:80
+msgid "Grupo Produto Nome"
+msgstr "Product Group Name"
+
+#: boomerangue/templates/ger_grupoprodutos/components/ger_grupoprodutos-list.html:88
+msgid "Ativo"
+msgstr "Active"
+
+
+#: boomerangue/templates/home/index.html:17
+msgid "Últimos 30 dias!"
+msgstr "Last 30 days!"
+
+#: boomerangue/templates/home/index.html:24
+msgid "Boomerangues Enviados"
+msgstr "Sent Boomerangs"
+
+#: boomerangue/templates/home/index.html:28
+msgid "Campanhas Ativas"
+msgstr "Active Campaigns"
+
+#: boomerangue/templates/home/index.html:32
+msgid "Taxa de Conversão"
+msgstr "Conversion Rate"
+
+#: boomerangue/templates/home/index.html:36
+msgid "Em Vendas R$"
+msgstr ""
+
+#: boomerangue/templates/home/index.html:40
+msgid "Ticket Médio"
+msgstr "Average ticket"
+
+#: boomerangue/templates/home/index.html:45
+#: boomerangue/templates/layout/starter-sidebar.html:55
+#: boomerangue/templates/layout/starter-sidebar.html:57
+msgid "Campanhas"
+msgstr "Campaigns"
+
+#: boomerangue/templates/home/index.html:49
+msgid "Pedidos Confirmados"
+msgstr ""
+
+#: boomerangue/templates/layout/header.html:46
+msgid "Pesquisar..."
+msgstr "Search..."
+
+#: boomerangue/templates/layout/header.html:111
+msgid "Notificações"
+msgstr "Notifications"
+
+#: boomerangue/templates/layout/starter-sidebar.html:25
+msgid "Criar Boomerangues"
+msgstr "Create Boomerangues"
+
+#: boomerangue/templates/layout/starter-sidebar.html:58
+msgid "Criar campanha"
+msgstr "Create a new campaign"
+
+#: boomerangue/templates/layout/starter-sidebar.html:95
+#: boomerangue/templates/layout/starter-sidebar.html:97
+msgid "Empresas"
+msgstr "Companys"
+
+#: boomerangue/templates/layout/starter-sidebar.html:98
+msgid "Criar Empresa"
+msgstr "Company Code"
+
+#: boomerangue/templates/layout/starter-sidebar.html:99
+msgid "Criar Condição Pagamento"
+msgstr "Payment Condition Active"
+
+#: boomerangue/templates/layout/starter-sidebar.html:100
+msgid "Condições de Pagamentos"
+msgstr "Payment Conditions"
+
+#: boomerangue/templates/layout/starter-sidebar.html:105
+#: boomerangue/templates/layout/starter-sidebar.html:107
+msgid "Transportadoras"
+msgstr "Carriers"
+
+#: boomerangue/templates/layout/starter-sidebar.html:108
+msgid "Add Transportadora"
+msgstr "Add Carrier"
+
+#: boomerangue/templates/layout/starter-sidebar.html:169
+#: boomerangue/templates/layout/starter-sidebar.html:171
+msgid "Vendedores"
+msgstr "Vendors"
+
+#: boomerangue/templates/layout/starter-sidebar.html:172
+msgid "Add Vendedores"
+msgstr "Add Vendors"
+
+#: boomerangue/templates/layout/starter-sidebar.html:217
+msgid "Entidades"
+msgstr "Entities"
+
+#: boomerangue/templates/layout/starter-sidebar.html:219
+msgid "Resumo da Entidade"
+msgstr "Entity Summary"
+
+#: boomerangue/templates/layout/starter-sidebar.html:220
+msgid "Criar Entidade"
+msgstr "Create Entity"
+
+#: boomerangue/templates/layout/starter-sidebar.html:261
+msgid "Usuários"
+msgstr "Users"
+
+#: boomerangue/templates/layout/starter-sidebar.html:262
+msgid "Grupos de Permissão"
+msgstr "Permission Groups"
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:221
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:207
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:222
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:230
+msgid "Django Documentation"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:231
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:239
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:240
+msgid "Get started with Django"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:248
+msgid "Django Community"
+msgstr ""
+
+#: venv/lib/python3.10/site-packages/django/views/templates/default_urlconf.html:249
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#~ msgid "Selecione a empresa"
+#~ msgstr "Select the company"
+
+#~ msgid "Selecione uma empresa"
+#~ msgstr "Select a company"

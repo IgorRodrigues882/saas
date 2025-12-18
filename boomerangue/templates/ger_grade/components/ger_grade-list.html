@@ -1,0 +1,105 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">{% trans 'Grades' %}</h5>
+        </div>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="newgrade()" class="btn btn-primary">{% trans 'Criar grade' %}</a>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Grade' %}</span></th>
+              <th> <span>{% trans 'Data Cadastro' %}</span></th>
+              <th> <span>{% trans 'Número inicial' %}</span></th>
+              <th> <span>{% trans 'Número Final' %}</span></th>
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for grade in ger_grade %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><img class="img-fluid b-r-5"
+                      src="{% static 'assets/images/dashboard/folder1.png' %}" alt=""></div>
+                  <div class="media-body ps-2">
+                    <div class="avatar-details"><a href="#">
+                        <h6>{{grade.Grade}}</h6>
+                      </a><span>{{grade.pk}}</span></div>
+                  </div>
+                </div>
+              </td>
+              <td class="img-content-box">
+                <h6>{{grade.cadastro_dt|date:'d/m/Y'}}</h6>
+              </td>
+              <td>
+                <h6>{{grade.NroInicial}}</h6>
+              </td>
+              <td>
+                <h6>{{grade.NroFinal}}</h6>
+              </td>
+              <td>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editar_grade('{{grade.pk}}')"><i data-feather="edit-2"></i></a>
+                <a href="#" class="ms-2" onclick="delete_grade('{{grade.pk}}')"><i data-feather="trash-2"></i></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Grade' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="Grade">{% trans 'Grade Nome' %}</label>
+                          <input class="form-control" id="Grade" type="text" required="" maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="NroInicial">{% trans 'Nº Inicial' %}</label>
+                          <input class="form-control" id="NroInicial" type="text" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="NroFinal">{% trans 'Nº Final' %}</label>
+                          <input class="form-control" id="NroFinal" type="text" autocomplete="off">
+                        </div>
+                      </div>
+                      <div class="row d-block d-sm-flex" id="div_grades">
+                        <label for="">{% trans 'Grades' %}</label>
+                        <div class="col-sm-2 m-b-20">
+                          <input class="form-control" id="Grade01" data-cont="1" type="text" maxlength="50" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <input id="index_var" type="hidden" value="6">
+                    <button class="btn btn-success" id="add_grade" type="button" >{% trans 'Adicionar grade' %}</button>
+                    <button class="btn btn-danger" id="delete_grade" type="button" >{% trans 'Excluir grade' %}</button>
+                    <button class="btn btn-secondary" id="salvar_categoria" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>

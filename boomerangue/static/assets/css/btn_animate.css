@@ -1,0 +1,71 @@
+.botao {
+    min-width: 30px;
+    min-height: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: white;
+    background: #FE4170;
+    background: linear-gradient(90deg, #FE4170 0%, #FE4170 100%);
+    border: none;
+    border-radius: 1000px;
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 10px;
+    }
+  
+ .botao::before {
+    content: '';
+    border-radius: 60px;
+    min-width: calc(30px + 12px);
+    min-height: calc(30px + 12px);
+    border: 6px solid #FE4170;
+    box-shadow: 0 0 60px #FE4170;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all .3s ease-in-out 0s;
+  }
+  
+  .button:hover, .button:focus {
+    color: #313133;
+    transform: translateY(-6px);
+  }
+  
+ .botao:hover::before,.botao:focus::before {
+    opacity: 1;
+  }
+  
+ .botao::after {
+    content: '';
+    width: 30px; height: 30px;
+    border-radius: 100%;
+    border: 6px solid #FE4170;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+  }
+  
+ .botao:hover::after,.botao:focus::after {
+    animation: none;
+    display: none;
+  }
+  
+  @keyframes ring {
+    0% {
+      width: 30px;
+      height: 30px;
+      opacity: 1;
+    }
+    100% {
+      width: 60px;
+      height: 60px;
+      opacity: 0;
+    }
+  }

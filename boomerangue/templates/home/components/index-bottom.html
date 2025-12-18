@@ -1,0 +1,75 @@
+{% load static %}
+{% load sass_tags %}
+{% load tags %}
+<div class="col-xl-4 col-md-6 dash-33 dash-xl-50 box-col-6">
+  <div class="card news-update">
+    <div class="card-header card-no-border">
+      <div class="header-top">
+        <h5 class="m-0">Top 5 {% get_string_personalizada 'Leads' %}</h5>
+        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+          <div class="icon-box-show onhover-show-div">
+            <ul>
+              <li> <a>
+                  Today</a></li>
+              <li> <a>
+                  Yesterday</a></li>
+              <li> <a>
+                  Tommorow</a></li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive custom-scrollbar" style="height: 250px; overflow-x: scroll;">
+        <table class="table table-bordernone">
+          <tbody id="compradores">
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-xl-8 box-col-6 dash-xl-50">
+  <div class="card ongoing-project">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Templates mais usados</h5>
+        </div>
+        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+          <div class="icon-box-show onhover-show-div">
+            <ul>
+              <li> <a>
+                  Done</a></li>
+              <li> <a>
+                  Pending</a></li>
+              <li> <a>
+                  Rejected</a></li>
+              <li> <a>In Progress</a></li>
+            </ul>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive custom-scrollbar" style="height: 250px; overflow-x: scroll;">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>Template</span></th>
+              <th> <span>Ativo</span></th>
+              <th> <span>Campanhas vinculadas</span></th>
+              <th> <span>Opção</span></th>
+            </tr>
+          </thead>
+          <tbody id="tabela_templates">
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

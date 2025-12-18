@@ -1,0 +1,151 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<style>
+  .custom-btn {
+    padding: 0.2rem 0.3rem; /* Ajuste o padding conforme necessário */
+}
+
+.custom-icon {
+    font-size: 0.8rem; /* Ajuste o tamanho do ícone conforme necessário */
+}
+/* Define o tamanho da área de visualização da miniatura */
+.dropzone .dz-preview .dz-image {
+    width: 120px;  /* Ajuste conforme necessário */
+    height: 120px; /* Ajuste conforme necessário */
+}
+
+/* Ajusta o tamanho da imagem dentro da miniatura */
+.dropzone .dz-preview .dz-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta a imagem para cobrir completamente a área */
+}
+
+</style>
+
+<div class="card">
+  <div class="card-body p-0">
+    <div class="row chat-box">
+      <!-- Chat right side start-->
+      <div class="col chat-right-aside">
+        <!-- chat start-->
+        <div class="chat">
+          <!-- chat-header start-->
+          <div class="media chat-header clearfix">
+            <div class="media-body">
+              <div class="about">
+                <div class="name" id="nome_user_msgs"></div>
+              </div>
+            </div>
+            
+          </div>
+          <!-- chat-header end-->
+          <div class="chat-history chat-msg-box custom-scrollbar" id="chat_box_history">
+            <div class="loader-box" id="loader_mensagens_" style="display: none;">
+              <div class="loader-2"></div>
+            </div>
+            <ul id="tbody_msgs">
+              
+            </ul>
+          </div>
+          <!-- end chat-history-->
+          <div class="chat-message clearfix">
+            <div class="row">
+              <div class="col-xl-12 d-flex">
+                <!-- <div class="">
+                  <a class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#modal-comprovantes"></a>
+                </div> -->
+                <div class="smiley-box bg-primary">
+                  <div class="picker" id="smiley-button"><img src="{% static 'assets/images/smiley.png' %}" alt=""></div>
+                </div>
+                <div class="input-group text-box">
+                  <input class="form-control input-txt-bx" id="message-to-send" type="text" name="message-to-send"
+                    placeholder="Digite a mensagem...">
+                  <button class="btn btn-primary input-group-text" id="send-message" type="button">Enviar</button>
+                </div>
+              </div>
+            </div>
+            <div id="emoji-picker" style="position: absolute; display: none; z-index: 2000;"></div>
+          </div>
+          <!-- end chat-message-->
+          <!-- chat end-->
+          <!-- Chat right side ends-->
+        </div>
+      </div>
+    </div>
+    <!-- Container-fluid Ends-->
+  </div>
+
+  <div class="modal fade modal-bookmark" id="modal-comprovantes" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Anexar comprovante</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"> </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="form-row">
+                <div class="row">
+                    <div class="col m-b-20">
+                      <label for="">Tipo pagamento</label>
+                      <select class="form-control" id="tipo_pagamento">
+                        <option value="PIX">Pix</option>
+                        <option value="CARTAO">Cartão</option>
+                        <option value="BOLETO">Boleto</option>
+                        <option value="DINHEIRO">Dinheiro</option>
+                      </select>
+                    </div>
+                    <div class="col m-b-20">
+                      <label for="">Valor</label>
+                      <input type="text" id="valor" maxlength="10" class="form-control">
+                    </div>
+                    <div class="col m-b-20">
+                      <label for="">Identificador</label>
+                      <input type="text" id="txid" maxlength="50" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col m-b-20">
+                      <label for="">Data de pagamento</label>
+                      <input type="text" id="data_tx" class="form-control">
+                    </div>
+                    <div class="col m-b-20">
+                      <label for="">recorrencia</label>
+                      <select class="form-control" id="recorrencia">
+                        <option value="UNICO">UNICO</option>
+                        <!-- <option value="APROVADO">APROVADO</option> -->
+                      </select>
+                    </div>
+                    <div class="col m-b-20">
+                      <label for="">Status</label>
+                      <select class="form-control" id="status">
+                        <option value="PENDENTE">PENDENTE</option>
+                        <option value="APROVADO">APROVADO</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col m-b-20">
+                      <form class="dropzone" id="importComprovante" action="/api/bmm_template/">
+                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="salvar_comprovante">Salvar</button>
+              <button class="btn btn-info" type="button" id="validar_pagamento">Validar pagamento</button>
+              <a href="#" class="btn btn-success" target="_blank" id="ver_cpv">Ver comprovante</a>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>

@@ -1,0 +1,46 @@
+ <!-- Container-fluid starts-->
+ <div class="container-fluid list-products">
+    <div class="row">
+      <!-- Individual column searching (text inputs) Starts-->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h5>Tabela de empresas </h5><span></span>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive product-table">
+              <table class="display" id="basic-1">
+                <thead>
+                  <tr>
+                    <th>Empresa</th>
+                    <th>Detalhes</th>
+                    <th>Telefone</th>
+                    <th>Tipo empresa</th>
+                    <th>Data Cadastro</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for empresa in empresas %}
+                  <tr>
+                    <td><h6>{{empresa.empresa}}</h6></td>
+                    <td><span>CNPJ: {{empresa.cnpj}} <br> Cód Empresa: {{empresa.cod_empresa}} <br> Cód Puxada: {{empresa.cod_puxada}}</span></td>
+                    <td>{{empresa.telefonesac}}</td>
+                    <td class="{% if empresa.tipoempresa_id == 'F' %}font-success {% else %} font-danger {% endif %}">{{empresa.get_tipoempresa_id_display}}</td>
+                    <td>{{empresa.cadastro_dt|date:"d/m/Y"}}</td>
+                    <td>
+                      <button class="btn btn-danger btn-xs" type="button" data-original-title="btn btn-danger btn-xs"
+                        title="" data-id="{{empresa.pk}}" id="btn_deletar">Deletar</button>
+                      <button class="btn btn-primary btn-xs" type="button" data-original-title="btn btn-danger btn-xs"
+                        title="" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="{{empresa.pk}}" id="btn_edit">Editar</button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

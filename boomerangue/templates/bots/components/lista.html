@@ -1,0 +1,611 @@
+{% load static %}
+{% load i18n %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header card-no-border">
+          <div class="media media-dashboard">
+            <div class="media-body">
+              <h5 class="mb-0">{% trans 'Bots' %}</h5>
+            </div>
+            <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#addModal">Criar novo</a>
+          </div>
+        </div>
+        <div class="card-body">
+            <style>
+              .opts{
+                font-size: large;
+                text-align: center;
+                display: flex;
+                justify-content: end;
+              }
+              .opts > li{
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                padding: 12px;
+                margin-left: 9px;
+                color:#6362e7;
+                transition: all 0.3s ease-out allow-discrete;
+              }
+              .opts > li:hover{
+                background:#6362e7;
+                
+                a{
+                  color: #fff;
+                }
+              }
+              table{
+                border-collapse: separate;
+                border-spacing: 0 0px;
+              }
+              tbody > tr{
+                background: inherit !important;
+                --bs-table-accent-bg: inherit !important;
+              }
+              tbody > tr > td{
+                border-bottom: thin solid rgba(0, 0, 0, 0.09);
+                padding: 15px 0;
+                vertical-align: middle;
+              }
+            </style>
+
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Nome</th>
+                    <th>Empresa</th>
+                    <th class="text-center">Status</th>
+                    <th>Tipo</th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for bot in bots %}
+                      <tr>
+                          <td>
+                            {{bot.id}}
+                            <!-- <img style="width: 70px;" class="img-fluid rounded-circle" src="/static/assets/images/avtar/bot.png" alt="" draggable="false"> -->
+                          </td>
+                          <td><a href="/bots/{{bot.id}}">{{ bot.bot }}</a></td>
+                          <td>{{ bot.empresa.empresa}}</td>
+                          <td class="text-center">
+                            {% if bot.bot_ativo == "S" %}
+                              <img class="p-2 btn-success rounded-circle">
+                            {% else %}
+                              <img class="p-2 btn-danger rounded-circle">
+                            {% endif %}
+                          </td>
+                          <td>{{ bot.bot_tipo }}</td>
+                          <td>
+                            <ul class="opts">
+                              {% if bot.bot_ativo == "S" %}
+                                <li class="btn-warning">
+                                  <a class="text-white" data-bs-toggle="modal" title="Testar Bot" data-bs-target="#testar-bot-mensagem" onclick="abrirModalTeste('{{bot.pk}}', '{{bot.EDI_Integracao}}')" id="testar-bot" data-edi="{{bot.EDI_Integracao}}" href="#">
+                                    <i class="icon-receipt"></i>
+                                  </a>
+                                </li>
+                              {% endif %}
+                              <li class="{% if bot.bot_ativo == 'S' %}btn-primary{% else %}btn-success{% endif %}">
+                                <a class="text-white" data-bs-toggle="modal" id="{% if bot.bot_ativo == 'N' %}synchronize_bot{% else %}disconnect_bot{% endif %}" data-edi="{{bot.EDI_Integracao}}" href="#">
+                                  <i class="icon-reload">
+
+                                  </i>
+                                </a>
+                              </li>
+                              <li>
+                                <a data-bs-toggle="modal" data-id="{{bot.id}}" data-bs-target="#editModal" id="editar_bot" 
+                                onclick="$('.update-contact').data('id', '{{bot.id}}');" href="#">
+                                  <i class="icon-pencil"></i>
+                                </a>
+                              </li>
+                              <li><a href="#" onclick="deleteContact('{{bot.pk}}')" id="deletar_bot"><i class="icon-trash"></i></a></li>
+                            </ul>
+                          </td>
+                      </tr>
+                  {% endfor %}
+                
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-bookmark" id="addModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Criar Bot</h5>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form id="create_bot_form">
+        <div class="row g-2">
+          <div class="mt-0 mb-3 col-md-12">
+            <div class="row g-2">
+              <div class="col-sm-6 mb-2">
+                  <label for="bot">{% trans 'Bot' %}</label>
+                <input class="form-control" name="bot" id="bot" type="text" required="" maxlength="45" placeholder="{% trans 'Bot' %}"
+                  value="">
+              </div>
+              <div class="col-sm-6 mb-2">
+                  <label for="">{% trans 'Bot Apelido' %}</label>
+                  <input class="form-control" name="bot_apelido" id="bot_apelido" type="text" required="" maxlength="20" autocomplete="off">
+                </div>
+
+            </div>
+          </div>
+          <div class="mt-0 mb-3 col-md-12">
+            <div class="row g-2">
+              <div class="col-md-6 col-12 mb-2">
+                <label for="bot_tipo">{% trans 'Bot Tipo' %}</label>
+                <select class="js-example-basic-single" id="bot_tipo" name="bot_tipo">
+                  {% for tipo in bots_tipos %}
+                    <option value="{{tipo}}">{{tipo}}</option>
+                  {% endfor %}
+                </select>
+                </div>
+                <div class="col-md-6 col-12 mb-2">
+                  <label for="bot_tipo">{% trans 'Bot Padrão' %}</label>
+                  <select class="js-example-basic-single"  name="bot_padrao">
+                      <option value="N">Não</option>
+                      <option value="S">Sim</option>
+                  </select>
+                  </div>
+              </div>
+          </div>
+
+          <div class="mt-0 mb-3 col-md-12">
+              <div class="row g-2">
+                <div class="col-sm-6 mb-2">
+                  <label for="bot_passivo">{% trans 'Bot Passivo' %}</label>
+                        <select class="form-control" id="bot_passivo" >
+                          <option value="N">{% trans 'Não' %}</option>
+                          <option value="S">{% trans 'Sim' %}</option>
+                        </select>
+                </div>
+                  <div class="col-sm-6 mb-2">
+                    <label for="bot_numero">{% trans 'Bot Número' %}</label>
+                    <input class="form-control" id="bot_numero" name="bot_numero" type="text" required="" maxlength="20" autocomplete="off">
+                  </div>
+                </div>
+            </div>
+            <div class="row g-2 d-block d-sm-flex">
+              <div class="col-sm-12 m-b-20">
+                <label for="">{% trans 'Provedor' %}</label>
+                <select class="js-example-basic-single" name="bot_provedor" id="bot_provedor_new">
+                  <option value=""></option>
+                  {% for provedor in provedores %}
+                    <option value="{{provedor.pk}}">{{provedor.provedor}}</option>
+                  {%endfor%}
+                </select>
+              </div>
+            </div>
+            <div class="row g-2 d-block d-sm-flex" id="legendas">
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_1">{% trans 'Legenda 1' %}</label>
+                <input class="form-control " type="text"  name="legenda_1" disabled required="" maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_2">{% trans 'Legenda 2' %}</label>
+                <input class="form-control " type="text"  name="legenda_2" disabled  required="" maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_3">{% trans 'Legenda 3' %}</label>
+                <input class="form-control " type="text"  name="legenda_3" disabled  required="" maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_4">{% trans 'Legenda 4' %}</label>
+                <input class="form-control" type="text" name="legenda_4" disabled  required="" maxlength="100" autocomplete="off">
+              </div>
+            </div>
+            <div class="row g-2 d-block d-sm-flex">
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Limite Diário' %}</label>
+                <input class="form-control numero" type="text"  name="limite_diario" placeholder="100" value="100" maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Limite Semanal' %}</label>
+                <input class="form-control numero" type="text"  name="limite_semanal" placeholder="500" value="500"  maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Taxa Crescimento Semanal' %}</label>
+                <input class="form-control " type="text"  name="taxa_crescimento" value="0120" placeholder="01.20" maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Limite Envio Plataforma' %}</label>
+                <input class="form-control " type="text"  name="limite_envio_plataforma"  placeholder="0" maxlength="100" autocomplete="off">
+              </div>
+            </div>
+
+
+            <div class="d-flex">
+              <button class="btn btn-secondary me-2" type="submit">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade modal-bookmark" id="editModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Editar Bot</h5>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form id="form-new-bot">
+        <div class="row g-2">
+          <div class="mt-0 mb-3 col-md-12">
+            <div class="row g-2">
+              <div class="col-sm-6 mb-2">
+                  <label for="bot">{% trans 'Bot' %}</label>
+                <input class="form-control" id="edit_bot" type="text" required="" maxlength="45" placeholder="{% trans 'Bot' %}"
+                  value="">
+              </div>
+              <div class="col-sm-6 mb-2">
+                  <label for="">{% trans 'Bot Apelido' %}</label>
+                  <input class="form-control" id="edit_bot_apelido" type="text" required="" maxlength="20" autocomplete="off">
+                </div>
+
+            </div>
+          </div>
+          <div class="mt-0 mb-3 col-md-12">
+            <div class="row g-2">
+              <div class="col-sm-6 mb-2">
+                  <label for="bot_ativo">{% trans 'Bot Ativo' %}</label>
+                  <select class="form-control" id="edit_bot_ativo" >
+                    <option value="S">{% trans 'Sim' %}</option>
+                    <option value="N">{% trans 'Não' %}</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                  <label for="bot_passivo">{% trans 'Bot Passivo' %}</label>
+                        <select class="form-control" id="edit_bot_passivo" >
+                          <option value="S">{% trans 'Sim' %}</option>
+                          <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                </div>
+              </div>
+          </div>
+
+          <div class="mt-0 mb-3 col-md-12">
+              <div class="row g-2">
+                <div class="col-sm-6 mb-2">
+                  <label for="bot_tipo">{% trans 'Bot Tipo' %}</label>
+                  <select class="js-example-basic-single" id="edit_bot_tipo">
+                    {% for tipo in bots_tipos %}
+                      <option value="{{tipo}}">{{tipo}}</option>
+                    {% endfor %}
+                  </select>
+                  </div>
+                  <div class="col-sm-6 mb-2">
+                    <label for="bot_numero">{% trans 'Bot Número' %}</label>
+                    <input class="form-control" id="edit_bot_numero" type="text" required="" maxlength="20" autocomplete="off">
+                  </div>
+                </div>
+            </div>
+          
+            <div class="mt-0 mb-3 col-md-12">
+              <div class="row g-2">
+                <div class="col-sm-6 mb-2">
+                  <label for="webhook_ativo">{% trans 'Webhook Ativo' %}</label>
+                  <div class="media-body text-start icon-state">
+                    <label class="switch">
+                      <input type="checkbox" id="webhook_ativo"><span class="switch-state"></span>
+                    </label>
+                  </div>
+              </div>
+                  <div class="col-sm-6 mb-2">
+                    <label for="url_webhook">{% trans 'URL Webhook' %}</label>
+                    <input class="form-control" id="url_webhook" type="text" required="" maxlength="20" autocomplete="off">
+                  </div>
+                </div>
+            </div>
+            <div class="row g-2 d-block d-sm-flex">
+              <div class="col-sm-6 m-b-20">
+                <label for="">{% trans 'Provedor' %}</label>
+                <select class="js-example-basic-single" id="bot_provedor">
+                  {% for provedor in provedores %}
+                    <option value="{{provedor.pk}}">{{provedor.provedor}}</option>
+                  {%endfor%}
+                </select>
+              </div>
+              <div class="col-md-6 col-12 mb-2">
+                <label for="bot_tipo">{% trans 'Bot Padrão' %}</label>
+                <select class="js-example-basic-single" id="bot_padrao">
+                    <option value="N">Não</option>
+                    <option value="S">Sim</option>
+                </select>
+                </div>
+            </div>
+            <div class="row g-2 d-block d-sm-flex" id="legendas_edit">
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_1">{% trans 'Legenda 1' %}</label>
+                <input class="form-control" id="legenda_1" type="text"   maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_2">{% trans 'Legenda 2' %}</label>
+                <input class="form-control" id="legenda_2" type="text"   maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_3">{% trans 'Legenda 3' %}</label>
+                <input class="form-control" id="legenda_3" type="text"  maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="legenda_4">{% trans 'Legenda 4' %}</label>
+                <input class="form-control" id="legenda_4" type="text"  maxlength="100" autocomplete="off">
+              </div>
+            </div>
+            <div class="row g-2 d-block d-sm-flex">
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Limite Diário' %}</label>
+                <input class="form-control numero" type="text"  id="limite_diario"  maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Limite Semanal' %}</label>
+                <input class="form-control numero" type="text" id="limite_semanal"  maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Taxa Crescimento Semanal' %}</label>
+                <input class="form-control " type="text" id="taxa_crescimento"   placeholder="01.20" maxlength="100" autocomplete="off">
+              </div>
+              <div class="col-sm-3 m-b-20">
+                <label for="">{% trans 'Limite Envio Plataforma' %}</label>
+                <input class="form-control " type="text" id="limite_envio_plataforma"   placeholder="0" maxlength="100" autocomplete="off">
+              </div>
+            </div>
+            <div class="d-flex">
+              <button class="btn btn-secondary update-contact me-2" type="button">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="testar-bot-mensagem" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Testar Bot</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-md-3 mb-0">
+            <label class="col-form-label" for="recipient-name">Destino:</label>
+            <input class="form-control" type="text" id="test-numero-destino">
+          </div>
+          <div class="mb-md-3 mb-0">
+            <label class="col-form-label" for="message-text">Mensagem:</label>
+            <textarea class="form-control" id="test-text-message"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button>
+        <button class="btn btn-primary" id="submit-test-bot" type="button">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  var syncronizeButtons = document.querySelectorAll("#synchronize_bot")
+
+  syncronizeButtons.forEach((b) => {
+    b.addEventListener("click", (event) => {
+        new swal({
+          title: "Carregando QRCode",
+          icon: 'info',
+      });
+      var targetElement = event.target || event.srcElement;
+
+      fetch('/api/instances/connect/' + targetElement.parentElement.dataset.edi + '/', {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          }
+      })
+      .then(res => res.json())
+      .then((response) => {
+          if (response) {
+              // Connection successful
+              displayQRCode(response.base64);
+              checkConnectionStatus(targetElement); // Pass targetElement to the function
+          } else {
+              // Connection not successful
+              displayError();
+          }
+      })
+      .catch(() => {
+          // Connection error
+          displayError();
+      });
+    });
+  })
+
+  function displayQRCode(base64) {
+      new swal({
+          title: "QRCode!",
+          icon: base64,
+          imageWidth: 400,
+          imageHeight: 400,
+          imageAlt: "Custom image"
+      });
+  }
+
+  function displayError() {
+      new swal({
+          icon: "error",
+          title: "Oops...",
+          text: "Ocorreu algum erro!",
+      });
+  }
+
+  async function checkConnectionStatus(targetElement) {
+      try {
+          const response = await fetch(`/api/instances/connection-state/${targetElement.parentElement.dataset.edi}/`, {
+              method: 'GET',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              }
+          });
+
+          if (response.status === 200) {
+              const data = await response.json();
+              console.log("INSTANCE DATA", data);
+
+              if (data.connected) {
+                  // Connection successful, reload the page
+                  location.reload();
+                  return;
+              }
+          } else {
+              throw Error(response.status);
+          }
+      } catch (error) {
+          console.error("Error checking connection status:", error);
+      }
+  }
+
+</script>
+
+<script>
+
+  var disconnectButtons = document.querySelectorAll("#disconnect_bot");
+  disconnectButtons.forEach((b) => {
+    b.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      var targetElement = event.target || event.srcElement;
+      var edi = targetElement.parentElement.dataset.edi
+      // Display the SweetAlert with two buttons
+      swal({
+          title: "Bot Conectado!",
+          text: "Escolha uma opção: (ou clique fora para sair)",
+          icon: "info",
+          buttons: {
+              desconectar: {
+                  text: "Desconectar",
+                  value: "desconectar",
+                  className: "btn-danger", // Apply red color
+              },
+              reiniciar: {
+                  text: "Reiniciar",
+                  value: "reiniciar",
+                  className: "btn-primary", // Apply blue color
+              },
+          },
+          dangerMode: true,
+      })
+      .then((value) => {
+          // Handle the user's choice
+          if (value === "desconectar") {
+            displayDesconectar();
+            desconectarBot(edi);
+          } else if (value === "reiniciar") {
+            displayReinciar();
+            reiniciarBot(edi);
+          }
+      });
+    });
+  });
+
+  function desconectarBot(edi) {
+      fetch(`/api/instances/disconnect/${edi}/`, {
+        method: 'DELETE',
+        headers: {
+					'Content-Type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+      })
+      .then(res => res.json())
+      .then(data => {
+        
+        if (data.disconnected) {
+          swal({
+            title: "Bot desconectado!",
+            icon: "success",
+            buttons: {
+                confirmar: {
+                    text: "Sair",
+                    value: "sair",
+                    className: "btn-primary", 
+                }
+            },
+            dangerMode: true,
+          });
+          location.reload();
+        } else {
+          swal({
+            title: "Erro ao desconectar!",
+            icon: "error",
+            buttons: {
+                confirmar: {
+                    text: "Sair",
+                    value: "sair",
+                    className: "btn-primary", 
+                }
+            },
+            dangerMode: true,
+          });
+        }
+      })
+      .then(value => {
+        if (value === 'sair') {
+          location.reload();
+          return;
+        }
+      })
+    }
+
+    function reiniciarBot(edi) {
+      console.log('reiniciando')
+    }
+
+    function displayReinciar() {
+      swal({
+        title: "Processando",
+        text: "Aguarde enquanto reiniciamos...",
+        icon: "info",
+        buttons: false,
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+      });
+    }
+
+    function displayDesconectar() {
+      swal({
+        title: "Processando",
+        text: "Aguarde enquanto desconectamos...",
+        icon: "info",
+        buttons: false,
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+      });
+    }
+
+</script>

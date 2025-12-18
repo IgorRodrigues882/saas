@@ -1,0 +1,255 @@
+{% load sass_tags %}
+{% load static %}
+<!-- Estilo CSS -->
+<style>
+  /* Inicialmente, a div está oculta */
+  .fade-div {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease; /* Controla o fade com transição de 0.5 segundos */
+    z-index: 5000;
+  }
+
+  /* Classe que exibe a div */
+  .fade-div.show {
+    display: block;
+    opacity: 1;
+  }
+</style>
+<div class="modal fade bd-example-modal-xl" id="configs" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Configurações</h4>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="row product-page-main">
+                      <div class="col-sm-12">
+                        <ul class="nav nav-tabs border-tab mb-0" id="top-tab" role="tablist">
+                          <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                              role="tab" aria-controls="top-home" aria-selected="false">Canais</a>
+                            <div class="material-border"></div>
+                          </li>
+                          <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
+                              role="tab" aria-controls="top-profile" aria-selected="false">Leads</a>
+                            <div class="material-border"></div>
+                          </li>
+                          <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#campanhas_msgs"
+                            role="tab" aria-controls="top-contact" aria-selected="true">Atribuídas a mim</a>
+                          <div class="material-border"></div>
+                        </li>
+
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="top-tabContent">
+                    <div class="tab-pane fade active show" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="float-end">
+                                    <div class="btn btn-primary">Add Canal</div>
+                                    <div class="btn btn-danger" id="excluir_canais_modal">Excluir Canal (<span id="count_selected">0</span>)</div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3 default-according style-1 faq-accordion job-accordion" id="canais_list_modal">
+
+                            </div>
+                            <div class="loader-box" id="loader-canais-modal" style="display: none;">
+                                <div class="loader-2"></div>
+                              </div>
+                        </div>
+                    </div>
+            
+                    <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                        <div class="email-wrap">
+                        <div class="row">
+                            <div class="col-xl-12 leads_tabela_modal" style="max-height: 70vh; overflow-y: scroll;">
+                                <div class="email-right-aside">
+                                  <div class="card email-body">
+                                    <div class="email-profile">
+                                      <div>
+                                        <div class="pe-0 b-r-light"></div>
+                                        <div class="email-top">
+                                          <div class="row">
+                                            <div class="col-12">
+                                              <div class="media float-end">
+                                                <div class="search me-3" id="remote-message-modal">
+                                                    <form class="theme-form">
+                                                      <div class="form-group">
+                                                        <input class="typeahead form-control" type="text" id="lead_pesquisar_modal" placeholder="Pesquisar...">
+                                                        <div class="input-group-append">
+                                                          <span class="loading-indicator-message-modal input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                  <div class="search me-3">
+                                                    <form class="theme-form">
+                                                      <div class="form-group">
+                                                        <select id="id_campanha_modal" class="form-control">
+                                                          <option value="">Filtrar Campanha</option>
+                                                          {% for campanha in campanhas %}
+                                                          <option value="{{campanha.pk}}">{{campanha.Campanha}}</option>
+                                                          {% endfor %}
+                                                        </select>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                  <div class="search me-3">
+                                                    <form class="theme-form">
+                                                      <div class="form-group">
+                                                        <select id="id_grupo_modal" class="form-control">
+                                                          <option value="">Filtrar Canal</option>
+                                                        </select>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                  <div class="media-body">
+                                                    <button class="btn btn-primary" id="toggleButton" type="button">Vincular Canal</button>
+                                                  
+                                                    <!-- Div que será exibida com animação de fade -->
+                                                    <div class="card fade-div" id="fadeDiv">
+                                                      <div class="people-list">
+                                                        <div class="search">
+                                                          <form class="theme-form mt-3">
+                                                            <div class="form-group">
+                                                              <select class="form-control" id="nome_canal_modal">
+                                                                <option value="">Escolha o canal</option>
+                                                              </select>
+                                                            </div>
+                                                          </form>
+                                                        </div>
+                                                      </div>
+                                                      <div class="status">
+                                                        <button class="btn btn-primary" type="button" id="save-canal-modal">Salvar</button>
+                                                      </div>
+                                                      <div class="mt-1">
+                                                        <span id="status_salvamento_canal"></span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                        </div>
+                                        <div class="inbox" id="list_leads">
+                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="loader-box" id="loader-leads-modal" style="display: none;">
+                                    <div class="loader-2"></div>
+                                </div>
+                              </div>
+                        </div>
+                    </div> 
+                    </div>
+            
+                    <div class="tab-pane fade" id="campanhas_msgs" role="tabpanel" aria-labelledby="brand-top-tab">
+                      <div class="email-wrap">
+                        <div class="row">
+                          <div class="col-xl-12 leads_tabela_atr" style="max-height: 70vh; overflow-y: scroll;">
+                            <div class="email-right-aside">
+                              <div class="card email-body">
+                                <div class="email-profile">
+                                  <div>
+                                    <div class="pe-0 b-r-light"></div>
+                                    <div class="email-top">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <div class="media float-end">
+                                            <div class="search me-3" id="remote-message-modal">
+                                                <form class="theme-form">
+                                                  <div class="form-group">
+                                                    <input class="typeahead form-control" type="text" id="lead_pesquisar_atr" placeholder="Pesquisar...">
+                                                    <div class="input-group-append">
+                                                      <span class="loading-indicator-message-modal input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            <div class="me-3">
+                                              <div class="btn btn-danger" id="excluir_lead_atr">Excluir(<span id="count_selected_atr">0</span>)</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                    <div class="inbox" id="list_atr">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="loader-box" id="loader-leads-atr" style="display: none;">
+                                <div class="loader-2"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<div class="modal fade bd-example-modal-xl" id="modal_envia_msg_thinkhire" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Enviar mensagem</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="mb-md-3 mb-0">
+                <label class="col-form-label" for="recipient-name">Escolha o Template</label>
+                <select class="form-control js-example-basic-single" id="template_id">
+                  {% for template in templates %}
+                    <option value="{{template.pk}}">{{template.template_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div id='dynamic-inputs'>
+                
+              </div>
+              <div class="loader-box" id="loader-inputs" style="display: none;">
+                <div class="loader-2"></div>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="mb-md-3 mb-0">
+                <label class="col-form-label" for="message-text">Texto Formatado:</label>
+                <textarea class="form-control" rows="13" disabled id="text-format"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Fechar</button>
+        <button class="btn btn-primary" id="enviar_agendamento" type="submit">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>

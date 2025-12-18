@@ -1,0 +1,46 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/chartist.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/owlcarousel.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/prism.scss' %}">
+<!-- Plugins css Ends-->
+
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+  <!-- Container-fluid starts-->
+  <div class="container-fluid ecommerce-dash">
+    <!-- <div class="mb-3">
+        <a href="/campanha_consulta/{{Boomerangue.campanha.pk}}" class="btn btn-primary"><- Voltar</a>
+    </div> -->
+    <div class="row">
+      {% include 'entidade_consulta/components/entidade_consulta.html' %}
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+</div>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<script src="{% static 'assets/js/chart/chartjs/chart.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+<script src="{% static 'assets/js/chart/chartist/chartist.js' %}"></script>
+<script src="{% static 'assets/js/chart/chartist/chartist-plugin-tooltip.js' %}"></script>
+<script src="{% static 'assets/js/chart/apex-chart/apex-chart.js' %}"></script>
+<script src="{% static 'assets/js/chart/apex-chart/stock-prices.js' %}"></script>
+<script src="{% static 'assets/js/prism/prism.min.js' %}"></script>
+<script src="{% static 'assets/js/counter/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'assets/js/counter/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'assets/js/counter/counter-custom.js' %}"></script>
+<script src="{% static 'assets/js/owlcarousel/owl.carousel.js' %}"></script>
+<script src="{% static 'assets/js/owlcarousel/owl-custom.js' %}"></script>
+<script src="{% static 'assets/js/entidade/entidade_consulta.js' %}"></script>
+<!-- <script src="{% static 'assets/js/boomerangue_consulta/boomerangue_consulta.js' %}"></script> -->
+<script src="{% static 'assets/js/tooltip-init.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

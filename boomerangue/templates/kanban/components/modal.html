@@ -1,0 +1,119 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %} 
+<div class="modal fade modal-bookmark" id="editCandidateModalKanban" tabindex="-1" role="dialog"
+    aria-labelledby="editCandidateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCandidateModalLabel">{% trans 'Editar Candidato' %}</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <form class="form-bookmark needs-validation" id="edit-candidate-form-kanban" novalidate="" data-candidate-id="">
+            <div class="form-row">
+              <div class="row d-block d-sm-flex">
+                  <!-- Primeira Linha -->
+                  <div class="col-md-6 col-sm-12 m-b-20">
+                      <label for="edit_candidate_name">{% trans 'Candidato' %}</label>
+                      <input class="form-control" id="edit_candidate_name" type="text" required maxlength="255">
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 m-b-20">
+                      <label for="edit_status_id">{% trans 'Status Candidato' %}</label>
+                      
+                      <select class="form-control" id="edit_status_id" data-placeholder="Selecione">
+                          <option value="">Carregando...</option>
+                      </select>
+                  </div>
+
+                  <!-- Segunda Linha -->
+                  <div class="col-md-4 col-sm-12 m-b-20">
+                      <label for="edit_sex">{% trans 'Gênero' %}</label>
+                      <select class="form-control" id="edit_sex">
+                          <option value="">Selecionar</option>
+                          <option value="M">Masculino</option>
+                          <option value="F">Feminino</option>
+                      </select>
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 m-b-20">
+                      <label for="edit_phone">{% trans 'Celular (com DDD)' %}</label>
+                      <input class="form-control" id="edit_phone" type="tel" maxlength="20">
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 m-b-20">
+                      <label for="edit_email">{% trans 'Email' %}</label>
+                      <input class="form-control" id="edit_email" type="email" required maxlength="255">
+                  </div>
+
+                  <!-- Terceira Linha -->
+                  <div class="col-md-6 col-sm-12 m-b-20">
+                      <label for="edit_cpf">{% trans 'CPF' %}</label>
+                      <input class="form-control" id="edit_cpf" type="text" maxlength="50">
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 m-b-20">
+                      <label for="edit_unidade_id">{% trans 'Unidade/Filial' %}</label>
+                      
+                      <select class="form-control" id="edit_unidade_id" data-placeholder="Selecione">
+                           <option value="">Carregando...</option>
+                      </select>
+                  </div>
+
+                  <!-- Quarta Linha -->
+                  <div class="col-md-6 col-sm-12 m-b-20">
+                      <label for="edit_job_id">{% trans 'Vaga' %}</label>
+                      
+                      <select class="form-control" id="edit_job_id" data-placeholder="Selecione">
+                           <option value="">Carregando...</option>
+                      </select>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 m-b-20">
+                      <label for="edit_recrutador_id">{% trans 'Recrutador' %}</label>
+                      
+                      <select class="form-control" id="edit_recrutador_id" data-placeholder="Selecione">
+                           <option value="">Carregando...</option>
+                      </select>
+                  </div>
+
+                  <!-- Campos de Data -->
+                  <div class="col-md-4 col-sm-12 m-b-20">
+                      <label for="edit_dtiniciopreenchimento">{% trans 'Data Início Processo' %}</label>
+                      <input class="form-control" id="edit_dtiniciopreenchimento" type="datetime-local">
+                  </div>
+
+                  <div class="col-md-4 col-sm-12 m-b-20">
+                      <label for="edit_dtenvioflow">{% trans 'Data Envio Flow' %}</label>
+                      <input class="form-control" id="edit_dtenvioflow" type="datetime-local">
+                  </div>
+
+                  <!-- Campos Especiais -->
+                  <div class="col-md-4 col-sm-12 m-b-20">
+                      <label for="edit_tokencandidate">{% trans 'Token Candidato' %}</label>
+                      <input class="form-control" id="edit_tokencandidate" type="text" maxlength="50" readonly> 
+                  </div>
+
+                  <div class="col-sm-12 m-b-20">
+                      <label for="edit_notasinternas">{% trans 'Notas Internas' %}</label>
+                      <textarea class="form-control" id="edit_notasinternas" rows="3"></textarea>
+                  </div>
+
+                  <div class="col-sm-12 m-b-20">
+                      <label for="edit_photo_candidate">{% trans 'Foto Candidato' %}</label>
+                      <input class="form-control" id="edit_photo_candidate" type="file">
+                     
+                      <img id="edit_photo_preview" src="#" alt="Pré-visualização" style="max-width: 100px; max-height: 100px; margin-top: 10px; display: none;" />
+                  </div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" id="salvar_candidate_kanban" type="button">{% trans 'Salvar Alterações' %}</button>
+            <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>

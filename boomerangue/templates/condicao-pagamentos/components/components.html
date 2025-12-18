@@ -1,0 +1,38 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% for condicao in condicoes %}
+<div class="tab-pane contact-tab-{{condicao.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{condicao.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{condicao.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/user/2.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{condicao.condicoes_pagamento}}</span></h5>
+        <p class="email_add_0">{{condicao.empresa.empresa}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{condicao.pk}}')">{% trans 'Editar' %}</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{condicao.pk}}')">{% trans 'Deletar' %}</a></li>
+          <li><a href="javascript:void(0)" onclick="printContact('{{condicao.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">{% trans 'Imprimir' %}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">{% trans 'Detalhes' %}</h6>
+      <ul>
+        <li>{% trans 'Nome' %}<span class="font-primary first_name_0">{{condicao.condicoes_pagamento}}</span></li>
+        <li>{% trans 'Empresa' %}<span class="font-primary">{{condicao.empresa.empresa}}</span></li>
+        <li>{% trans 'Valor Mínimo' %}<span class="font-primary personality_0">{{condicao.valor_minimo}}</span></li>
+        <li>{% trans 'Nº de Parcelas' %}<span class="font-primary city_0">{{condicao.NroParcelas}}</span></li>
+        <li>{% trans 'Condinção Padrão' %}<span class="font-primary mobile_num_0">{% if condicao.CondicaoPadrao == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Condição Ativa' %}<span class="font-primary email_add_0">{% if condicao.CondicaoAtiva == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'EDI Integração' %}<span class="font-primary url_add_0">{{condicao.EDI_Integracao}}</span></li>
+        <li>{% trans 'Prazo Médio' %}<span class="font-primary interest_0">{{condicao.prazo_medio}} {% trans 'dias' %}</span></li>
+        <li>{% trans 'Sincronizado' %}<span class="font-primary mobile_num_0">{% if condicao.Sincronizado == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

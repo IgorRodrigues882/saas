@@ -1,0 +1,55 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0"></div>
+          <div class="col-md-6 p-0">
+            <a class="btn btn-primary" href="/wpp_templatebuttons_create">Criar novo Button</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="tab-content" id="top-tabContent">
+            <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+              <div class="row">
+                <table class="table">
+                  <thead>
+                      <tr>
+                        <th>ID do Componente</th>
+                        <th>Tipo de Botão</th>
+                        <th>Texto do Botão</th>
+                        <th>Data de Cadastro</th>
+                        <th>Data de Alteração</th>
+                        <th>Data de Exclusão</th>
+                        <th>ID do Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Inserir dados da lista aqui -->
+                      {% for button in buttons %}
+                        <tr>
+                          <td>{{ button.component_id }}</td>
+                          <td>{{ button.get_button_type_display }}</td>
+                          <td>{{ button.button_text }}</td>
+                          <td>{{ button.cadastro_dt }}</td>
+                          <td>{{ button.alteracao_dt }}</td>
+                          <td>{{ button.exclusao_dt }}</td>
+                          <td>{{ button.statusregistro_id }}</td>
+                        </tr>
+                      {%endfor%}
+                      <!-- Adicione mais linhas conforme necessário -->
+                  </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

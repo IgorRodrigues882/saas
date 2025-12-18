@@ -1,0 +1,181 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-sm-12">
+  <div class="job-sidebar md-sidebar"><a class="btn btn-primary md-sidebar-toggle" href="javascript:void(0)">learning
+      filter</a>
+    <div class="md-sidebar-aside job-left-aside custom-scrollbar">
+      <div class="default-according style-1 job-accordion" id="accordionoc">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="mb-0 p-0">
+                  <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseicon"
+                    aria-expanded="true" aria-controls="collapseicon">{% trans 'Filtros'%}</button>
+                </h5>
+              </div>
+              <div class="collapse" id="collapseicon" aria-labelledby="collapseicon" data-bs-parent="#accordion">
+                <div class="card-body filter-cards-view animate-chk">
+                  <div class="checkbox-animated">
+                    <div class="learning-header">
+                      <h5 class="f-w-600">{% trans 'Categoria' %}</h5>
+                    </div>
+                    <!-- <label class="d-block" for="">
+                      <input class="checkbox_animated" name="filterOption" value="all" type="checkbox"> {% trans 'Desmarcar Tudo' %}
+                    </label> -->
+                    {% for categoria in categorias %}
+                      <label class="d-block" for="{{categoria}}">
+                        <input class="checkbox_animated" name="filterOption" id="{{categoria}}" value="{{categoria}}" type="checkbox"> {{categoria}}
+                      </label>
+                    {% endfor %}
+                  </div>
+                  <div class="col-sm-12 d-flex justify-content-center">
+                    <div class="col-sm-3">
+                      <button class="btn btn-primary text-center" onclick="sendFilters()" type="button">{% trans 'Filtrar' %}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="email-right-aside bookmark-tabcontent contacts-tabs">
+    <div class="card email-body radius-left">
+      <div class="ps-0">
+        <div class="tab-content">
+
+          {% include 'wpp_templates/components/wpp_templates_personal.html' %}
+          <div id="right-history">
+            <div class="modal-header p-l-20 p-r-20">
+              <h6 class="modal-title w-100">Contact History<span class="pull-right"><a class="closehistory"
+                    href="javascript:void(0)"><i class="icofont icofont-close"></i></a></span></h6>
+            </div>
+            <div class="history-details">
+              <div class="text-center"><i class="icofont icofont-ui-edit"></i>
+                <p>Contact has not been modified yet.</p>
+              </div>
+              <div class="media"><i class="icofont icofont-star me-3"></i>
+                <div class="media-body mt-0">
+                  <h6 class="mt-0">Contact Created</h6>
+                  <p class="mb-0">Contact is created via mail</p><span class="f-12">June 10, 2022 4:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade modal-bookmark" id="printModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Print preview</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body list-persons">
+                  <div class="profile-mail pt-0" id="DivIdToPrint">
+                    <div class="media"><img class="img-100 img-fluid m-r-20 rounded-circle" id="updateimg"
+                        src="{% static 'assets/images/user/2.png' %}" alt="">
+                      <div class="media-body mt-0">
+                        <h5><span id="printname">Bucky </span><span id="printlast">Barnes</span></h5>
+                        <p id="printmail">barnes@gmail.com</p>
+                      </div>
+                    </div>
+                    <div class="email-general">
+                      <h6>General</h6>
+                      <p>Email Address: <span class="font-primary" id="mailadd">barnes@gmail.com </span></p>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" id="btnPrint" type="button" onclick="printDiv();">Print</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade modal-bookmark" id="modalAddwpp" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Whatsapp Template' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="template_name">{% trans 'Template Nome' %}</label>
+                          <input class="form-control template_name" type="text" required="" maxlength="255" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="category">{% trans 'Categoria' %}</label>
+                          <select class="js-example-basic-single category">
+                            <option value="">Escolha uma categoria</option>
+                            {% for categoria in categorias %}
+                              <option value="{{ categoria }}">{{ categoria }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="language">{% trans 'Linguagem' %}</label>
+                        <select class="form-control language">
+                          <option value="PT-BR">{% trans 'PT-BR' %}</option>
+                          <option value="EN">{% trans 'EN' %}</option>
+                          <option value="ES">{% trans 'ES' %}</option>
+                        </select>
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="webhook_ativo">{% trans 'Add Call To Action' %}</label>
+                          <div class="media-body text-start icon-state">
+                            <label class="switch">
+                              <input type="checkbox" class="add_call_to"><span class="switch-state"></span>
+                            </label>
+                          </div>
+                        </div>
+                        <div id="div_call_to_action" class="d-none row">
+                          <div class="col-sm-3 m-b-20">
+                            <label for="">{% trans 'Palavra de ação' %}</label>
+                            <input class="form-control nome_acao" type="text"  maxlength="255" autocomplete="off">
+                          </div>
+                          <div class="col-sm-5 m-b-20">
+                            <label for="">{% trans 'Link' %}</label>
+                            <input class="form-control link_acao" type="text"  maxlength="255" autocomplete="off">
+                          </div>
+                          <div class="col-sm-3 m-b-20">
+                            <label for="">{% trans 'Mensagem Resposta' %}</label>
+                            <select class="js-example-basic-single template_resposta">
+                              <option value="">Escolha um template</option>
+                              {% for wpp in wpp_templates %}
+                                <option value="{{ wpp.id }}">{{ wpp.template_name }}</option>
+                              {% endfor %}
+                          </select>
+                          </div>
+                          <div class="col-xl-1 col-12 m-b-20 d-flex align-items-end">
+                            <button class="btn btn-danger" type="button" id="btn_excluir_call_to_action" onclick="excluir_call_to_action(this)">
+                                <i class="fa fa-trash"></i> 
+                            </button>
+                        </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_provedor" type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-info d-none" type="button" id="add_call_action_option">{% trans 'Add Call to action' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

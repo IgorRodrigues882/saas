@@ -1,0 +1,38 @@
+{% load static %}
+{% load sass_tags %}
+{% for vendedor in vendedores %}
+<div class="tab-pane contact-tab-{{vendedor.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{vendedor.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{vendedor.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/user/2.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{vendedor.Vendedor}}</span></h5>
+        <p class="email_add_0">{{vendedor.empresa_id.empresa}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{vendedor.pk}}')">Editar</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{vendedor.pk}}')">Deletar</a></li>
+          <li><a href="javascript:void(0)" onclick="printContact('{{vendedor.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">Imprimir</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">Detalhes</h6>
+      <ul>
+        <li>Nome <span class="font-primary first_name_0">{{vendedor.Vendedor}}</span></li>
+        <li>Empresa <span class="font-primary">{{vendedor.empresa.empresa}}</span></li>
+        <li>Apelido<span class="font-primary mobile_num_0">{{vendedor.Apelido}}</span></li>
+        <li>Cód Vendedor<span class="font-primary email_add_0">{{vendedor.CodigoVendedor}}</span></li>
+        <li>Vendedor BM<span class="font-primary url_add_0">{{vendedor.VendedorBM}}</span></li>
+        <li>Vendedor Original<span class="font-primary mobile_num_0">{{vendedor.VendedorOriginal}}</span></li>
+        <li>Legenda Vendedor<span class="font-primary mobile_num_0">{{vendedor.LegendaVendedor}}</span></li>
+        <li>Telefone Vendedor<span class="font-primary mobile_num_0">{{vendedor.TelefoneVendedor}}</span></li>
+        <li>Vendedor Padrão<span class="font-primary mobile_num_0">{% if vendedor.VendedorPadrao == 'S' %} Sim {%else%} Não {%endif%}</span></li>
+        <li>Comissão Venda<span class="font-primary mobile_num_0">{{vendedor.ComissaoVenda}}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

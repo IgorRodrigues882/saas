@@ -1,0 +1,177 @@
+{% load static %}
+{% load sass_tags %}
+<div class="col-xl-4 col-md-6 dash-xl-50 dash-29 box-col-6">
+    <div class="card our-activities">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Últimos Repics</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <ul>
+                <li> <a>
+                    Latest </a></li>
+                <li> <a>
+                    Earlist</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive">
+          <table class="table table-bordernone">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="icon-wrappar"><i class="fa fa-trophy font-primary"> </i></div>
+                    <div class="media-body"><a href="#">
+                        <h5>Bot 01 <span class="badge badge-success">Em funcionamento</span></h5>
+                      </a>
+                      <p>Repic enviado!</p>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-light-theme-light font-theme-light">2 horas atrás</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="icon-wrappar"><i class="fa fa-check-circle font-secondary"> </i></div>
+                    <div class="media-body"><a href="#">
+                        <h5>Apporved our product</h5>
+                      </a>
+                      <p>Elisse joson, San Francisco</p>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-light-theme-light font-theme-light">2 weeks ago</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="icon-wrappar"><i class="fa fa-bookmark font-success"> </i></div>
+                    <div class="media-body"><a href="#">
+                        <h5>Win best seller of the year awaed </h5>
+                      </a>
+                      <p>Company, San Francisco</p>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-light-theme-light font-theme-light">3 day ago</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="icon-wrappar"><i class="fa fa-shopping-basket font-warning"> </i></div>
+                    <div class="media-body"><a href="#">
+                        <h5>Apporved our product in checking</h5>
+                      </a>
+                      <p>35k Sales</p>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-light-theme-light font-theme-light">2 hours ago</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="col-xl-4 col-md-6 dash-31 dash-xl-50 box-col-6">
+    <div class="card recent-activity">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Atividades Recentes</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <ul>
+                <li> <a>
+                    Latest </a></li>
+                <li> <a>
+                    Earlist</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive custom-scrollbar">
+          <table class="table table-bordernone">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="square-box me-2"><img class="img-fluid b-r-5"
+                        src="{% static 'assets/images/avtar/teacher.png' %}" alt=""></div>
+                    <div class="media-body"><a href="/users_users_profile">
+                        <h5>Camapanha enviada para Maria Azevedo</h5>
+                      </a>
+                      <p class="font-primary">Entidade 121</p>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-light-theme-light font-theme-light">2 horas Atrás </span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="square-box me-2"><img class="img-fluid b-r-5"
+                        src="{% static 'assets/images/avtar/teenager.png' %}" alt=""></div>
+                    <div class="media-body"><a href="/users_users_profile">
+                        <h5>Francisco Comprou!</h5>
+                      </a>
+                      <p>Total da compra: <span class="font-primary">R$ 250.00</span></p>
+                      <div class="activity-msg"> <span class="activity-msg-box">
+                          </span></div>
+                    </div>
+                  </div>
+                </td>
+                <td> <span class="badge badge-light-theme-light font-theme-light">3 horas atrás</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="media">
+                    <div class="square-box me-2"><img class="img-fluid b-r-5"
+                        src="{% static 'assets/images/avtar/chinese.png' %}" alt=""></div>
+                    <div class="media-body image-swipe"><a href="/users_users_profile">
+                        <h5>Max Simmons attached 2</h5>
+                      </a>
+                      <p>photos to <span class="font-primary">Food photography Class</span></p>
+                      <div class="my-gallery" itemscope="">
+                        <div class="row gallery">
+                          <figure class="inner-img ms-3" itemprop="associatedMedia" itemscope=""><a
+                              href="{% static 'assets/images/dashboard/img-26.jpg' %}" itemprop="contentUrl"
+                              data-size="600x600"><img class="img-fluid img-40"
+                                src="{% static 'assets/images/dashboard/img-26.jpg' %}" itemprop="thumbnail"
+                                alt="Image description"></a>
+                            <figcaption itemprop="caption description">Photos 1</figcaption>
+                          </figure>
+                          <figure class="inner-img ms-3" itemprop="associatedMedia" itemscope=""><a
+                              href="{% static 'assets/images/dashboard/image-20.jpg' %}" itemprop="contentUrl"
+                              data-size="600x600"><img class="img-fluid img-40"
+                                src="{% static 'assets/images/dashboard/image-20.jpg' %}" itemprop="thumbnail"
+                                alt="Image description"></a>
+                            <figcaption itemprop="caption description">Photos 2
+                <td> <span class="badge badge-light-theme-light font-theme-light">22 Jun 2020</span></td>
+                </figcaption>
+                </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  </div>
+  </div>
+  </div>

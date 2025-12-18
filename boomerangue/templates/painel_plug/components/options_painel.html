@@ -1,0 +1,550 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="row product-page-main">
+          <div class="col-sm-12">
+            <ul class="nav nav-tabs border-tab mb-0" id="top-tab" role="tablist">
+              <li class="nav-item"><a class="nav-link active" id="top-tipo-empresa-tab" data-bs-toggle="tab" href="#top-tipo-empresa"
+                  role="tab" aria-controls="top-tipo-empresa" aria-selected="false">Opções tipo empresa</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="profile-ia-tab" data-bs-toggle="tab" href="#top-ia"
+                  role="tab" aria-controls="top-ia" aria-selected="false">Opções IA</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="profile-wpp-tab" data-bs-toggle="tab" href="#top-wpp_fields"
+                role="tab" aria-controls="top-wpp" aria-selected="false">Opções wpp fields</a>
+              <div class="material-border"></div>
+            </li>
+              <!-- <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#campanhas_msgs"
+                role="tab" aria-controls="top-contact" aria-selected="true">Mensagens</a>
+              <div class="material-border"></div>
+            </li>
+              <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact"
+                  role="tab" aria-controls="top-contact" aria-selected="true">Itens</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="brand-top-tab" data-bs-toggle="tab" href="#top-brand"
+                  role="tab" aria-controls="top-brand" aria-selected="true">Eventos</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="brand-top-logs" data-bs-toggle="tab" href="#top-logs"
+                role="tab" aria-controls="top-logs" aria-selected="true">Logs</a>
+              <div class="material-border"></div>
+            </li>
+            <li class="nav-item"><a class="nav-link" id="brand-top-boomerangues" data-bs-toggle="tab" href="#top-boomerangues"
+              role="tab" aria-controls="top-logs" aria-selected="true">Boomerangues</a>
+            <div class="material-border"></div>
+          </li> -->
+            </ul>
+          </div>
+        </div>
+    </div>
+    
+    <div class="tab-content" id="top-tabContent">
+        <div class="tab-pane fade active show" id="top-tipo-empresa" role="tabpanel" aria-labelledby="top-tipo-empresa-tab">
+            <div class="row">
+                {% include 'painel_plug/components/painel_plug.html' %}
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="top-ia" role="tabpanel" aria-labelledby="profile-ia-tab">
+            <div class="row">
+                {% include 'painel_plug/components/opcoes_ia.html' %}
+            </div> 
+        </div>
+
+        <div class="tab-pane fade" id="top-wpp_fields" role="tabpanel" aria-labelledby="profile-wpp-tab">
+          <div class="row">
+              {% include 'painel_plug/components/wpp_fields.html' %}
+          </div> 
+      </div>
+
+        
+    </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Tipo Empresa' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="value">{% trans 'Tipo Empresa Nome' %}</label>
+                          <input class="form-control" id="value" type="text" required="" maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="value_prefixo">{% trans 'Prefixo' %}</label>
+                          <input class="form-control" id="value_prefixo" type="text" maxlength="5" autocomplete="off">
+                        </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_tipo_empresa" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Empresas nesta categoria</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="taskadd">
+                    <div class="table-responsive">
+                      <table class="table" id="tb_empresas">
+
+                      </table>
+                    </div>
+                  </div>
+                  <div class="loader-box" id="loader-tb_empresa" style="display: none;">
+                    <div class="loader-2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade bd-example-modal-add" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Add Empresas nesta categoria</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="taskadd">
+                    <div class="table-responsive">
+                      <table class="table" id="tb_empresas_add">
+
+                      </table>
+                    </div>
+                  </div>
+                  <div class="loader-box" id="loader-tb_add" style="display: none;">
+                    <div class="loader-2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade bd-example-modal-perms" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Permissões</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  {% for permissao in permissoes %}
+                  <div class="media mt-2" style="border-bottom:1px solid #a8a8a8 ;" >
+                      <label class="col-form-label">{{permissao.descricao}}</label>
+                      <div class="media-body text-end icon-state">
+                        <label class="switch">
+                          <input type="checkbox" id="{{permissao.nome}}"><span class="switch-state"></span>
+                        </label>
+                      </div>
+                  </div>
+                  {% endfor %}
+                  <div class="loader-box" id="loader-tb_perm" style="display: none;">
+                    <div class="loader-2"></div>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-secondary" id="salvar_permissoes_grupo" data-set=""
+                        type="submit">{% trans 'Salvar' %}</button>
+                      <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade bd-example-modal-select" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Opções Select Tipos Campanhas</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div id="mb-select">
+                    <div class="mb-3 d-block">
+
+                      <label class="col-form-label">Option</label>
+                      <div class="col-sm-12 d-flex">
+                        <div class="col-sm-9">
+                          <input class="form-control" id="option" maxlength="50" type="text">
+                        </div>
+                        <div class="col-sm-3 ms-2">
+                          <input class="form-control" id="option_prefix" maxlength="5" placeholder="prefixo" type="text">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="loader-box" id="loader-tb_select" style="display: none;">
+                      <div class="loader-2"></div>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-secondary" id="salvar_select" data-set=""
+                        type="submit">{% trans 'Salvar' %}</button>
+                      <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                      <button class="btn btn-info" onclick="addOption()" type="button">+ {% trans 'Add Option' %}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade bd-example-modal-prompt" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Prompt IA</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label>Prompt IA</label>
+                      <p>Use: {nBoomerangues} (Total Boomerangues), {Enviado} (Total Enviado), {ValorVendas} (Total Vendas) e {TicketMedio}</p>
+                      <textarea class="form-control" id="textarea_prompt" rows="3"></textarea>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-secondary" id="salvar_prompt" data-set=""
+                        type="submit">{% trans 'Salvar' %}</button>
+                      <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade bd-example-modal-termos" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Termos Site</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div id="body_termos">
+
+                  </div>
+
+                  <div class="mt-5">
+                    <button class="btn btn-secondary" id="salvar_termos" data-set=""
+                        type="submit">{% trans 'Salvar' %}</button>
+                      <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                      <button class="btn btn-info" onclick="add_terms()">Add Termo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade modal-bookmark" id="modal_add_criativiade" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Criatividade' %}</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                  <div class="form-row">
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="criatividade">{% trans 'Criatividade' %}</label>
+                        <input class="form-control" id="criatividade" type="text" required="" maxlength="255" autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="gpt">{% trans 'gpt' %}</label>
+                        <input class="form-control" id="gpt" type="text" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12">
+                        <label for="key">{% trans 'Key' %}</label>
+                        <input class="form-control" id="key" type="text"  autocomplete="off">
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" id="save_criatividade" data-set=""
+                    type="submit">{% trans 'Salvar' %}</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal fade modal-bookmark" id="modal_add_tomvoz" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Tom Voz' %}</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                  <div class="form-row">
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="tomvoz">{% trans 'Tom Voz' %}</label>
+                        <input class="form-control" id="tomvoz" type="text" required="" maxlength="255" autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="gpt_tom">{% trans 'gpt' %}</label>
+                        <input class="form-control" id="gpt_tom" type="text" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12">
+                        <label for="key_tom">{% trans 'Key' %}</label>
+                        <input class="form-control" id="key_tom" type="text"  autocomplete="off">
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" id="save_tomvoz" data-set=""
+                    type="submit">{% trans 'Salvar' %}</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="modal fade modal-bookmark" id="modal_add_versao" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Versão GPT' %}</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                  <div class="form-row">
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12 m-b-20">
+                        <label for="gpt_version">{% trans 'Versões' %}</label>
+                        <div class="table-responsive" style="height: 150px; overflow-y: scroll;">
+                          <table class="table table-bordernone">
+                            <thead>
+                              <tr>
+                                <th> <span>Versão</span></th>
+                                
+                                <th> <span>Excluir</span></th>
+                              </tr>
+                            </thead>
+                            <tbody id="tbody_versao">
+                              {% for versao in versoes %}
+                                <tr>
+                                  <td>
+                                    <div class="media">
+                                      <div class="media-body ps-2">
+                                        <div class="avatar-details"><a href="#">
+                                            <h6>{{versao.gpt_engine}}</h6>
+                                          </a><span>#{{versao.pk}}</span></div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-danger" onclick='delete_versao("{{versao.pk}}")'>Excluir</button>
+                                  </td>
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12 m-b-20">
+                        <label for="gpt_version">{% trans 'Versão GPT' %}</label>
+                        <input class="form-control" id="gpt_version" type="text" required="" maxlength="255" autocomplete="off">
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" id="save_gpt_version" data-set=""
+                    type="submit">{% trans 'Salvar' %}</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="modal fade modal-bookmark" id="modal_add_wpp_field" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Wpp Field' %}</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                  <div class="form-row">
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="Exibição">{% trans 'Exibição' %}</label>
+                        <input class="form-control" id="exibicao" type="text" required="" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="descricao">{% trans 'Descrição' %}</label>
+                        <input class="form-control" id="descricao" type="text" maxlength="100" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Tabela Origem' %}</label>
+                        <input class="form-control" id="tabela_origem" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Campo Origem' %}</label>
+                        <input class="form-control" id="campo_origem" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Tabela vinculada' %}</label>
+                        <input class="form-control" id="tabela_vinculada" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Campo Vinculado' %}</label>
+                        <input class="form-control" id="campo_vinculado" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12 m-b-20">
+                        <label for="">{% trans 'Campo Chave (Nome do app no settings.py)' %}</label>
+                        <input class="form-control" id="campo_chave" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <hr>
+                      <h5>Parte destinada aos campos dinâmicos do boomerangue</h5>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Tabela de filtragem' %}</label>
+                        <input class="form-control" id="tabela_vinculada_2" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Campo de filtragem' %}</label>
+                        <input class="form-control" id="campo_vinculado_2" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Valor de filtragem' %}</label>
+                        <input class="form-control" id="valor_filtragem" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="">{% trans 'Campo chave' %}</label>
+                        <input class="form-control" id="campo_chave_2" type="text" maxlength="100"  autocomplete="off">
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary" id="save_wpp_field" data-set=""
+                    type="submit">{% trans 'Salvar' %}</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal fade bd-example-modal-atributos" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Atributos Boomerangue</h4>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row d-block d-sm-flex">
+                  <div class="col-sm-6 m-b-20">
+                    <label for="">{% trans 'Nome atributo' %}</label>
+                    <input class="form-control" id="nome_atributo" type="text" required="" maxlength="100" autocomplete="off">
+                  </div>
+                  <div class="col-sm-6 m-b-20">
+                    <label for="tipo_atributo">{% trans 'Tipo Atributo' %}</label>
+                    <select class="js-example-basic-single" id="tipo_atributo">
+                      <option value="texto">Texto</option>
+                      <option value="combo">Combo</option>
+                      <option value="textarea">Textarea</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row d-block d-sm-flex">
+                  <div class="col-sm-6 m-b-20">
+                    <label for="">{% trans 'Conteúdo Padrão' %}</label>
+                    <input class="form-control" id="conteudo_padrao" type="text" required="" maxlength="100" autocomplete="off">
+                  </div>
+                  <div class="col-sm-6 m-b-20">
+                    <label for="obrigatorio">{% trans 'Obrigatório' %}</label>
+                    <select class="js-example-basic-single" id="obrigatorio">
+                      <option value="True">Sim</option>
+                      <option value="False">Não</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="body_atr">
+                  <table class="table table-bordered table-hover mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nome do Atributo</th>
+                            <th>Tipo</th>
+                            <th>Conteúdo Padrão</th>
+                            <th>Obrigatório</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body_atributos">
+                        <!-- As linhas de atributos serão inseridas aqui -->
+                    </tbody>
+                </table>
+                </div>
+                <div class="mt-5">
+                  <button class="btn btn-secondary" id="salvar_atributos" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

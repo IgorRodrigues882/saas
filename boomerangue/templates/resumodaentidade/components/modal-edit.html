@@ -1,0 +1,297 @@
+<div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Entidade</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+              <div class="row g-2">
+                <div class="col-md-12 mt-0 m-b-20">
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <label for="Entidade">Nome</label>
+                      <input class="form-control" id="Entidade" type="text" required="" maxlength="100"
+                        autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="Fantasia">Nome Fantasia</label>
+                      <input class="form-control" maxlength="100" id="Fantasia" type="text" required=""
+                        autocomplete="off">
+                    </div>
+                   
+                  </div>                  
+                </div>
+
+                <div class="col-md-12 mt-0 m-b-20">
+                  <div class="row">                             
+                    <div class="col-sm-4">
+                          <div class="mb-3">
+                            <label>CNPJ</label>
+                            <input class="form-control campo" type="text" maxlength="20" id="CNPJ" name="CNPJ" placeholder="CNPJ" required>
+                            <div class="invalid-tooltip">CNPJ não pode estar vazio</div>
+                          </div>                                
+                       
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label>Inscrição Estadual</label>
+                        <input class="form-control campo" type="text" maxlength="10" id="InscricaoEstadual" name="InscricaoEstadual" placeholder="Inscrição Estadual" required>                    
+                        <div class="invalid-tooltip">Inscrição Estadual não pode estar vazio</div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label>Cliente</label>
+                        <select class="form-select campo" id="Cliente" name="Cliente">
+                          <option value="S">Sim</option>
+                          <option value="N">Não</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="col-md-12 my-0 m-b-20">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <div class="mb-3">
+                        <label>CEP</label>
+                        <input class="form-control campo" id="CEP" name="CEP" maxlength="15" type="text" placeholder="CEP">
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="mb-3">
+                        <label>Endereço</label>
+                        <input class="form-control campo" id="Endereco" name="Endereco" maxlength="70" type="text" placeholder="Endereço" required>
+                        <div class="invalid-tooltip">Endereço não pode estar vazio</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="mb-3">
+                        <label>Número</label>
+                        <input class="form-control campo" id="Numero" name="Numero" maxlength="20" type="text" placeholder="Número" required>
+                        <div class="invalid-tooltip">Número não pode ficar vazio</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="mb-3">
+                        <label>Bairro</label>
+                        <input class="form-control campo" id="Bairro" name="Bairro" maxlength="35" type="text" placeholder="Bairro" required>
+                        <div class="invalid-tooltip">Bairro não pode estar vazio</div>
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+
+                <div class="col-sm-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>País</label>                    
+                          <select class="js-example-basic-single" id="pais" required=""> 
+                            <option value="">Selecione um país</option>
+                            {% for pais in paises %}
+                              <option value="{{pais.pk}}" data-pais="{{pais.Pais}}">{{pais.Pais}}</option>
+                            {% endfor %}
+                      </select>
+                          <div class="invalid-tooltip">País não pode estar vazio</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>UF</label>
+                          <select class="js-example-basic-single" id="uf" required=""> 
+                            <option value="">Selecione um Estado</option>
+                            {% for uf in uf %}
+                              <option value="{{uf.pk}}" data-sigla="{{uf.sigla}}">{{uf.uf}}</option>
+                            {% endfor %}
+                      </select>                              
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Cidade</label>
+                          <select class="js-example-basic-single" id="Cidade" required="">                                         
+                      </select>                     
+                        </div>
+                    </div>
+                  </div>
+                </div>  
+                <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="mb-3">
+                          <label>Complemento</label>
+                          <input class="form-control campo" name="Complemento" id="Complemento" type="text" placeholder="Complemento">
+                          <div class="invalid-tooltip">Complemento não pode estar vazio</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Telefone Principal</label>
+                          <input class="form-control campo" maxlength="25" id="Telefone1" name="Telefone1" type="text" placeholder="Telefone Principal" required>
+                          <div class="invalid-tooltip">Telefone Principal não pode estar vazio</div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Telefone Secundário</label>
+                          <input class="form-control campo" maxlength="25" id="Telefone2" name="Telefone2" type="text" placeholder="Telefone Secundário" required>
+                          <div class="invalid-tooltip">Telefone Secundário não pode estar vazio</div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>WhatsApp Comercial</label>
+                          <input class="form-control campo" maxlength="50" id="WhatsAPPComercial" name="WhatsAPPComercial" type="text" placeholder="WhatsApp Comercial" required>
+                          <div class="invalid-tooltip">Whatsapp Comercial não pode estar vazio</div>
+                        </div>
+                      </div>                    
+                  </div>
+
+                  <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Email Comercial</label>
+                          <input class="form-control campo" maxlength="100" id="Email_Comercial" name="Email_Comercial" type="text" placeholder="Email Comercial" required>
+                          <div class="invalid-tooltip">Email Comercial não pode estar vazio</div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Email Compras</label>
+                          <input class="form-control campo" maxlength="100" id="Email_Compras" name="Email_Compras" type="text" placeholder="Email Compras" required>
+                          <div class="invalid-tooltip">Email Compras não pode estar vazio</div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Email NFE</label>
+                          <input class="form-control campo" maxlength="100" id="EMAIL_NFE" name="EMAIL_NFE" type="text" placeholder="Email NFE">
+                        </div>
+                    </div>
+                  </div> 
+                  
+                  <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Email Marketing</label>
+                          <input class="form-control campo" maxlength="100" id="EMAIL_Marketing" name="EMAIL_Marketing" type="text" placeholder="Email Marketing" required>
+                          <div class="invalid-tooltip">Email Marketing não pode estar vazio</div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label>Entidade Ativa</label>
+                        <select class="form-select campo" id="Entidade_Ativa" name="Entidade_Ativa">
+                          <option value="S">Sim</option>
+                          <option value="N">Não</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label>Telefone Receita</label>
+                        <input class="form-control campo" maxlength="50" id="ReceitaTelefone" name="ReceitaTelefone" type="text" placeholder="Telefone Registrado na Receita" required>
+                        <div class="invalid-tooltip">Telefone Receita não pode estar vazio</div>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 my-0 m-b-20">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label>Email Receita</label>
+                        <input class="form-control campo" maxlength="100" id="ReceitaEmail" name="ReceitaEmail" type="text" placeholder="Email Registrado na Receita" required>
+                        <div class="invalid-tooltip">Email Receita não pode estar vazio</div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                        <label>Data de Situação na Receita</label>
+                        <input class="datepicker-here form-control" type="text" id="ReceitaDataSituacao" data-language="pt-BR">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="mb-3">
+                          <label>Ativa na Receita</label>
+                          <select class="form-select campo" id="ReceitaAtivo" name="ReceitaAtivo">
+                            <option value="S">Sim</option>
+                            <option value="N">Não</option>
+                          </select>
+                      </div>
+                    </div>
+                  </div>      
+
+                  <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Data de Abertura da Empresa</label>
+                          <input class="datepicker-here form-control" type="text" id= "DtAberturaEmpresa" data-language="pt-BR">
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label for="Capital_Social">Capital Social</label>
+                          <input class="form-control" id="Capital_Social" type="text" required="" autocomplete="off">
+                        </div>
+                      </div> 
+
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Nome do Contato</label>
+                          <input class="form-control campo" type="text" maxlength="255" id="NomeContato" name="NomeContato" placeholder="Nome do contato da entidade" required>            
+                          <div class="invalid-tooltip">Nome do Contato não pode estar vazio</div>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 my-0 m-b-20">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="mb-3">
+                          <label>Sobrenome</label>
+                          <input class="form-control campo" type="text" maxlength="255" id="SobrenomeContato" name="SobrenomeContato" placeholder="Sobrenome do contato da entidade" required>
+                          <div class="invalid-tooltip">Sobrenome não pode estar vazio</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+              <input id="index_var" type="hidden" value="5">
+              <button class="btn btn-secondary" type="submit" id="btn_salvar">Salvar</button>
+              <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    

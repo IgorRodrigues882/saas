@@ -1,0 +1,273 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% load tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/vendors/prism.css' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/sweetalert2.scss' %}">
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+  <!-- Container-fluid starts-->
+  <div class="container-fluid default-dash">
+
+  <div class="row">
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="card-body">
+          <div class="media static-widget">
+            <div class="media-body">
+              <h6 class="font-roboto">Boomerangues</h6>
+              <h4 class="mb-0 counter">{{nBoomerangues}}</h4>
+            </div>
+            <svg class="fill-secondary" width="48" height="48" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M444.824 74.726C413.17 41.73 286.208 42.686 184.298 60.023l6.463 70.695c59.96-4.478 124.03-3.225 160.113 33.527 34.967 37.816 33.125 101.87 25.757 161.544l70.3 9.868c22.24-100.955 29.322-227.723-2.106-260.932zM164.077 63.752c-5.497 1.092-10.92 2.236-16.186 3.42l6.106 66.803c5.36-.526 10.806-1.05 16.332-1.56l-6.25-68.663zM442.23 355.675l-68.283-9.56c-.776 5.496-1.562 10.91-2.346 16.24l66.43 9.322c1.44-5.204 2.843-10.564 4.2-16.002zM127.81 72.07c-48.305 12.787-81.697 29.542-79.757 47.244 2.445 22.298 38.3 21.037 85.574 16.623L127.81 72.07zM432.17 391.5l-63.512-8.896c-6.69 47.005-9.682 82.76 12.472 86.277 17.588 2.794 35.935-29.75 51.04-77.38z"/></svg>
+          </div>
+          <div class="progress-widget">
+            <div class="progress sm-progress-bar progress-animate">
+              <div class="progress-gradient-secondary" role="progressbar" style="width: 75%" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="card-body">
+          <div class="media static-widget">
+            <div class="media-body">
+              <h6 class="font-roboto d-flex">Campanhas Ativas</h6>
+              <h4 class="mb-0 counter">{{CampanhasAtivas}}</h4>
+            </div>
+            <svg fill="#7DC006" stroke='fill-success' width="37" height="45" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <rect x="163.136" y="68.008" width="186.064" height="16"></rect> </g> </g> <g> <g> <rect x="163.136" y="115.384" width="348.864" height="16"></rect> </g> </g> <g> <g> <path d="M0,48.232v102.944h101.36V48.232H0z M85.36,135.16H16V64.232h69.36V135.16z"></path> </g> </g> <g> <g> <rect x="163.136" y="224.312" width="186.064" height="16"></rect> </g> </g> <g> <g> <rect x="163.136" y="271.672" width="348.864" height="16"></rect> </g> </g> <g> <g> <path d="M0,204.52v102.944h101.36V204.52H0z M85.36,291.464H16V220.52h69.36V291.464z"></path> </g> </g> <g> <g> <rect x="163.136" y="380.6" width="186.064" height="16"></rect> </g> </g> <g> <g> <rect x="163.136" y="427.976" width="348.864" height="16"></rect> </g> </g> <g> <g> <path d="M0,360.824v102.944h101.36V360.824H0z M85.36,447.752H16v-70.944h69.36V447.752z"></path> </g> </g> </g></svg>
+          </div>
+          <div class="progress-widget">
+            <div class="progress sm-progress-bar progress-animate">
+              <div class="progress-gradient-success" role="progressbar" style="width: 60%" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="card-body">
+          <div class="media static-widget">
+            <div class="media-body">
+              <h6 class="font-roboto">Taxa Conversão</h6>
+              <h4 class="mb-0 counter">{{TaxadeConversao}}%</h4>
+            </div>
+            <svg width="48" height="48"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M22 15C22 18.87 18.87 22 15 22L16.05 20.25" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 9C2 5.13 5.13 2 9 2L7.95 3.75" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13.7 4.44995L17.6799 6.74994L21.6199 4.45996" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17.6799 10.82V6.73999" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16.74 2.21L14.34 3.53996C13.8 3.83996 13.35 4.59995 13.35 5.21995V7.75999C13.35 8.37999 13.79 9.13998 14.34 9.43998L16.74 10.77C17.25 11.06 18.09 11.06 18.61 10.77L21.01 9.43998C21.55 9.13998 22 8.37999 22 7.75999V5.21995C22 4.59995 21.56 3.83996 21.01 3.53996L18.61 2.21C18.1 1.93 17.26 1.93 16.74 2.21Z" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2.34998 15.45L6.31998 17.7499L10.27 15.46" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6.31995 21.82V17.74" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M5.39 13.21L2.99001 14.54C2.45001 14.84 2 15.5999 2 16.2199V18.76C2 19.38 2.44001 20.14 2.99001 20.44L5.39 21.77C5.9 22.06 6.73999 22.06 7.25999 21.77L9.66 20.44C10.2 20.14 10.65 19.38 10.65 18.76V16.2199C10.65 15.5999 10.21 14.84 9.66 14.54L7.25999 13.21C6.73999 12.93 5.9 12.93 5.39 13.21Z" stroke="#6362E7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          </div>
+          <div class="progress-widget">
+            <div class="progress sm-progress-bar progress-animate">
+              <div class="progress-gradient-primary" role="progressbar" style="width: 48%" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3 col-lg-6">
+      <div class="card o-hidden">
+        <div class="card-body">
+          <div class="media static-widget">
+            <div class="media-body">
+              <h6 class="font-roboto">{% get_string_personalizada 'vendas' %}</h6>
+              <h4 class="mb-0 counter">R$ {% if ValorVendas.ValorVendas %}{{ValorVendas.ValorVendas}} {% else %}0,00{% endif %}</h4>
+            </div>
+            <svg width="41" height="46" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#clip0_443_3628)"> <rect x="2" y="6" width="20" height="12" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M22 10C21.4747 10 20.9546 9.89654 20.4693 9.69552C19.984 9.4945 19.543 9.19986 19.1716 8.82843C18.8001 8.45699 18.5055 8.01604 18.3045 7.53073C18.1035 7.04543 18 6.52529 18 6L22 6L22 10Z" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M18 18C18 16.9391 18.4214 15.9217 19.1716 15.1716C19.9217 14.4214 20.9391 14 22 14L22 18L18 18Z" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M2 14C3.06087 14 4.07828 14.4214 4.82843 15.1716C5.57857 15.9217 6 16.9391 6 18L2 18L2 14Z" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 6C6 7.06087 5.57857 8.07828 4.82843 8.82843C4.07828 9.57857 3.06087 10 2 10L2 6H6Z" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14.0741 9.5H11.3333C10.597 9.5 10 10.0596 10 10.75C10 11.4404 10.597 12 11.3333 12H13.1111C13.8475 12 14.4444 12.5596 14.4444 13.25C14.4444 13.9404 13.8475 14.5 13.1111 14.5H10" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 9.51733V8.5" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 15.5173V14.5" stroke="#E52727" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0_443_3628"> <rect width="24" height="24" fill="white"></rect> </clipPath> </defs> </g></svg>
+          </div>
+          <div class="progress-widget">
+            <div class="progress sm-progress-bar progress-animate">
+              <div class="progress-gradient-danger" role="progressbar" style="width: 48%" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100"><span class="animate-circle"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'home/components/index-middle.html' %}
+    {% include 'home/components/index-bottom.html' %}
+  </div>
+
+    <div class="row starter-main">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h5></h5>
+          </div>
+          <div class="card-body row">
+
+            <!-- <div class="d-flex flex-row pb-5">
+              <div class="border border-primary p-3 me-2 mx-2">
+                <h3 class="text-center">18.200</h3><br>
+                {% trans 'Boomerangues Enviados' %}
+              </div>
+              <div class="border border-primary p-3 me-2 mx-2">
+                <h3 class="text-center">18.200</h3><br>
+                {% trans 'Campanhas Ativas' %}
+              </div>
+              <div class="border border-primary p-3 me-2 mx-2">
+                <h3 class="text-center">6,5%</h3><br>
+                {% trans 'Taxa de Conversão' %}
+              </div>
+              <div class="border border-primary p-3 me-2 mx-2">
+                <h3 class="text-center">182.12K</h3><br>
+                {% trans 'Em Vendas R$' %}
+              </div>
+              <div class="border border-primary p-3 me-2 mx-2">
+                <h3 class="text-center">653,28</h3><br>
+                {% trans 'Ticket Médio' %}
+              </div>
+            </div> -->
+
+            <div class="col-md-6">
+              <div class="d-flex justify-content-center text-uppercase"><h3>{% trans 'Campanhas' %}</h3></div>
+              <div id="chart"></div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex justify-content-center text-uppercase"><h3>{% trans 'Pedidos Confirmados' %}</h3></div>
+              <div id="pedidos-chart"></div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+</div>
+<script src="{% static 'assets/js/apexcharts/apexcharts.min.js' %}"></script>
+<script>
+
+  let envio = []
+  let abertura = []
+  let vendas_ = []
+  let dia = []
+  {% for camp in gr_campanha %}
+    envio.push("{{camp.Envios}}")
+    abertura.push('{{camp.Aberturas}}')
+    vendas_.push('{{camp.Vendas}}')
+    dia.push("{{camp.Dia|date:'d/M'}}")
+  {% endfor %}
+var options = {
+  series: [{
+    name: 'Envios',
+    data: envio
+  }, {
+    name: 'Abertura',
+    data: abertura
+  }, {
+    name: 'Vendas',
+    data: vendas_
+  }],
+    chart: {
+    type: 'bar',
+    height: 350
+  },
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      columnWidth: '55%',
+      endingShape: 'rounded'
+    },
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    show: true,
+    width: 2,
+    colors: ['transparent']
+  },
+  xaxis: {
+    categories: dia,
+  },
+  fill: {
+    opacity: 1
+  }
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+</script>
+<script> 
+  let lista = []
+  let vendas = []
+  {% for pedido in pedidos_confirmados %}
+    lista.push('{{pedido.Dia|date:"d/M"}}')
+    vendas.push('{{ pedido.Vendas }}')
+  {% endfor %}
+
+  var options = {
+    series: [{
+      name: '',
+      data: vendas
+    }],
+      chart: {
+      type: 'bar',
+      height: 350
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '20%',
+        endingShape: 'rounded',
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      show: true,
+      width: 1,
+      colors: ['transparent']
+    },
+    colors: ["rgb(0, 227, 150)"],
+    xaxis: {
+      categories: lista,
+    },
+    fill: {
+      opacity: 1
+    }
+  };
+  
+  var chart = new ApexCharts(document.querySelector("#pedidos-chart"), options);
+  chart.render();
+  </script>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<script src="{% static 'assets/js/prism/prism.min.js' %}"></script>
+<script src="{% static 'assets/js/clipboard/clipboard.min.js' %}"></script>
+<script src="{% static 'assets/js/custom-card/custom-card.js' %}"></script>
+<script src="{% static 'assets/js/notify/bootstrap-notify.min.js' %}"></script>
+<script src="{% static 'assets/js/notify/index.js' %}"></script>
+<script src="{% static 'assets/js/chart/apex-chart/moment.min.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/handlebars.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.custom.js' %}"></script>
+<script src="{% static 'assets/js/typeahead-search/handlebars.js' %}"></script>
+<script src="{% static 'assets/js/typeahead-search/typeahead-custom.js' %}"></script>
+<script src="{% static 'assets/js/theme-customizer/customizer.js' %}"></script>
+<script src="{% static 'assets/js/sweet-alert/sweetalert.min.js' %}"></script>
+<script src="{% static 'assets/js/tooltip-init.js' %}"></script>
+<script src="{% static 'assets/js/home/home.js' %}"></script>
+<script src="{% static 'assets/js/home/tb_compras.js' %}"></script>
+<script src="{% static 'assets/js/home/tb_produtos.js' %}"></script>
+<script src="{% static 'assets/js/home/tb_compradores.js' %}"></script>
+<script src="{% static 'assets/js/home/tb_templates.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

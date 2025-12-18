@@ -1,0 +1,87 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <form method="post" id="create_form">
+            <div class="form-group">
+              <label for="empresa_id">Empresa ID:</label>
+              <input type="number" class="form-control" id="empresa_id" name="empresa_id" required>
+            </div>
+            <div class="form-group">
+                <label for="EDI_Integracao">EDI Integração:</label>
+                <input type="text" class="form-control" id="EDI_Integracao" name="EDI_Integracao" maxlength="50" required>
+            </div>
+            <div class="form-group">
+                <label for="GrupoProdutos">Grupo de Produtos:</label>
+                <input type="text" class="form-control" id="GrupoProdutos" name="GrupoProdutos" maxlength="50" required>
+            </div>
+            <div class="form-group">
+                <label for="OrdemGrupoProdutos">Ordem Grupo de Produtos:</label>
+                <input type="text" class="form-control" id="OrdemGrupoProdutos" name="OrdemGrupoProdutos" maxlength="5" required>
+            </div>
+            <div class="form-group">
+                <label for="grupoAtivo">Grupo Ativo:</label>
+                <select class="form-control" id="grupoAtivo" name="grupoAtivo" required>
+                    <option value="S">Ativo</option>
+                    <option value="N">Inativo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Sincronizado">Sincronizado:</label>
+                <input type="text" class="form-control" id="Sincronizado" name="Sincronizado" maxlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="dtSincronizacao">Data de Sincronização:</label>
+                <input type="datetime-local" class="form-control" id="dtSincronizacao" name="dtSincronizacao" required>
+            </div>
+            <div class="form-group">
+                <label for="verSincronizador">Versão do Sincronizador:</label>
+                <input type="text" class="form-control" id="verSincronizador" name="verSincronizador" maxlength="12" required>
+            </div>
+            <div class="form-group">
+                <label for="idSincronizador">ID do Sincronizador:</label>
+                <input type="number" class="form-control" id="idSincronizador" name="idSincronizador" required>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  let form = document.getElementById("create_form");
+  
+  form.addEventListener('submit', function (event) {
+      event.preventDefault();
+  
+      // 1: get form data
+      const formData = new FormData(form);
+      // 2: store form data in object
+      const jsonObject = Object.fromEntries(formData);
+      // 3: convert form data object to a JSON string
+      const jsonString = JSON.stringify(jsonObject);
+  
+      console.log(jsonString);
+  
+      fetch('/api/ger_linhaprodutos/', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonObject)
+      })
+      .then(function(response){
+          console.log(response);
+          if (response.status == 201){
+              window.location.href = "../ger_linhaprodutos";
+          }
+      })
+  });
+</script>

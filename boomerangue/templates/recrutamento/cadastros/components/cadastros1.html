@@ -1,0 +1,228 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<div class="col-xl-6 col-md-12 dash-xl-50 dash-lg-100 dash-50 box-col-6">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Reação/Motivo</h5>
+        </div>
+        <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+          <div class="icon-box-show onhover-show-div">
+            <ul>
+              <li> <a href="#" data-bs-toggle="modal" data-bs-target="#addreacoes" onclick="reacoes.newVaga()">
+                  Adicionar</a></li>
+              <li> <a a href="#" data-bs-toggle="modal" data-bs-target="#exportreacoes">
+                  Exportar</a></li>
+              <!-- <li> <a>
+                  Rejected</a></li>
+              <li> <a>In Progress</a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone">
+          <thead>
+            <tr>
+              <th> <span>Reação Motivo</span></th>
+              <th> <span>Opções</span></th>
+            </tr>
+          </thead>
+          <tbody id="tbody-reacoes">
+            
+          </tbody>
+        </table>
+        <div class="loader-box mt-5" id="loader" style="display: none;">
+            <div class="loader-2"></div>
+          </div>
+      </div>
+    </div>
+    <div class="card-body">
+        <nav aria-label="...">
+            <ul class="pagination pagination-primary" id="pagination">
+                <li class="page-item disabled" id="previous-page">
+                    <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item" id="next-page">
+                    <a class="page-link" href="javascript:void(0)">Próximo</a>
+                </li>
+            </ul>
+        </nav>
+      </div>
+  </div>
+</div>
+
+<div class="col-xl-6 col-md-12 dash-xl-50 dash-lg-100 dash-50 box-col-6">
+    <div class="card ongoing-project recent-orders">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Grupo de documentos</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <ul>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#addstd" onclick="std.newVaga()">
+                    Adicionar</a></li>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#exportgrupodoc">
+                    Exportar</a></li>
+                <!-- <li> <a>
+                    Rejected</a></li>
+                <li> <a>In Progress</a></li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive">
+          <table class="table table-bordernone">
+            <thead>
+              <tr>
+                <th> <span>Grupo Documentos</span></th>
+                <th> <span>Processo</span></th>
+                <th> <span>Opções</span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-std">
+              
+            </tbody>
+          </table>
+          <div class="loader-box mt-5" id="loader-std" style="display: none;">
+              <div class="loader-2"></div>
+            </div>
+        </div>
+      </div>
+      <div class="card-body">
+          <nav aria-label="...">
+              <ul class="pagination pagination-primary" id="pagination-std">
+                  <li class="page-item disabled" id="previous-page-std">
+                      <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                  </li>
+                  <li class="page-item" id="next-page-std">
+                      <a class="page-link" href="javascript:void(0)">Próximo</a>
+                  </li>
+              </ul>
+          </nav>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="col-xl-4 col-md-12 dash-xl-50 dash-lg-100 dash-36 box-col-6">
+    <div class="card ongoing-project recent-orders">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Status documentos</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <ul>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#addstatusdoc" onclick="statusdoc.newVaga()">
+                    Adicionar</a></li>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#exportstatusdocmodal">
+                    Exportar</a></li>
+                <!-- <li> <a>
+                    Rejected</a></li>
+                <li> <a>In Progress</a></li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive">
+          <table class="table table-bordernone">
+            <thead>
+              <tr>
+                <th> <span>Status</span></th>
+                <!-- <th> <span>Status Curto</span></th> -->
+                <th> <span>Opções</span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-statusdoc">
+              
+            </tbody>
+          </table>
+          <div class="loader-box mt-5" id="loader-statusdoc" style="display: none;">
+              <div class="loader-2"></div>
+            </div>
+        </div>
+      </div>
+      <div class="card-body">
+          <nav aria-label="...">
+              <ul class="pagination pagination-primary" id="pagination-statusdoc">
+                  <li class="page-item disabled" id="previous-page-statusdoc">
+                      <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                  </li>
+                  <li class="page-item" id="next-page-statusdoc">
+                      <a class="page-link" href="javascript:void(0)">Próximo</a>
+                  </li>
+              </ul>
+          </nav>
+        </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-xl-8 col-md-12 dash-xl-50 dash-lg-100 dash-36 box-col-6">
+    <div class="card ongoing-project recent-orders">
+      <div class="card-header card-no-border">
+        <div class="media media-dashboard">
+          <div class="media-body">
+            <h5 class="mb-0">Status Candidato</h5>
+          </div>
+          <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+            <div class="icon-box-show onhover-show-div">
+              <ul>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#addstatuscandidate" onclick="statuscandidate.newVaga()">
+                    Adicionar</a></li>
+                <li> <a href="#" data-bs-toggle="modal" data-bs-target="#exportstatuscandidatemodal">
+                    Exportar</a></li>
+                <!-- <li> <a>
+                    Rejected</a></li>
+                <li> <a>In Progress</a></li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <div class="table-responsive">
+          <table class="table table-bordernone">
+            <thead>
+              <tr>
+                <th> <span>Status</span></th>
+                <th> <span>Status Agrupado</span></th>
+                <th> <span>Opções</span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-statuscandidate">
+              
+            </tbody>
+          </table>
+          <div class="loader-box mt-5" id="loader-statuscandidate" style="display: none;">
+              <div class="loader-2"></div>
+            </div>
+        </div>
+      </div>
+      <div class="card-body">
+          <nav aria-label="...">
+              <ul class="pagination pagination-primary" id="pagination-statuscandidate">
+                  <li class="page-item disabled" id="previous-page-statuscandidate">
+                      <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                  </li>
+                  <li class="page-item" id="next-page-statuscandidate">
+                      <a class="page-link" href="javascript:void(0)">Próximo</a>
+                  </li>
+              </ul>
+          </nav>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,116 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+      <h5>{% trans 'Condições de Pagamento' %}</h5><span class="f-14 pull-right mt-0"></span>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12" style="height: 90vh; overflow-y: scroll;">
+          <div class="nav d-block nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% for condicao in condicoes %}
+            <a class="contact-tab-{{condicao.pk}} nav-link  {% if forloop.first %} active{% endif %}" id="v-pills-user-tab" data-bs-toggle="pill" onclick="activeDiv('{{condicao.pk}}')"
+              href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">
+              <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_0"
+                  src="{% static 'assets/images/user/2.png' %}" alt="">
+                <div class="media-body">
+                  <h6> <span class="first_name_0">{{condicao.condicoes_pagamento}}</span></h6>
+                  <p class="email_add_0">{{condicao.empresa.empresa}}</p>
+                </div>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'condicao-pagamentos/components/components.html' %}
+
+          </div>
+          <div class="contact-editform">
+            <form>
+              <div class="row g-2">
+                <div class="mt-0 mb-3 col-md-12">
+                  <label>{% trans 'Nome' %}</label>
+                  <div class="row g-2">
+                    <div class="col-sm-12">
+                      <input class="form-control" id="condicoes_pagamento" type="text" required="" placeholder="Nome"
+                        value="">
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                      <label for="valor_minimo">{% trans 'Valor Mínimo' %}</label>
+                      <input class="form-control" id="valor_minimo" type="text" required="" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                      <label for="status_condicoes_pagamento">{% trans 'Status condição' %}</label>
+                      <input class="form-control" id="status_condicoes_pagamento" type="text" required="" autocomplete="off">
+                    </div>
+                  </div> 
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                      <label for="NroParcelas">{% trans 'Nº Parcelas' %}</label>
+                      <input class="form-control" id="NroParcelas" type="number" required="" autocomplete="off"  maxlength="">
+                    </div>
+                    <div class="col-sm-6 mb-2">
+                      <label for="CondicaoPadrao">{% trans 'Condição Pagamento Padrão' %}</label>
+                      <select class="form-control" id="CondicaoPadrao">
+                        <option value="S">{% trans 'Sim' %}</option>
+                        <option value="N">{% trans 'Não' %}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row g-2 more-data">
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-lg-6 col-sm-6">
+                      <label for="CondicaoAtiva">{% trans 'Condição Ativa' %}</label>
+                      <select class="form-control" id="CondicaoAtiva">
+                        <option value="S">{% trans 'Sim' %}</option>
+                        <option value="N">{% trans 'Não' %}</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                      <label for="prazo_medio">{% trans 'Prazo médio (Dias)' %}</label>
+                      <input class="form-control" id="prazo_medio" type="number" required="" autocomplete="off"  maxlength="">
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-lg-6 col-sm-6">
+                      <label for="EDI_Integracao">{% trans 'EDI Integração' %}</label>
+                      <input class="form-control" id="EDI_Integracao" type="text" required="" maxlength="50" autocomplete="off">
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                      <label for="CodTipoDocumentoCobranca">{% trans 'Cód documento cobrança' %}</label>
+                      <input class="form-control" id="CodTipoDocumentoCobranca" maxlength="10" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <label for="CondicaoAmigavel">{% trans 'Condição Amigável' %}</label>
+                  <textarea class="form-control" name="CondicaoAmigavel" id="CondicaoAmigavel" cols="30" rows="4"></textarea>
+                </div>
+                
+              </div><a class="ps-0 edit-information f-w-600 mb-3" href="javascript:void(0)">{% trans 'Editar Mais Informações' %}</a>
+              <button class="btn btn-secondary update-contact mt-0" type="button">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary mt-0" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

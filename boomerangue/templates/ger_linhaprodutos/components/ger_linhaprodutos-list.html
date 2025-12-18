@@ -1,0 +1,388 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0">
+          </div>
+          <div class="col-md-6 p-0">
+            <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#addModal">Criar novo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+            <h1>Tabela de Grupo de Produtos</h1>
+
+            <style>
+              .opts{
+                font-size: large;
+                text-align: center;
+                display: flex;
+                justify-content: end;
+              }
+              .opts > li{
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                padding: 12px;
+                margin-left: 9px;
+                color:#6362e7;
+                transition: all 0.3s ease-out allow-discrete;
+              }
+              .opts > li:hover{
+                background:#6362e7;
+                
+                a{
+                  color: #fff;
+                }
+              }
+              table{
+                border-collapse: separate;
+                border-spacing: 0 0px;
+              }
+              tbody > tr{
+                background: inherit !important;
+                --bs-table-accent-bg: inherit !important;
+              }
+              tbody > tr > td{
+                border-bottom: thin solid rgba(0, 0, 0, 0.09);
+                padding: 15px 0;
+                vertical-align: middle;
+              }
+            </style>
+
+            <table class="table table-striped">
+              <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>EDI Integracao</th>
+                    <th>Linha Produtos</th>
+                    <th>Ordem Linha Produtos</th>
+                    <th>LinhaAtiva</th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for linha in ger_linhaprodutos %}
+                      <tr>
+                          <td>{{ linha.id }}</td>
+                          <td>{{ linha.EDI_Integracao }}</td>
+                          <td>{{ linha.LinhaProdutos }}</td>
+                          <td>{{ linha.OrdemLinhaProdutos }}</td>
+                          <td>{{ linha.LinhaAtiva }}</td>
+                          <td>
+                            <ul class="opts">
+                              <li><a data-bs-toggle="modal" data-bs-target="#editProdutoModal" id="editar_produto" onclick="editar_line('{{linha.id}}')" href="#"><i class="icon-pencil"></i></a></li>
+                              <li><a href="#" onclick="delete_line('{{linha.id}}')" id="deletar_produto"><i class="icon-trash"></i></a></li>
+                            </ul>
+                          </td>
+                      </tr>
+                  {% endfor %}
+                
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade modal-bookmark" id="addModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Criar Linha Produto</h5>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+        <div class="row g-2">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body pt-0">
+                <div class="stepwizard">
+                  <div class="stepwizard-row setup-panel d-none">
+                    <div class="stepwizard-step"><a class="btn btn-primary" id="step1" href="#step-1">1</a>
+                      <p>Informações Básicas</p>
+                    </div>
+                  </div>
+                </div>
+                  <div class="setup-content" id="step-1">
+                    <div class="col-xs-12">
+
+                      <div class="col-md-12">
+
+                        <div class="form-group mb-3">
+                          <label for="EDI_Integracao">EDI Integracao:</label>
+                          <input type="text" class="form-control" name="EDI_Integracao" required>
+                        </div>
+                        
+
+                        <div class="form-group mb-3">
+                          <label for="LinhaProdutos">Linha Produtos:</label>
+                          <input type="text" class="form-control" name="LinhaProdutos" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                          <label for="OrdemLinhaProdutos">Ordem Linha Produtos:</label>
+                          <input type="text" class="form-control" name="OrdemLinhaProdutos" required>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                          <label for="LinhaAtiva">Linha Ativa:</label>
+                          <select class="form-control" name="LinhaAtiva">
+                              <option value="">Escolha uma opção</option>
+                              <option value="S">S</option>
+                              <option value="N">N</option>
+                          </select>
+                        </div>
+
+                      </div>
+                      <button class="btn btn-primary nextBtn pull-right" type="submit">Criar</button>
+                    </div>
+                  </div>
+                </div>
+
+                  
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade modal-bookmark" id="editModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Editar Linha Produto</h5>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-bookmark needs-validation" id="edit_form" novalidate="">
+        <div class="row g-2">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body pt-0">
+                <div class="stepwizard">
+                  <div class="stepwizard-row setup-panel d-none">
+                    <div class="stepwizard-step"><a class="btn btn-primary" id="step1" href="#step-1">1</a>
+                      <p>Informações Básicas</p>
+                    </div>
+                  </div>
+                </div>
+                  <div>
+                    <div class="col-xs-12">
+                      <div class="col-md-12">
+
+                        <input type="hidden" id="id" name="id" value="200">
+
+                        <div class="form-group mb-3">
+                          <label for="EDI_Integracao">EDI Integracao:</label>
+                          <input type="text" class="form-control" name="EDI_Integracao" id="EDI_Integracao" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                          <label for="LinhaProdutos">Linha Produtos:</label>
+                          <input type="text" class="form-control" name="LinhaProdutos" id="LinhaProdutos" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                          <label for="OrdemLinhaProdutos">Ordem Linha Produtos:</label>
+                          <input type="text" class="form-control" name="OrdemLinhaProdutos" id="OrdemLinhaProdutos" required>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                          <label for="LinhaAtiva">Linha Ativa:</label>
+                          <select class="form-control" name="LinhaAtiva">
+                              <option value="">Escolha uma opção</option>
+                              <option value="S">S</option>
+                              <option value="N">N</option>
+                          </select>
+                        </div>
+
+                      </div>
+                      <button class="btn btn-primary nextBtn pull-right" type="submit">Salvar</button>
+                    </div>
+                  </div>
+                </div>
+
+                  
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<script>
+
+  let form = document.getElementById("create_form");
+  
+  form.addEventListener('submit', function (event) {
+      event.preventDefault();
+  
+      // 1: get form data
+      const formData = new FormData(form);
+      // 2: store form data in object
+      const jsonObject = Object.fromEntries(formData);
+      // 3: convert form data object to a JSON string
+      const jsonString = JSON.stringify(jsonObject);
+  
+      console.log(jsonString);
+
+      const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+      // Extrai o valor do csrftoken do cookie
+      const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+  
+      fetch('api/ger_linhaprodutos/', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken,
+          },
+          body: JSON.stringify(jsonObject)
+      })
+      .then(function(response){
+          console.log(response);
+          if (response.status == 201){
+              window.location.reload();
+          }
+      })
+  });
+
+  let edit_form = document.getElementById("edit_form");
+
+  edit_form.addEventListener('submit', function (event) {
+      event.preventDefault();
+  
+      // 1: get form data
+      const formData = new FormData(edit_form);
+      // 2: store form data in object
+      const jsonObject = Object.fromEntries(formData);
+      // 3: convert form data object to a JSON string
+      const jsonString = JSON.stringify(jsonObject);
+  
+      console.log(jsonString);
+
+      const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+      // Extrai o valor do csrftoken do cookie
+      const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+  
+      fetch('api/ger_linhaprodutos/'+jsonObject.id+'/', {
+          method: 'PUT',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken,
+          },
+          body: JSON.stringify(jsonObject)
+      })
+      .then(function(response){
+          console.log(response);
+          if (response.status == 200){
+              window.location.reload();
+          }
+      })
+  });
+
+
+  function delete_line(id){
+    new swal({
+        title: "Tem certeza?",
+        text: "Tem certeza que deseja excluir?",
+        icon: "warning",
+        showCancelButton: true,  // Mostrar botão "Cancelar"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não',
+        }).then((result)=>{
+          if(result.isConfirmed){
+          const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+          const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+          fetch(`api/ger_linhaprodutos/${id}/`,{
+            method:"DELETE",
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken,
+              },
+          }).then(response=>{
+            if (response.status === 204) {
+              new swal({
+                icon: 'success',
+                title: 'Excluído!',
+                buttons: false,
+                timer: 1500
+                }).then(
+                  window.location.reload()
+                )
+              }
+              else {
+              new swal({
+                title: "Erro",
+                text: "Houve um erro ao tentar excluir!",
+                icon: "error",
+                button: "OK",
+                });
+              }
+          }).catch(error => {
+            console.error('Erro ao enviar a solicitação:', error);
+            });
+          
+        }
+      })
+}
+
+
+function editar_line(id){
+    method = 'PATCH';
+    url = `api/ger_linhaprodutos/${id}`;
+    const csrftokenCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+    const csrftoken = csrftokenCookie ? csrftokenCookie.split('=')[1] : null;
+    fetch(`api/ger_linhaprodutos/${id}`,{
+        method:"GET",
+        headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken,
+        },
+    }).then((res)=>res.json())
+    .then((res)=>{
+        if (res.id) {
+            $("#id").val(res.id);
+            $("#EDI_Integracao").val(res.EDI_Integracao);
+            $("#LinhaProdutos").val(res.LinhaProdutos);
+            $("#OrdemLinhaProdutos").val(res.OrdemLinhaProdutos);
+            $("#LinhaAtiva").val(res.LinhaAtiva);
+        }
+        else{
+            new swal({
+                title: "Erro",
+                text: "Houve um erro ao tentar buscar dados!",
+                icon: "error",
+                button: "OK",
+                });
+        }
+    })
+}
+</script>

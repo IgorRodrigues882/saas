@@ -1,0 +1,70 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">{% trans 'Opções Wpp Fields' %}</h5>
+        </div>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modal_add_wpp_field" onclick="new_wpp_field()" class="btn btn-primary">{% trans 'Criar Wpp Field' %}</a>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Exibição' %}</span></th>
+              <th> <span>{% trans 'Descrição' %}</span></th>
+              <th> <span>{% trans 'Tabela Origem' %}</span></th>
+              <th> <span>{% trans 'Campo Origem' %}</span></th>
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for field in fields %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><img class="img-fluid b-r-5"
+                      src="{% static 'assets/images/predio-comercial.png' %}" alt=""></div>
+                  <div class="media-body ps-2">
+                    <div class="avatar-details"><a href="#">
+                        <h6>{{field.exibicao}}</h6>
+                      </a><span>#{{field.pk}}</span></div>
+                  </div>
+                </div>
+              </td>
+              <td class="img-content-box">
+                {{field.descricao}}
+              </td>
+              <td>
+                <h6>{{field.tabela_origem}}</h6>
+              </td>
+              <td>
+                <h6>{{field.campo_origem}}</h6>
+              </td>
+              <td>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">Opções</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item"
+                            href="#" onclick="delete_wpp('{{field.pk}}')">Excluir</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal_add_wpp_field" onclick=" editar_wpp_field('{{field.pk}}')">Editar</a>
+                        </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

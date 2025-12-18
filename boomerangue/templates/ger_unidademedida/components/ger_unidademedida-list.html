@@ -1,0 +1,53 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0">
+          </div>
+          <div class="col-md-6 p-0">
+            <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="ger_unidademedida/create">Criar novo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h1>Tabela de Unidades de Medida</h1>
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Empresa ID</th>
+                      <th>EDI Integração</th>
+                      <th>Unidade de Medida</th>
+                      <th>Sigla</th>
+                      <th>Sincronizado</th>
+                      <th>Data de Sincronização</th>
+                      <th>Versão do Sincronizador</th>
+                      <th>ID do Sincronizador</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for unidade in unidades %}
+                      <tr>
+                          <td>{{ unidade.id }}</td>
+                          <td>{{ unidade.empresa_id }}</td>
+                          <td>{{ unidade.EDI_Integracao }}</td>
+                          <td>{{ unidade.UnidadeMedida }}</td>
+                          <td>{{ unidade.Sigla }}</td>
+                          <td>{{ unidade.Sincronizado }}</td>
+                          <td>{{ unidade.dtSincronizacao }}</td>
+                          <td>{{ unidade.verSincronizador }}</td>
+                          <td>{{ unidade.idSincronizador }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

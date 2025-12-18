@@ -1,0 +1,83 @@
+{% load static %}
+{% load sass_tags %}
+<style>
+  .ultima_mensagem {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Define o número de linhas visíveis */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
+<input type="hidden" id="chat-atual-id" value="">
+<div class="col call-chat-sidebar">
+  <div class="card" style="height: 100%; max-height: 100%;">
+    <div class="card-body chat-body">
+      <div class="chat-box">
+        <!-- Chat left side Start-->
+        <div class="chat-left-aside">
+          <div class="media"><img class="rounded-circle user-image" src="{% static 'assets/images/user/12.png' %}" alt="">
+            <div class="media-body">
+              <div class="about">
+                <div class="name f-w-600" id="user_logado_name">{{nome_user}}</div>
+                <div class="status">Status...</div>
+              </div>
+            </div>
+            <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+              <div class="icon-box-show onhover-show-div">
+                <ul>
+                  <li><a href="javascript:void(0)" data-bs-toggle="modal" id="configuracoes" data-bs-target="#configs">Configurações</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="people-list" id="people-list">
+            <div class="search">
+              <form class="theme-form">
+                <div class="form-group">
+                  <select id="id_campanha" class="form-control">
+                    <option value="">Filtrar Campanha</option>
+                    {% for campanha in campanhas %}
+                    <option value="{{campanha.pk}}">{{campanha.Campanha}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="search" id="remote-message">
+              <form class="theme-form">
+                <div class="form-group">
+                  <input class="typeahead form-control" type="text" id="lead_pesquisar" placeholder="Pesquisar..."><i class="fa fa-search"></i>
+                  <div class="input-group-append">
+                    <span class="loading-indicator-message input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="search">
+              <form class="theme-form">
+                <div class="form-group">
+                  <select id="filtragem_canais_user" class="form-control">
+                    <option value="">Todas as Mensagens</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="list-container custom-scrollbar" style="max-height: calc(100% - 150px); overflow-y: auto;">
+                <div class="">
+                    <div class="nav d-block nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <!-- Items da lista vão aqui -->
+                    </div>
+                </div>
+              <div class="loader-box" id="loader-message_2" style="display: none;">
+                <div class="loader-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Chat left side Ends-->
+      </div>
+    </div>
+  </div>
+  {% include 'mensagens/components/modal.html' %}
+</div>

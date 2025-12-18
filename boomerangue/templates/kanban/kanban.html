@@ -1,0 +1,39 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/jkanban.scss' %}">
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+
+  <!-- Container-fluid starts-->
+  <div class="container-fluid jkanban-container">
+    <div class="row">
+      {% include 'kanban/components/kanban.html' %}
+
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+</div>
+<div>
+  {% include 'kanban/components/modal.html' %}
+</div>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+<script src="{% static 'assets/js/jkanban/jkanban.js' %}"></script>
+<script src="{% static 'assets/js/jkanban/custom.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/handlebars.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.custom.js' %}"></script>
+<script src="{% static 'assets/js/typeahead-search/handlebars.js' %}"></script>
+<script src="{% static 'assets/js/typeahead-search/typeahead-custom.js' %}"></script>
+<script src="{% static 'assets/js/tooltip-init.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

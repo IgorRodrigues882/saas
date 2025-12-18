@@ -1,0 +1,520 @@
+
+<style>
+.custom-ia-textarea {
+    width: 100%;
+    min-height: 200px;
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 16px; /* Ajuste do tamanho da fonte */
+    font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada */
+    color: #1F2937;
+    background-color: #F3F4F6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    line-height: 1.4; /* Reduzido para simular um visual mais compacto */
+    white-space: pre-wrap; /* Garante a preservação de quebras de linha */
+    overflow-x: auto; /* Adiciona rolagem horizontal para texto longo */
+}
+
+.custom-ia-textarea:focus {
+    outline: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+#ia-response-container {
+    margin-top: 15px;
+}
+
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+    margin: 10px auto;
+    border: 3px solid #F3F3F3;
+    border-top: 3px solid #007BFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Sugestões de Venda</h4>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="relatorioContent">
+            <div class="loader-box" style="display: none;">
+                <div class="loader-35"></div>
+            </div>
+            <div id="relatorio">
+            <div class="row">
+                <div class="col-xl-4 col-md-12">
+                    <div class="card our-activities">
+                    <div class="card-header card-no-border">
+                        <div class="media media-dashboard">
+                        <div class="media-body">
+                            <h5 class="mb-0" id="nome_entidade"></h5>
+                        </div>
+                        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+                            <div class="icon-box-show onhover-show-div">
+                            <ul>
+                                <li> <a>
+                                    Latest </a></li>
+                                <li> <a>
+                                    Earlist</a></li>
+                            </ul>
+                            </div>
+                        </div> -->
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="table-responsive">
+                        <table class="table table-bordernone">
+                            <tbody id="infoscliente">
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-users font-primary"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5 id="nome_cliente"></h5>
+                                    </a>
+                                    <p class="f-w-700" id="cnpj"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa fa-building font-secondary"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Porte</h5>
+                                    </a>
+                                    <p class="f-w-700" id="porte"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-calendar font-success"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Período de compras</h5>
+                                    </a>
+                                    <p class="f-w-700" id="periodo_compras"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card our-activities">
+                    <div class="card-header card-no-border">
+                        <div class="media media-dashboard">
+                        <div class="media-body">
+                            <h5 class="mb-0"></h5>
+                        </div>
+                        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+                            <div class="icon-box-show onhover-show-div">
+                            <ul>
+                                <li> <a>
+                                    Latest </a></li>
+                                <li> <a>
+                                    Earlist</a></li>
+                            </ul>
+                            </div>
+                        </div> -->
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="table-responsive">
+                        <table class="table table-bordernone">
+                            <tbody id="">
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-dollar font-info"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5 id="">Potencial Cliente</h5>
+                                    </a>
+                                    <p class="f-w-700" id="pc"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-map-marker font-dark"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Potencial Região</h5>
+                                    </a>
+                                    <p class="f-w-700" id="pr"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-signal font-danger"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Frequência</h5>
+                                    </a>
+                                    <p class="f-w-700" id="frequencia"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-bookmark font-success"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Dias desde a Última Compra</h5>
+                                    </a>
+                                    <p class="f-w-700" id="dduc"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card our-activities">
+                    <div class="card-header card-no-border">
+                        <div class="media media-dashboard">
+                        <div class="media-body">
+                            <h5 class="mb-0"></h5>
+                        </div>
+                        <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+                            <div class="icon-box-show onhover-show-div">
+                            <ul>
+                                <li> <a>
+                                    Latest </a></li>
+                                <li> <a>
+                                    Earlist</a></li>
+                            </ul>
+                            </div>
+                        </div> -->
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="table-responsive">
+                        <table class="table table-bordernone">
+                            <tbody id="">
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-trophy font-primary"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5 id="">Ticket Médio</h5>
+                                    </a>
+                                    <p class="f-w-700" id="tc"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-check-circle font-secondary"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Total Compras</h5>
+                                    </a>
+                                    <p class="f-w-700" id="total_compras"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-money font-success"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Total Gasto</h5>
+                                    </a>
+                                    <p class="f-w-700" id="total_gasto"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class="media">
+                                    <div class="icon-wrappar"><i class="fa fa-level-up font-success"> </i></div>
+                                    <div class="media-body"><a href="#">
+                                        <h5>Tendência Crescimento</h5>
+                                    </a>
+                                    <p class="f-w-700" id="tendencia_crescimento"></p>
+                                    </div>
+                                </div>
+                                </td>
+                                <td><span class="badge badge-light-theme-light font-theme-light"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-primary float-end me-2" id="analise_ia">Analise IA</a>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div id="ia-response-container" style="display: none;">
+                            <textarea id="ia-response-textarea" class="custom-ia-textarea" readonly></textarea>
+                                <div id="ia-loading" class="loading-spinner" style="display: none;"></div>
+                            
+                                <div class="vendedores mt-3">
+                                    <label for="select_tags" class="form-label fw-semibold">Enviar para os vendedores</label>
+                                    <div class="row">
+                                        <!-- Coluna para o Select -->
+                                        <div class="col-md-8">
+                                                <select class="form-select select-tags" multiple="multiple" id="select_tags">
+                                                    <option value="">Selecione os vendedores</option>
+                                                    {% for vendedor in vendedores %}
+                                                        <option value="{{ vendedor.pk }}">{{ vendedor.Vendedor }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                        </div>
+                                        <!-- Coluna para o Botão -->
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <a href="#" class="btn btn-secondary w-100 fw-bold text-uppercase" id="enviar_vendedores">
+                                                Enviar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="row product-page-main">
+                  <div class="col-sm-12">
+                    <ul class="nav nav-tabs border-tab mb-0" id="top-tab" role="tablist">
+                      <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                          role="tab" aria-controls="top-home" aria-selected="false">Produtos Recorrentes</a>
+                        <div class="material-border"></div>
+                      </li>
+                      <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
+                          role="tab" aria-controls="top-profile" aria-selected="false">Sugestão de vendas</a>
+                        <div class="material-border"></div>
+                      </li>
+                      <li class="nav-item"><a class="nav-link" id="top-historico-tab" data-bs-toggle="tab" href="#top-historico"
+                        role="tab" aria-controls="top-home" aria-selected="false">Historico de vendas</a>
+                      <div class="material-border"></div>
+                    </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="tab-content" id="top-tabContent">
+                <div class="tab-pane fade active show" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card ongoing-project">
+                              <div class="card-header card-no-border">
+                                <div class="media media-dashboard">
+                                  <div class="media-body">
+                                    <h5 class="mb-0">Produtos Recorrentes </h5>
+                                  </div>
+                                  <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+                                    <div class="icon-box-show onhover-show-div">
+                                      <ul>
+                                        <li> <a>
+                                            Done</a></li>
+                                        <li> <a>
+                                            Pending</a></li>
+                                        <li> <a>
+                                            Rejected</a></li>
+                                        <li> <a>In Progress</a></li>
+                                      </ul>
+                                    </div>
+                                  </div> -->
+                                </div>
+                              </div>
+                              <div class="card-body pt-0">
+                                <div class="table-responsive custom-scrollbar">
+                                  <table class="table table-bordernone">
+                                    <thead>
+                                      <tr>
+                                        <th> <span>Nome </span></th>
+                                        <th> <span>Score</span></th>
+                                        <th> <span>Quantidade </span></th>
+                                        <th> <span>Valor Unitário </span></th>
+                                        <th> <span>Total </span></th>
+                                        <th> <span>Recorrente </span></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="card-body">
+                                    <nav aria-label="...">
+                                        <ul class="pagination pagination-primary" id="pagination">
+                                            <li class="page-item disabled" id="previous-page">
+                                                <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                                            </li>
+                                            <li class="page-item" id="next-page">
+                                                <a class="page-link" href="javascript:void(0)">Próximo</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+        
+                <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card ongoing-project">
+                              <div class="card-header card-no-border">
+                                <div class="media media-dashboard">
+                                  <div class="media-body">
+                                    <h5 class="mb-0">Sugestões De Vendas </h5>
+                                  </div>
+                                  <!-- <div class="icon-box onhover-dropdown"><i data-feather="more-horizontal"></i>
+                                    <div class="icon-box-show onhover-show-div">
+                                      <ul>
+                                        <li> <a>
+                                            Done</a></li>
+                                        <li> <a>
+                                            Pending</a></li>
+                                        <li> <a>
+                                            Rejected</a></li>
+                                        <li> <a>In Progress</a></li>
+                                      </ul>
+                                    </div>
+                                  </div> -->
+                                </div>
+                              </div>
+                              <div class="card-body pt-0">
+                                <div class="table-responsive custom-scrollbar">
+                                  <table class="table table-bordernone">
+                                    <thead>
+                                      <tr>
+                                        <th> <span>Produto</span></th>
+                                        <th> <span>Código</span></th>
+                                        <th> <span>Quantidade por caixa</span></th>
+                                        <th> <span>Linha Produto</span></th>
+                                        <!-- <th> <span>Valor Unitário </span></th>
+                                        <th> <span>Total </span></th>
+                                        <th> <span>Recorrente </span></th> -->
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody-sugestao">
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- <div class="card-body">
+                                    <nav aria-label="...">
+                                        <ul class="pagination pagination-primary" id="pagination">
+                                            <li class="page-item disabled" id="previous-page">
+                                                <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                                            </li>
+                                            <li class="page-item" id="next-page">
+                                                <a class="page-link" href="javascript:void(0)">Próximo</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                  </div> -->
+                              </div>
+                            </div>
+                          </div>
+                    </div> 
+                </div>
+
+                <div class="tab-pane fade" id="top-historico" role="tabpanel" aria-labelledby="top-historico-tab">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card ongoing-project">
+                              <div class="card-header card-no-border">
+                                <div class="media media-dashboard">
+                                  <div class="media-body">
+                                    <h5 class="mb-0">Histórico de vendas</h5>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                              <div class="card-body pt-0">
+                                <div class="table-responsive custom-scrollbar">
+                                  <table class="table table-bordernone">
+                                    <thead>
+                                      <tr>
+                                        <th> <span>Cliente</span></th>
+                                        <th> <span>Nº Nota</span></th>
+                                        <th> <span>Total</span></th>
+                                        <th> <span>Data Compra</span></th>
+                                        <th> <span>Região</span></th>
+                                        <th> <span>Total Produtos</span></th>
+                                        <th> <span>Ver produtos</span></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody-detalhes">
+                                    </tbody>
+                                  </table>
+                                  <div class="loader-box" id="loader-detalhes" style="display: none;">
+                                    <div class="loader-35"></div>
+                                </div>
+                                </div>
+                                <div class="card-body">
+                                    <nav aria-label="...">
+                                        <ul class="pagination pagination-primary" id="pagination-detalhes">
+                                            <li class="page-item disabled" id="previous-page-detalhes">
+                                                <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                                            </li>
+                                            <li class="page-item" id="next-page-detalhes">
+                                                <a class="page-link" href="javascript:void(0)">Próximo</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

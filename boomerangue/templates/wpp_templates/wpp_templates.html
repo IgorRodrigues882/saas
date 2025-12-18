@@ -1,0 +1,42 @@
+{% extends 'base-starter.html' %}{% load static %}
+{% load sass_tags %}
+{% block css %}
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/select2.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/sweetalert2.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/simple-mde.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/vendors/animate.scss' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/btn_animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/btn_gerar_text.scss' %}">
+
+<!-- Plugins css Ends-->
+{% endblock css %}
+{% block content %}
+<div class="page-body">
+  {% include 'layout/breadcrumb.html' %}
+
+  <!-- Container-fluid starts-->
+  {% include 'wpp_templates/components/wpp_templates_list.html' %}
+  <!-- Container-fluid Ends-->
+</div>
+{% endblock content %}
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
+<script src="{% static 'assets/js/notify/bootstrap-notify.min.js' %}"></script>
+<script src="{% static 'assets/js/sweet-alert/sweetalert.min.js' %}"></script>
+<script src="{% static 'assets/js/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js' %}"></script>
+<script src="{% static 'assets/js/form-validation-custom.js' %}"></script>
+<script src="{% static 'assets/js/bookmark/jquery.validate.min.js' %}"></script>
+<script src="{% static 'assets/js/editor/simple-mde/simplemde.min.js' %}"></script>
+<script src="{% static 'assets/js/editor/simple-mde/simplemde.custom.js' %}"></script>
+<script src="{% static 'assets/js/typeahead/typeahead.bundle.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+<!-- <script src="{% static 'assets/js/typeahead/typeahead.custom.js' %}"></script> -->
+<script src="{% static 'assets/js/wpp_template/wpp_template.js' %}"></script>
+<script src="{% static 'assets/js/wpp_template/gerartexto_ia.js' %}"></script>
+<script src="{% static 'assets/js/wpp_template/termos_sendpulse.js' %}"></script>
+<script src="{% static 'assets/js/wpp_template/flow_sendpulse.js' %}"></script>
+<!-- Plugins JS Ends-->
+{% endblock scriptcontent %}

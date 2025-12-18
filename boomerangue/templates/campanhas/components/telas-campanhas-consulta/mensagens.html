@@ -1,0 +1,532 @@
+<!-- Chart widget top Ends-->
+<style>
+    .text-white {
+      color: white;
+  }
+  .CodeMirror-scroll{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.CodeMirror{
+  font-size: 1.5em;
+}
+
+.dz-remove {
+    height: 20px ;
+    font-size: 12px;
+    text-align: center;
+    border: none;
+    background-color: #ff0000;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dz-remove:hover {
+    background-color: #ff4444;
+}
+</style>
+{% load i18n %}
+<div class="col-xl-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Mensagens da Campanha</h5>
+        </div>
+        <div id="remote-message" class="me-3">
+          <div>
+              <input class="typeahead form-control" type="text" placeholder="Pesquisar...">
+              <div class="input-group-append">
+                <span class="loading-indicator-message input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+              </div>
+            </div>
+        </div>
+        <a class="btn btn-primary me-2" data-bs-toggle="modal" id="bot_envio_msg" data-bs-target="#bot_envio">
+          Iniciar Envio
+        </a>
+        <a class="btn btn-secondary" data-bs-toggle="modal" id="criar_template_mensagem_btn" data-bs-target="#criar_campanha_mensagem">
+          Criar nova
+        </a>
+        
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th><span>Wpptemplate</span></th>
+              <th><span>Categoria</span></th>
+              <th><span>Uso Template</span></th>
+              <th><span>Mais</span></th>
+            </tr>
+          </thead>
+          <tbody id="body_mensagens">
+            {% for msg in bmm_campanhas_msgs %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><i class="fa fa-comment-o txt-success"></i></div>
+                  <div class="ps-2">
+                    <h6>{{ msg.wpptemplate__template_name }}</h6>
+                </div>
+              </td>
+              <td class="img-content-box">
+                <h6>{{ msg.wpptemplate__category }}</h6>
+              </td>
+              <td class="img-content-box">
+                <h6><span class=" text-white badge badge-{% if msg.usotemplate == 'OPTIN' %}warning{% else %}success{% endif %}">{{ msg.usotemplate }}</span></h6>
+              </td>
+              <td>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Opções</button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                          href="#" onclick="deleteMensagem('{{msg.id}}')">Excluir</a>
+                          <a class="dropdown-item"
+                          href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#criar_campanha_mensagem" onclick="edit_template_mensagem('{{msg.id}}')">Editar</a>
+                          <a class="dropdown-item"
+                          href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ver_componentes"  onclick="ver_componentes('{{msg.wpptemplate__id}}')">Ver Componentes</a>
+                      </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader-message" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-bookmark" id="ver_componentes" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Componentes</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h5>Componentes</h5><span></span>
+          </div>
+          <div class="card-body">
+            <form class="mega-inline">
+              <div class="col-12" id="body_componentes">
+                
+                
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-end border-0 pt-0">
+            <button class="btn btn-primary" onclick="add_component()" data-bs-toggle="modal" data-bs-target="#modalAddcomponente">Add Componente</button>
+            <button class="btn btn-light" type="submit">Sair</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade modal-bookmark" id="criar_campanha_mensagem" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Criar Mensagem da Campanha</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+            <div class="row g-2">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+
+                    <div class="mb-3">
+                      <label class="control-label">Whatsapp Template</label>
+                      <select class="js-example-basic-single" type="text" name="wpptemplate" id="select_wpp_templates" required="required">
+                        <option value="">Selecione uma opção</option>
+                        {% for wpp_template in wpptemplates_restantes %}
+                          <option value="{{ wpp_template.id }}">{{ wpp_template.template_name }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="control-label">Uso Template</label>
+                      <select class="form-control" type="text" name="usotemplate" id="usotemplate" required="required">
+                        <option value="OPTIN">Optin</option>
+                        <option value="ENVIO">Envio</option>
+                        <option value="REP1">Repique 1</option>
+                        <option value="REP2">Repique 2</option>
+                        <option value="CRABN">Carrinho Abandonado</option>
+                        <option value="CPRCB">Compra Recebida</option>
+                      </select>
+                    </div>
+
+                    <!-- <div class="mb-3">
+                      <label class="control-label">Bot Envio</label>
+                      <select class="js-example-basic-single" id="select_bot">
+                        <option value="">Escolha o Bot</option>
+                        {% for bot in bots %}
+                          <option value="{{bot.pk}}" {% if Campanha_dados.bot_id.pk == bot.pk %} selected {% endif %}>{{bot.bot}}</option>
+                        {% endfor %}
+                      </select>
+                    </div> -->
+
+
+
+                    <button class="btn btn-secondary" type="button" id="salvar_campanha_mensagem" onclick="criarCampanhaMessages('{{campanha_id}}')">Salvar</button>
+                    <button class="btn btn-info" type="button" id="novo_wpp_template"  data-bs-toggle="modal" data-bs-target="#wpp_template_novo">Criar Whatsapp Template</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="modal fade modal-bookmark" id="modalAddcomponente" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Componentes' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation2" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                            <label for="component_type">{% trans 'Tipo de componente' %}</label>
+                            <select class="js-example-basic-single component_type">
+                              <option value="">Escolha um componente</option>
+                              {% for componente in componentes %}
+                                <option value="{{ componente }}">{{ componente }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                          <label for="format">{% trans 'Formato' %}</label>
+                          <select class="js-example-basic-single format">
+                            <option value="">Escolha um Formato</option>
+                            {% for formato in formatos %}
+                              <option value="{{ formato }}">{{ formato }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                      </div>
+
+                      <div class="row d-none" id="dropzone_wpp_image">
+                        <div class="col-sm-12 m-b-20">
+                          <div class="card">
+                            <div class="card-header pb-0">
+                                <h5>{% trans 'Imagem' %}</h5>
+                            </div>
+                              <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                      <div class="dropzone" id="wppimage" action="/api/bmm_template/">
+                                        <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                                            <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6>
+                                        </div>
+                                        
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="row d-block d-sm-flex" id="text_area_wpp">
+                        <div class="col-sm-12 m-b-20">
+                            <div class="card">
+                                <div class="card-header pb-0">
+                                    <h5 id="title_textarea">{% trans 'Texto (Mensagem que será enviada pelo whatsapp)' %}</h5>
+                                </div>
+                                  <div class="card-body">
+                                    <div class="row editor_container">
+                                      <div class="col-md-12">
+                                        <textarea class="CodeMirror text_content" id="smde"></textarea>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="col-md-12 reader" id="write_here"></div> -->
+                                    <a data-bs-toggle="modal" id="relatorio-vendas"  title="Assistente de texto IA"  class="botao mt-2 float-end text-white" data-bs-target=".modal-assistent-IA">
+                                        <i class="fa fa-magic"></i>
+                                    </a>
+                                    <button class="btn btn-info dropdown-toggle float-start" title="Adicione termos na mensagem para incluir o nome do cliente, título da campanha, etc.." type="button" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">Add Termos</button>
+                                      <div class="dropdown-menu" style="overflow-y: auto; max-height: 80px;">
+                                        {% for field in fields %}
+                                          <a class="dropdown-item"
+                                            href="javascript:void(0)" onclick="add_termo_text('{{field.exibicao}}')">{{field.exibicao}}</a>
+                                        {% endfor %}
+                                      </div>
+                                  </div>
+                                </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_component" data-id=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade modal-assistent-IA" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Ia Assistente</h4>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    {% include 'wpp_templates/components/side.html' %}
+                    {% include 'wpp_templates/components/main-text.html' %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+  <div class="modal fade modal-bookmark" id="bot_envio" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Opções do bot Envio</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+            <div class="row g-2">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+
+                    <div class="mb-3">
+                      <label class="control-label">Bot de envio</label>
+                        <select class="js-example-basic-single" id="select_bot">
+                          <option value="">Escolha o Bot</option>
+                          {% for bot in bots %}
+                            <option value="{{bot.pk}}" {% if Campanha_dados.bot_id.pk == bot.pk %} selected {% endif %}>{{bot.bot}}</option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- <div class="mb-3">
+                      <label class="control-label">Palavras de Ação</label>
+
+                    </div> -->
+
+                    <button class="btn btn-secondary" type="button" id="save_bot_envio">Iniciar envio</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-bookmark" id="wpp_template_novo" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Criar Whatsapp template</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+            <div class="row g-2">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="template_name">{% trans 'Template Nome' %}</label>
+                        <input class="form-control template_name" type="text" required="" maxlength="255" autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="category">{% trans 'Categoria' %}</label>
+                        <select class="js-example-basic-single category">
+                          <option value="">Escolha uma categoria</option>
+                          {% for categoria in categorias %}
+                            <option value="{{ categoria }}">{{ categoria }}</option>
+                          {% endfor %}
+                      </select>
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="language">{% trans 'Linguagem' %}</label>
+                      <select class="form-control language">
+                        <option value="PT-BR">{% trans 'PT-BR' %}</option>
+                        <option value="EN">{% trans 'EN' %}</option>
+                        <option value="ES">{% trans 'ES' %}</option>
+                      </select>
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label class="control-label">Uso Template</label>
+                        <select class="form-control" type="text" id="usotemplate_new" required="required">
+                          <option value="OPTIN">Optin</option>
+                          <option value="ENVIO">Envio</option>
+                          <option value="REP1">Repique 1</option>
+                          <option value="REP2">Repique 2</option>
+                          <option value="CRABN">Carrinho Abandonado</option>
+                          <option value="CPRCB">Compra Recebida</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary" type="button" id="save_wpp_template_new">Salvar</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="col-xl-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Status das mensagens</h5>
+        </div>
+        <div class="me-2">
+          <select class="form-control" type="text" id="filtro_status_mensagem"  required="required">
+            <option value="">Todas</option>
+            <option value="O">Lida</option>
+            <option value="N">Criada</option>
+            <option value="S">Enviada</option>
+            <option value="D">Entregue</option>
+            <option value="R">Redirecionada</option>
+            <option value="X">Rejeitada</option>
+            <option value="K">Não enviada</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th><span>Lead</span></th>
+              <th><span>Telefone</span></th>
+              <th><span>Mensagem Status</span></th>
+              <th><span>Data</span></th>
+            </tr>
+          </thead>
+          <tbody id="body_mensagens_status">
+            
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader-message_2" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <nav aria-label="...">
+            <ul class="pagination pagination-primary" id="pagination-2">
+                <li class="page-item disabled" id="previous-page-2">
+                    <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item" id="next-page-2">
+                    <a class="page-link" href="javascript:void(0)">Próximo</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% include 'campanhas/components/telas-campanhas-consulta/components_mensagens/list.html' %}
+
+<div class="col-xl-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">Mensagens com documentos</h5>
+        </div>
+        <div id="remote-msg-doc" class="me-3">
+          <div>
+              <input class="typeahead form-control" id="msg_doc_inpt" type="text" placeholder="Pesquisar...">
+              <div class="input-group-append">
+                <span class="loading-indicator-msg-doc input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th><span>Lead</span></th>
+              <th><span>Telefone</span></th>
+              <th><span>status</span></th>
+              <th><span>Documento</span></th>
+              <th><span>Data</span></th>
+              <th><span>Opção</span></th>
+            </tr>
+          </thead>
+          <tbody id="body_mensagens_doc">
+            
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader-message_doc" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <nav aria-label="...">
+            <ul class="pagination pagination-primary" id="pagination-doc">
+                <li class="page-item disabled" id="previous-page-doc">
+                    <a class="page-link" href="javascript:void(0)" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item" id="next-page-doc">
+                    <a class="page-link" href="javascript:void(0)">Próximo</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+  </div>
+</div>

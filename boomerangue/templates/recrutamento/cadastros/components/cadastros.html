@@ -1,0 +1,36 @@
+{% load static %}
+{% load sass_tags %}
+
+
+    <div class="card">
+        <div class="row product-page-main">
+          <div class="col-sm-12">
+            <ul class="nav nav-tabs border-tab mb-0" id="top-tab" role="tablist">
+              <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                  role="tab" aria-controls="top-home" aria-selected="false">Cadastros gerais</a>
+                <div class="material-border"></div>
+              </li>
+              <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
+                  role="tab" aria-controls="top-profile" aria-selected="false">Tipos de documentos</a>
+                <div class="material-border"></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    
+    <div class="tab-content" id="top-tabContent">
+        <div class="tab-pane fade active show" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+            <div class="row">
+                {% include 'recrutamento/cadastros/components/cadastros1.html' %}
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+            <div class="row">
+              {% include 'recrutamento/cadastros/components/tipos_documentos_lista.html' %}
+              {% include 'recrutamento/cadastros/components/tipos_documentos_filtros.html' %}
+            </div> 
+        </div>
+        
+    </div>

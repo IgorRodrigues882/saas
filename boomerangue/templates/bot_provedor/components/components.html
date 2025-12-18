@@ -1,0 +1,39 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% for provedor in provedores %}
+<div class="tab-pane contact-tab-{{provedor.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{provedor.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{provedor.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/provedor_image.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{provedor.provedor}}</span></h5>
+        <p class="email_add_0">{{provedor.pk}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{provedor.pk}}')">{% trans 'Editar' %}</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{provedor.pk}}')">{% trans 'Deletar' %}</a></li>
+          <!-- <li><a href="javascript:void(0)" onclick="printContact('{{provedor.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">{% trans 'Imprimir' %}</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">{% trans 'Detalhes' %}</h6>
+      <ul>
+        <li>{% trans 'Provedor' %}<span class="font-primary first_name_0">{{provedor.provedor}}</span></li>
+        <li>{% trans 'Suporta email' %}<span class="font-primary">{% if provedor.email == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Suporta Whatsapp' %}<span class="font-primary mobile_num_0">{% if provedor.whatsapp == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Suporta SMS' %}<span class="font-primary mobile_num_0">{% if provedor.sms == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Provedor Ativo' %}<span class="font-primary mobile_num_0">{% if provedor.provedor_ativo == 'S' %} {% trans 'Sim' %} {% else %} {% trans 'Não' %} {%endif%}</span></li>
+        <li>{% trans 'Data Cadastro' %}<span class="font-primary email_add_0">{{provedor.cadastro_dt|date:"d/m/Y"}}</span></li>
+        <li>{% trans 'Legenda 1' %}<span class="font-primary email_add_0">{{provedor.legenda_1}}</span></li>
+        <li>{% trans 'Legenda 2' %}<span class="font-primary email_add_0">{{provedor.legenda_2}}</span></li>
+        <li>{% trans 'Legenda 3' %}<span class="font-primary email_add_0">{{provedor.legenda_3}}</span></li>
+        <li>{% trans 'Legenda 4' %}<span class="font-primary email_add_0">{{provedor.legenda_4}}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

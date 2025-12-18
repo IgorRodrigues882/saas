@@ -1,0 +1,54 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+<style>
+  .custom-btn {
+    padding: 0.2rem 0.3rem; /* Ajuste o padding conforme necessário */
+}
+
+.custom-icon {
+    font-size: 0.8rem; /* Ajuste o tamanho do ícone conforme necessário */
+}
+</style>
+{% for wpp in wpp_templates %}
+<div class="tab-pane contact-tab-{{wpp.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{wpp.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{wpp.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/avtar/whatsapp.png' %}" alt="">
+      <!-- <input class="updateimg" type="file" name="img" onchange="readURL(this,0)"> -->
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{wpp.template_name}}</span></h5>
+        <p class="email_add_0">{{wpp.empresa.empresa}}</p>
+        <ul>
+          {% if wpp.id_sendpulse == null %}
+            <li><a href="javascript:void(0)" onclick="editContact('{{wpp.pk}}')">{% trans 'Editar' %}</a></li>
+            <li><a href="javascript:void(0)" onclick="deleteContact('{{wpp.pk}}')">{% trans 'Deletar' %}</a></li>
+            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modalAddcomponente" onclick="add_component('{{wpp.pk}}')">{% trans 'Adicionar Componente' %}</a></li>
+          {% else %}
+            <li><a href="javascript:void(0)" onclick="deleteContact('{{wpp.pk}}')">{% trans 'Deletar' %}</a></li>
+            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#sendpulse_call_to_action" onclick="vinculo_sendpulse_bot('{{wpp.pk}}')">{% trans 'Add Call To Action' %}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="email-general" id="geral-{{wpp.pk}}" >
+      <h6 class="mb-3">{% trans 'Componentes' %}</h6>
+      <div id="list_components-{{wpp.pk}}">
+        
+      </div>
+      <div class="loader-box" id="loader-2">
+        <div class="loader-2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if forloop.first %} 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      activeDiv('{{wpp.pk}}');
+      });
+</script>
+{% endif %}
+
+{%endfor%}

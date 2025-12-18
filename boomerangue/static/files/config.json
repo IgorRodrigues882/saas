@@ -1,0 +1,51 @@
+{
+  "auth": {
+    "email": "",
+    "senha": ""
+  },
+  "database": {
+    "host": "",
+    "user": "",
+    "password": "",
+    "name": ""
+  },
+  "hora_execucao":"",
+  "data_limite_confirmacao":"",
+  "hora_limite_confirmacao":"",
+  "hora_feedback_do_dia": "",
+  "table": {
+    "name": "",
+    "fields": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "date_field": "",
+    "time_field": "",
+    "patient_name_field": "",
+    "phone_field": "",
+    "ddd_field":"",
+    "doctor_name_field": "",
+    "id_field": "",
+    "confirmation_field": ""
+  },
+  "atributos_mapeamento": {
+    "Atendente": "",
+    "nome_mae": "",
+    "procedimento": "",
+    "matricula": "",
+    "nome_paciente": "",
+    "nome_medico": ""
+  }
+}
+  

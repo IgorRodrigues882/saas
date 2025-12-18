@@ -1,0 +1,35 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+{% load tags %}
+<div class="modal fade modal-bookmark" id="exportstatuscandidatemodal" tabindex="-1" role="dialog"
+     aria-labelledby="exportstatuscandidatemodal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{% trans 'Exportar' %}</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-bookmark needs-validation" novalidate="">
+          <div class="form-row">
+            <div class="row d-block d-sm-flex">
+              <div class="col-sm-12 m-b-20">
+                <label for="Title">{% trans 'Exportar' %}</label>
+                <select id="export_format_statuscandidate" class="form-select">
+                  <option value="xls">Excel</option>
+                  <option value="csv">CSV</option>
+                  <option value="pdf">PDF</option>
+                  <option value="xml">XML</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-secondary" id="export_btn_statuscandidate" data-set=""
+              type="button">{% trans 'Salvar' %}</button>
+            <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

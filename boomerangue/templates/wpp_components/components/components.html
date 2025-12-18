@@ -1,0 +1,32 @@
+{% load static %}
+{% load sass_tags %}
+{% load i18n %}
+{% for componente in wpp_componente %}
+<div class="tab-pane contact-tab-{{componente.pk}} tab-content-child fade {% if forloop.first %} active show {% endif %}" id="v-pills-contact{{componente.pk}}" role="tabpanel"
+  aria-labelledby="v-pills-contact{{componente.pk}}-tab">
+  <div class="profile-mail">
+    <div class="media align-items-center"><img class="img-100 img-fluid m-r-20 rounded-circle update_img_0"
+        src="{% static 'assets/images/avtar/whatsapp.png' %}" alt="">
+      <input class="updateimg" type="file" name="img" onchange="readURL(this,0)">
+      <div class="media-body mt-0">
+        <h5><span class="first_name_0">{{componente.template.template_name}}</span></h5>
+        <p class="email_add_0">{{componente.template.empresa.empresa}}</p>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="editContact('{{componente.pk}}')">{% trans 'Editar' %}</a></li>
+          <li><a href="javascript:void(0)" onclick="deleteContact('{{componente.pk}}')">{% trans 'Deletar' %}</a></li>
+          <!-- <li><a href="javascript:void(0)" onclick="printContact('{{componente.pk}}')" data-bs-toggle="modal"
+              data-bs-target="#printModal">{% trans 'Imprimir' %}</a></li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="email-general">
+      <h6 class="mb-3">{% trans 'Detalhes' %}</h6>
+      <ul>
+        <li>{% trans 'Tipo Componente' %}<span class="font-primary first_name_0">{{componente.component_type}}</span></li>
+        <li>{% trans 'Formato' %}<span class="font-primary">{{componente.format}}</span></li>
+        <li>{% trans 'Data Cadastro' %}<span class="font-primary email_add_0">{{componente.cadastro_dt|date:"d/m/Y"}}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{%endfor%}

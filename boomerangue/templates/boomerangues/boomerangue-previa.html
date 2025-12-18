@@ -1,0 +1,1265 @@
+{% load sass_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+    <!-- Required meta tags -->
+	<meta name="theme-color" content="#FE4170">
+	<link rel="canonical" href="campanhas/?Token=">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+ 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+ 	<meta name="apple-mobile-web-app-title" content="Boomerangue">
+ 	<link rel="apple-touch-icon" href="assets/img/logo/logo1.png">
+ 	<link rel="manifest" id="my-manifest-placeholder" href="../manifest.php?user=">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta property="og:title" content="Pedido Express Nestlé Até Você" />
+	<meta property="og:type" content="website" />
+	<meta property="og:description" content="Ofertas especiais para você!" />
+	<meta property="og:url" content="https://boomerangue.me/home/?usuario="/>
+	<meta property="og:image" content="" />
+	<meta property="og:image:secure_url" content="" /> 
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:site_name" content="Boomerangue" />
+	<meta name="description" content="Ofertas nestlé">
+	<link rel="shortcut icon" href="/iconbm512.png" type="image/x-icon"/>
+    {% block css %}
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'assets/css/testi.css'%}" >
+    {% endblock css %}
+    <style>
+       	@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+		.banner{
+        	border-radius:10px;
+        }
+        @media screen and (max-width:600px) {
+            body{
+                overflow-x:hidden;
+            }
+            .banner{
+                width:100%;
+            }
+            #desc{
+		font-size: 0.9em;
+		text-align: center;
+	    }
+        
+    }
+    </style>
+    
+
+
+
+    <title>{{template.texto_promocional}}</title>
+</head>
+    <!-- Not required if jQuery is already loaded -->
+
+<body>
+<!-- <script>
+var tokenUser='<?php echo $usu['TokenCliente'];?>';
+if ("serviceWorker" in navigator) {
+ if (navigator.serviceWorker.controller) {
+ console.log("[PWA Builder] active service worker found, no need to register");
+ } else {
+ // Register the service worker
+ navigator.serviceWorker
+ .register("/pwabuilder-sw.js", {
+ scope:"/"
+ })
+ .then(function (reg) {
+ console.log("[PWA Builder] Service worker has been registered for scope:"+reg.scope);
+ });
+ }
+}
+
+</script> -->
+    <div class="wrapper" id="loading" style="display:block;">
+        <div class="bolas"></div>
+        <div class="bolas"></div>
+        <div class="bolas"></div>
+        <div class="sombra"></div>
+        <div class="sombra"></div>
+        <div class="sombra"></div>
+        <span>Carregando Ofertas</span>
+    </div>
+
+<div id="conteudo" style="display:none;">
+    <!-- Navigation -->
+    <!-- Navigation -->
+    <div class="w-100 faixa fixed-top"></div>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mb-3">
+    <div class="container">
+        <div class="d-flex col-md-6 col-11 align-items-center">
+    		<div class='d-block d-lg-none'>
+    			<img class="mt-0 ms-0" height="26" width:"32" alt="loginho"  src="assets/img/logo/logo1.png">
+    		</div>
+            <div class="col-lg-11 p-lg-0 col-md-12 col-11">
+            	<a class="navbar-brand " id="titu2" href="#">{{template.texto_header}}</a>
+            </div>
+			<div class="col-md-12  col-lg-8 text-center   align-items-center" id="ola">
+                <ul>
+                	<li><a class="float-end mbs pe-md-5 pe-auto" href="campanhas/?Token=&cl=1">Campanhas</a></li>
+                	<li><a class="mbs float-start" href="">Meus Pedidos</a></li>
+                </ul>
+               
+            </div>
+        
+            <input type="checkbox" id="btMenu">
+        	<label for="btMenu" onclick="checado()" id="men"><i class="bi bi-list"></i></label>
+        </div>
+            <img id="logo" class="d-none d-lg-block" alt="Boomerangue" src="{% static 'assets/images/logo/boomerangue_logo3.png' %}">
+    </div>
+    </nav>
+
+
+ <div class="container" onclick="" style="margin-top:10vh;">
+    	<header class="">
+    	<div class="row justify-content-center ms-0 me-0">
+            
+			<img class="w-100 p-0 banner" alt="Banner"    src="/media/{{template.image_banner_pc}}" />
+ 			           
+ 
+
+    	</div>
+	</header>
+       		<div class="row">
+        		<div class="col-12">
+        			<div class="col-12 text-danger fw-bold mb-0"  style="margin-top:2vh;" id="titulo">
+                		<p class="listaOferta" ><b>{{template.texto_promocional}}</b></p>
+        			</div>
+        		</div>
+            </div>
+            <div class="row">
+      			<div class="col-md-6 col-12">
+            	<div class="d-flex">
+            		<div class="col-6">
+            			<div class="">
+     						<span class="border-0 pe-0">Cliente</span><br>
+            				<p class="fw-bold">Nome cliente</p>
+                			
+            			</div>
+            		</div>
+            		<div class="col-6">
+                		<div class="">
+     						
+                    	<script>
+                    		var testt=1;
+                    	</script>
+                    	<!-- <span class="border-0 pe-0">CPF</span><br> -->
+                    	
+                    	<span class="border-0  pe-0">CNPJ</span><br>
+                    	
+                    	<p  id="cpfcnpj" class="fw-bold ">Cliente CNPJ</p>
+                		</div>
+         			</div>
+            	</div>
+            	<div class="d-flex mt-3">
+            		<div class="col-6">
+            			<div class="">
+     						Pedido<BR><span class="fw-bold">Cliente PEDIDO</span>
+   
+            			</div>
+            		</div>
+            		<div class="col-6">
+                		<div class="">
+                        	<class="mb-0">Validade<BR><span class="text-danger fw-bold "> Validade Pedido</span>
+     
+                		</div>
+         			</div>
+            	</div>
+           		</div>
+            	<div class="col-md-6 col-12 mt-md-0 mt-4">
+            	<div class="d-flex">
+            		<div class="col-6">
+                		<div class="">
+                    		<span class="border-0 pe-0">Prazo Pagamento</span><br>
+                     	<p  class="fw-bold">Cliente Prazo Pagamento</p>
+                		</div>
+            		</div>
+            		<div class="col-6">
+    					<span class="border-0">Frete</span><br>
+                    	 <p class="fw-bold" style="color:black;"> Cliente Frete</p>
+            		</div>
+                </div>
+					<div class="d-flex">
+            		<div class="col-6  pe-1" >
+                    	Distribuidor<BR><span class="fw-bold"> Cliente Distribuidor</span>
+            		</div>
+
+            		<div class="col-6 order-4">
+                		<div class="ms-0" >
+                        	<class="mb-0">Vendedor<BR><span class="fw-bold" style="font-size:0.9em;"> Cliente Vendedor</span>
+                		</div>
+            		</div>
+                    </div>
+               </div>
+       </div>
+            
+
+        <!-- CONTENT -->
+        
+    <!--</div>-->
+                            
+    <div class="mt-lg-3 mt-0">
+        <div class="row justify-content-start mb-0">             
+            <div class="mt-md-0 mt-3 col-md-4 col-lg-3 col-6 tdf">
+                <div class="linhaa">
+                    <div class="inform">
+                        <a href="#produto" id="prdt" onclick="md();">
+                        <div class="cat text-center">
+                            <img class="imp" loading="lazy" alt="imagem nestle" src="{% static 'assets/images/products_examples/heineken.png' %}">
+                        </div>
+                        <p class="ddesc"><b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex illo officiis, at nesciunt officia sed ducimus. Doloremque ipsum in optio laudantium, cupiditate minus a mollitia eos eum culpa? Alias, necessitatibus?</b></p>
+                        <p class="sku d-flex w-100"><span class='SKUcodigo'>Cod SKU</span> <span class="ms-lg-3 ms-1 caixaqtde"> CX c/ 1UN</span></p>
+                        <div class="uni">
+                            <div class="d-md-flex d-block descontos">
+                                <div class="d-flex" id='descontin'>
+                                    <span class="dell">de</span>
+                                    <span class="dell ms-1 fw-bold">R$ 10,00</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="dell ms-lg-3">por</span><span class="teste1 ms-lg-2 ms-1" >R$ 7,99</span>
+                                    <span class="unidy"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <p class="cxx text-danger mt-md-2 mt-0">20% desconto</p>
+                        </a>
+                    </div>
+                    <div class="price-box mb-lg-0 mb-2 ">
+                        <div class="price1">
+                            
+                                <p class="price mt-lg-3 mt-0 text-lg-center text-left" id="cifrao_1" style="opacity: 0;">R$ <span class="totalUnitario" id="somaProduto_1"></span></p>
+                            
+                        </div>
+                    
+                        <div class="input-group plus-minus-input">
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMenos" style="margin-right:2px;" class="button hollow circle btt" onclick="sub('produto_1')">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                                <input class="input-group-field qtdd quantidadeItens" name="produto_1" id="produto_1" value="0" data-id="1" data-unival="7.99" data-usamulti="1" data-multi="1" type="number" min="1" max="10" onchange="onChangeQuantidade(this)" >
+                                
+                                    <!-- <script>
+                                        var elm = document.getElementById('produto_1');
+                                        onChangeQuantidade(elm);
+                                    </script> -->
+                                    
+                            
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMais" style="margin-left:2px;" class="button hollow circle btt" onclick="add('produto_1')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>
+               
+                </div>
+             
+            </div>
+            <div class="mt-md-0 mt-3 col-md-4 col-lg-3 col-6 tdf">
+                <div class="linhaa">
+                    <div class="inform">
+                        <a href="#produto" id="prdt" onclick="md();">
+                        <div class="cat text-center">
+                            <img class="imp" loading="lazy" alt="imagem nestle" src="{% static 'assets/images/products_examples/heineken.png' %}">
+                        </div>
+                        <p class="ddesc"><b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex illo officiis, at nesciunt officia sed ducimus. Doloremque ipsum in optio laudantium, cupiditate minus a mollitia eos eum culpa? Alias, necessitatibus?</b></p>
+                        <p class="sku d-flex w-100"><span class='SKUcodigo'>Cod SKU</span> <span class="ms-lg-3 ms-1 caixaqtde"> CX c/ 1UN</span></p>
+                        <div class="uni">
+                            <div class="d-md-flex d-block descontos">
+                                <div class="d-flex" id='descontin'>
+                                    <span class="dell">de</span>
+                                    <span class="dell ms-1 fw-bold">R$ 10,00</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="dell ms-lg-3">por</span><span class="teste1 ms-lg-2 ms-1" >R$ 7,99</span>
+                                    <span class="unidy"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <p class="cxx text-danger mt-md-2 mt-0">20% desconto</p>
+                        </a>
+                    </div>
+                    <div class="price-box mb-lg-0 mb-2 ">
+                        <div class="price1">
+                            
+                                <p class="price mt-lg-3 mt-0 text-lg-center text-left" id="cifrao_2" style="opacity: 0;">R$ <span class="totalUnitario" id="somaProduto_2"></span></p>
+                        </div>
+                    
+                        <div class="input-group plus-minus-input">
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMenos" style="margin-right:2px;" class="button hollow circle btt" onclick="sub('produto_2')">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                                <input class="input-group-field qtdd quantidadeItens" name="produto_2" id="produto_2" value="0" data-id="2" data-unival="7.99" data-usamulti="1" data-multi="1" type="number" min="1" max="10" onchange="onChangeQuantidade(this)" >
+                                
+                                    <!-- <script>
+                                        var elm = document.getElementById('produto_2');
+                                        onChangeQuantidade(elm);
+                                    </script> -->
+                                    
+                            
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMais" style="margin-left:2px;" class="button hollow circle btt" onclick="add('produto_2')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>
+               
+                </div>
+             
+            </div>
+            <div class="mt-md-0 mt-3 col-md-4 col-lg-3 col-6 tdf">
+                <div class="linhaa">
+                    <div class="inform">
+                        <a href="#produto" id="prdt" onclick="md();">
+                        <div class="cat text-center">
+                            <img class="imp" loading="lazy" alt="imagem nestle" src="{% static 'assets/images/products_examples/pcgamer.jpg' %}">
+                        </div>
+                        <p class="ddesc"><b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex illo officiis, at nesciunt officia sed ducimus. Doloremque ipsum in optio laudantium, cupiditate minus a mollitia eos eum culpa? Alias, necessitatibus?</b></p>
+                        <p class="sku d-flex w-100"><span class='SKUcodigo'>Cod SKU</span> <span class="ms-lg-3 ms-1 caixaqtde"> CX c/ 1UN</span></p>
+                        <div class="uni">
+                            <div class="d-md-flex d-block descontos">
+                                <div class="d-flex" id='descontin'>
+                                    <span class="dell">de</span>
+                                    <span class="dell ms-1 fw-bold">R$ 10,00</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="dell ms-lg-3">por</span><span class="teste1 ms-lg-2 ms-1" >R$ 7,99</span>
+                                    <span class="unidy"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <p class="cxx text-danger mt-md-2 mt-0">20% desconto</p>
+                        </a>
+                    </div>
+                    <div class="price-box mb-lg-0 mb-2 ">
+                        <div class="price1">
+                            
+                                <p class="price mt-lg-3 mt-0 text-lg-center text-left" id="cifrao_3" style="opacity: 0;">R$ <span class="totalUnitario" id="somaProduto_3"></span></p>
+                            
+                        </div>
+                    
+                        <div class="input-group plus-minus-input">
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMenos" style="margin-right:2px;" class="button hollow circle btt" onclick="sub('produto_3')">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                                <input class="input-group-field qtdd quantidadeItens" name="produto_3" id="produto_3" value="0" data-id="3" data-unival="7.99" data-usamulti="1" data-multi="1" type="number" min="1" max="10" onchange="onChangeQuantidade(this)" >
+                                
+                                    <!-- <script>
+                                        var elm = document.getElementById('produto_3');
+                                        onChangeQuantidade(elm);
+                                    </script> -->
+                                    
+                            
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMais" style="margin-left:2px;" class="button hollow circle btt" onclick="add('produto_3')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>
+               
+                </div>
+             
+            </div>
+            <div class="mt-md-0 mt-3 col-md-4 col-lg-3 col-6 tdf">
+                <div class="linhaa">
+                    <div class="inform">
+                        <a href="#produto" id="prdt" onclick="md();">
+                        <div class="cat text-center">
+                            <img class="imp" loading="lazy" alt="imagem nestle" src="{% static 'assets/images/products_examples/camisa.jpg' %}">
+                        </div>
+                        <p class="ddesc"><b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex illo officiis, at nesciunt officia sed ducimus. Doloremque ipsum in optio laudantium, cupiditate minus a mollitia eos eum culpa? Alias, necessitatibus?</b></p>
+                        <p class="sku d-flex w-100"><span class='SKUcodigo'>Cod SKU</span> <span class="ms-lg-3 ms-1 caixaqtde"> CX c/ 1UN</span></p>
+                        <div class="uni">
+                            <div class="d-md-flex d-block descontos">
+                                <div class="d-flex" id='descontin'>
+                                    <span class="dell">de</span>
+                                    <span class="dell ms-1 fw-bold">R$ 10,00</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="dell ms-lg-3">por</span><span class="teste1 ms-lg-2 ms-1" >R$ 7,99</span>
+                                    <span class="unidy"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <p class="cxx text-danger mt-md-2 mt-0">20% desconto</p>
+                        </a>
+                    </div>
+                    <div class="price-box mb-lg-0 mb-2 ">
+                        <div class="price1">
+                            
+                                <p class="price mt-lg-3 mt-0 text-lg-center text-left" id="cifrao_4" style="opacity: 0;">R$ <span class="totalUnitario" id="somaProduto_4"></span></p>
+                            
+                        </div>
+                    
+                        <div class="input-group plus-minus-input">
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMenos" style="margin-right:2px;" class="button hollow circle btt" onclick="sub('produto_4')">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                                <input class="input-group-field qtdd quantidadeItens" name="produto_4" id="produto_4" value="0" data-id="4" data-unival="7.99" data-usamulti="1" data-multi="1" type="number" min="1" max="10" onchange="onChangeQuantidade(this)" >
+                                
+                                    <!-- <script>
+                                        var elm = document.getElementById('produto_4');
+                                        onChangeQuantidade(elm);
+                                    </script> -->
+                                    
+                            
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMais" style="margin-left:2px;" class="button hollow circle btt" onclick="add('produto_4')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>
+               
+                </div>
+             
+            </div>
+            <div class="mt-md-0 mt-3 col-md-4 col-lg-3 col-6 tdf">
+                <div class="linhaa">
+                    <div class="inform">
+                        <a href="#produto" id="prdt" onclick="md();">
+                        <div class="cat text-center">
+                            <img class="imp" loading="lazy" alt="imagem nestle" src="{% static 'assets/images/products_examples/nescau.jpeg' %}">
+                        </div>
+                        <p class="ddesc"><b>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex illo officiis, at nesciunt officia sed ducimus. Doloremque ipsum in optio laudantium, cupiditate minus a mollitia eos eum culpa? Alias, necessitatibus?</b></p>
+                        <p class="sku d-flex w-100"><span class='SKUcodigo'>Cod SKU</span> <span class="ms-lg-3 ms-1 caixaqtde"> CX c/ 1UN</span></p>
+                        <div class="uni">
+                            <div class="d-md-flex d-block descontos">
+                                <div class="d-flex" id='descontin'>
+                                    <span class="dell">de</span>
+                                    <span class="dell ms-1 fw-bold">R$ 10,00</span>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="dell ms-lg-3">por</span><span class="teste1 ms-lg-2 ms-1" >R$ 7,99</span>
+                                    <span class="unidy"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <p class="cxx text-danger mt-md-2 mt-0">20% desconto</p>
+                        </a>
+                    </div>
+                    <div class="price-box mb-lg-0 mb-2 ">
+                        <div class="price1">
+                            
+                                <p class="price mt-lg-3 mt-0 text-lg-center text-left" id="cifrao_5" style="opacity: 0;">R$ <span class="totalUnitario" id="somaProduto_5"></span></p>
+                            
+                        </div>
+                    
+                        <div class="input-group plus-minus-input">
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMenos" style="margin-right:2px;" class="button hollow circle btt" onclick="sub('produto_5')">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                                <input class="input-group-field qtdd quantidadeItens" name="produto_5" id="produto_5" value="0" data-id="5" data-unival="7.99" data-usamulti="0" data-multi="1" type="number" min="1" max="10" onchange="onChangeQuantidade(this)" >
+                                
+                                    <!-- <script>
+                                        var elm = document.getElementById('produto_4');
+                                        onChangeQuantidade(elm);
+                                    </script> -->
+                                    
+                            
+                            <div class="input-group-button">
+                                <button type="button" aria-label="btMais" style="margin-left:2px;" class="button hollow circle btt" onclick="add('produto_5')">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        
+                        </div>
+                    </div>
+               
+                </div>
+             
+            </div>
+		</div>
+    <div class="row justify-content-center mt-lg-4 mt-0" id="y">
+        <div class="me-5 col-12 ms-5 cnt mt-0">
+            <div class="card mt-0">
+                <div class="row justify-content-between d-flex align-items-center">
+				
+				<span id="somaTotalProdutos" class="d-none"></span>
+				<p class="text-muted small d-none">* Valor mínimo  reais</p>
+                <div id="minval" class="d-none"></div>
+                    <div class="col-lg-6 col-12 mt-4 order-lg-1 order-2">
+                       
+                        <a href="" aria-label="Cadastre-se" target="_blank"  class="d-flex flex-wrap align-items-center imgmarket ms-lg-5 mt-xl-4 mt-sm-0">
+                            <img class="mb-lg-5 mb-0 imgmarket" loading="lazy" alt="cadastre-se" width="255" height="125" src="assets/img/logo/imagem_marketing1.png">
+                        </a>
+                      
+                    </div>
+                    <div class="col-lg-6 col-12 mt-2 order-lg-1 order-1">
+                    	
+                        	<!-- <p class='vlrminimo text-danger'>*Campanha encerrada</p> -->
+                        
+                    		<p class='vlrminimo text-danger'>*Valor mínimo da compra: R$ </p>
+                        
+                        <p style="font-size: 90%"><BR>
+                			&nbsp✔️ A entrega será feita pelo Distribuidor: <B> </B> da Sua Região<BR>
+                			&nbsp🙋🏼‍♀️  <I>Para maiores informações, entre em contato com seu vendedor <B>  </B> ou Central de Atedimento 📞 (0800) 077-1212</I>.</p>
+                    </div>
+                     
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+  </div>
+    
+    <a href="#comprar" class="" id="abreModal" onclick="abreModal();">                        
+    <div class="preco_mobile d-flex align-items-center " id="btn_preco">
+		<div class="mt-2 d-flex ms-4 col-6 totalsoma2">
+            <div class="iconB">
+                <div class="contadora" id="contadora"><p id="contagem"></p></div>
+            	<i class="bi bi-handbag"></i>
+        	</div>
+            <div class="ms-2 d-block">
+        		<p id="soma">Total</p> 
+            	<p class="ttp" id="soma2">R$ </p>
+            </div>
+		</div>
+        <div class="mt-2 divComp col-6">
+             <p class="comp" id="divComp"></p>
+        </div>
+     
+    </div>
+	</a>
+     <div class="modal" id="comprar" tabindex="-1">
+        <a href="#comprando" class="modal__overlay" aria-label="Fechar"></a>
+        <div class="modal__content">
+            <a href="#comprando" class="modal__close" aria-label="Fechar"><i class="bi bi-x-lg"></i></a>
+                    <h4 class="modalTitu">Carrinho de Compras</h4>
+         				<div class="container d-flex">
+                            <div class="d-block">
+                            	<div class="row d-lg-flex text-start d-none">
+                            		<div class="col-8   ">
+                            			<p class="ms-3">Produto</p>
+                            		</div>
+                            		<div class="col-2 ">
+                            			<p>Quantidade</p>
+                            		</div>
+                            		<div class="col-2 ">
+                            			<p>Total R$</p>
+                            		</div>
+                            	</div>
+            					<div class="row d-flex justify-content-center">
+                						<div class="items-modal" id="itemsM">		
+                            			</div>
+                        		</div>
+								<div class="d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-4">
+ 								 
+                            		<h4 class="tt3">Total:<h4 id="soma3" class="ms-1">R$ </h4></h4>
+                            	</div>
+                            <div class="d-flex justify-content-center">
+                            	
+                            	<form id="form-enviar" method="POST" class="col-lg-6 col-12">
+									<p class='vlrminimo'>*Valor mínimo da compra: R$ </p>
+               					 	<input id="cpf2" name="cnpj" class="form-control mb-3 col-12" type="text" maxlength="18" required placeholder="Informe seu CNPJ">
+                                	 <div class="row d-none justify-content-between px-4" id="tax"></div>
+                                    
+                                    	<script>
+                                    		setTimeout(()=>{
+                                					document.getElementById("msg").style.display="none";
+                                			},3000);
+                                    	</script>
+               						 	<p class="AlertaMsg" id="msg"></p>
+            						
+                                	<button id="buybtn" style="height:50px; border-radius:3px; font-size:1.2em;" class="btn-block btn-blue bg-primary mt-1 text-white fw-bold w-100 ">Comprar <i class="bi bi-cart-check"></i></button>
+                                    <p id="textCnpj" class="text-danger"></p>
+            					</form>
+
+                        		
+								
+                                    
+                        		
+                             		<div class="d-md-flex d-block">
+                                		
+                            			<a  style="color: #fff;" target="_blank" class="btn btn-danger">Campanha Encerrada</a>
+                                        
+                                		<a  style="color: #fff;" href="" target="_blank" class="btn imprimir ms-md-1 ms-0 mt-md-0 mt-2"><i class="bi bi-file-earmark-arrow-down"></i> Imprimir pedido</a>
+                                	</div>
+                        		
+                                
+                                
+                                
+
+
+                            </div>
+                                <div class="mt-2">
+						              
+        					<p class="textomodal alert alert-success">Foi enviado em <b></b>. Se você precisar fazer alterações, entre em contato com a área comercial. </p>                              
+   						</div>
+							</div>
+                		</div>
+              
+        	</div>
+    </div>
+           
+  <!-- MODAL PRODUTOS--!>
+                                
+        <div class="modal" id="produto" tabindex="-1">
+        <a href="#comprando" class="modal__overlay" onclick="limpa();" aria-label="Fechar"></a>
+        <div class="modal__content">
+            <a href="#comprando" class="modal__close" onclick="limpa();" aria-label="Fechar"><i class="bi bi-x-lg"></i></a>
+            <div class="nopadding">
+              	<div class="col-12 align-items-center justify-content-center" id="mudafocus">
+                	<div id="img-container" class="col-lg-6 col-12 text-center">
+                    	<div id="lens"></div>
+                       	<div class="cat2">
+                    		<img id="modalImg">
+                        </div>
+                	</div>
+                	<div class="col-lg-6 col-12 text-lg-start text-center modaltexts mt-lg-0 mt-3">
+                        <div class="w-100 ">
+                    		<p id="modalNome"></p>
+                        </div>
+                        <div class="w-100">
+                    		<p id="modalDesc"></p>
+                        </div>
+                    	<div class="d-flex justify-content-lg-start justify-content-center w-100">
+                                <div class="d-block">
+                                	<p id="desconto"></p>
+                                	<div class="d-flex">
+                                	<p id="modalPreco" class="text-danger fw-bold"></p><p id="undy"></p>
+                               		</div>
+                                </div>
+                        </div>
+                        <div class="w-100">
+                    		<p id="promocao" class="text-danger"></p>
+                        </div>
+                	</div>
+                </div>
+                <div class="d-block align-items-center justify-content-center">
+                    <p id="smtotal" class="col-12"/p>
+                    <?php $isOpen = true; if ($_SESSION['status'] == 10 || $_SESSION['status'] == 20 || $_SESSION['status'] == 25  || $_SESSION['status'] == 35){$isOpen = false;}?>
+ 					<div class="input-group plus-minus-input justify-content-center col-12">
+  						<div class="input-group-button">
+    						<button type="button" class="button hollow circle btt me-1" id="btnModalProdMenos" <?php if(!$isOpen){echo "disabled";}?> onclick="subalt();">
+      							<i class="fa fa-minus" aria-hidden="true"></i>
+    						</button>
+  						</div>
+  						<input class="input-group-field qtdd  inputModal" type="number" value="0"   onchange="somatoria(this);" <?php if(!$isOpen){echo "disabled";} ?>>
+  					
+                    
+               			
+                    	<div class="input-group-button">
+    						<button type="button" class="button hollow circle btt ms-1" id="btnModalProdMais" <?php if(!$isOpen){echo "disabled";}?> onclick="addalt();">
+      							<i class="fa fa-plus" aria-hidden="true"></i>
+    						</button>
+  						</div>
+        
+					</div>
+                    
+                </div>
+                 <div class="mt-lg-5 mt-4">
+                	  <a href="#comprando" aria-label="Fechar" type="button" class="btn  btnAdcarrinho" onclick="addCarrinho(this);">
+      							<i class="fa fa-plus" aria-hidden="true"></i> Adicionar ao carrinho
+    					</a>      
+                </div>
+
+            </div>
+        </div>
+    </div>                       
+                                
+                                
+    <footer class="bg-img-repeat mt-0 foot" id="foot">
+
+    <div class="page-header-ui-content">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-xl-12 col-lg-12 text-center mb-5">
+                        <h6 class="page-header-ui-title">Copyright © Flag/Plugthink 2022</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SXJE0BPHF6"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SXJE0BPHF6');
+    </script>                        
+                            
+    </footer>
+</div>
+
+
+    <!-- Page Content -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	<link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/css/indexi.css' %}" >
+    
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://kit.fontawesome.com/af562a2a63.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<!-- <script src="<?php echo BASE_URL; ?>assets/js/script2.js"></script> -->
+    <!-- <script type='module' src="<?php echo BASE_URL; ?>assets/js/firebase.js"></script> -->
+    <!-- <script  src="<?php echo BASE_URL; ?>assets/js/mobile_menu.js"></script> -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.11.2/jquery.mask.js" integrity="sha512-bwanfE29Vxh7VGuxx44U2WkSG9944fjpYRTC3GDUjh0UJ5FOdCQxMJgKWBnlxP5hHKpFJKmawufWEyr5pvwYVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+	
+  
+	<script>
+	// cadastra o token gerado em all_boomerangue_users    
+    function enviaToken(token){
+	$.ajax({
+      		type: "POST",
+      		url: "<?php echo BASE_URL; ?>assets/api/envia_token_firebase.php",
+        	data:{
+            	userToken:token,
+            },
+      		success: function (result) {
+           		console.log(result);
+      		},
+        	error: function(request, status, error){
+                  console.log(request.responseText);  
+            }
+ 		});
+}
+	// Cadastra o token gerado no topics 	
+	function cadastroTopic(token){
+    	$.ajax({
+      		type: "POST",
+      		url: "<?php echo BASE_URL; ?>assets/api/registro_grupo_users.php",
+        	data:{
+            	userToken:token,
+            	prefixo:"<?php echo prefixo;?>"
+            },
+      		success: function (result) {
+           		console.log(result);
+      		},
+        	error: function(request, status, error){
+                  console.log(request.responseText);  
+            }
+ 		});
+    }
+	// Envia o token do usuario que instalou o app 	
+    function instaled(ins,chave){
+    	var keygoo=''
+    	if(chave!=""){
+        	keygoo=chave;
+        }
+    	$.ajax({
+      		type: "POST",
+      		url: "<?php echo BASE_URL; ?>assets/api/bm_log_tempo.php",
+        	data:{
+            	typelog:'B',
+            	inst:ins,
+            	chave:keygoo,
+                tokenUser:"<?php echo $_GET['usuario'];?>",
+            	comp1:"<?php echo isMobile();?>",
+            	pref:"<?php echo prefixo;?>"
+            },
+      		success: function (result) {
+           		console.log(result);
+      		},
+        	error: function(request, status, error){
+                  console.log(request.responseText);  
+            }
+ 		});
+    }
+	// verifica se o usuario entrou pelo app 	
+	function isRunningStandalone() {
+    return (window.matchMedia('(display-mode: standalone)').matches);
+	}
+	if (isRunningStandalone()) {
+    		var ins='INST';
+   			instaled(ins);
+	}
+	 window.addEventListener('appinstalled', () => {
+  	// If visible, hide the install promotion
+    		instaled(ins='INST');
+  // Log install to analytics
+  		console.log('INSTALL: Success');
+		});
+
+	$(".imprimir").on("click",function(){
+    	instaled(ins="PDF");
+    });
+	 function onChangeQuantidade(input){
+    	contaItem();
+        console.log(input)
+    	if(input.value < 0){
+        	input.value = 0;
+        }
+		
+    	inpt = $('#'+input.id)
+
+    	if(+(inpt.attr("min")) == +(inpt.attr("max"))){
+        	input.value = +(inpt.attr("min"));
+        	return;
+        }
+
+    	if(inpt.val() > +(inpt.attr("max"))){
+           input.value = +(inpt.attr("max"));
+        }
+
+    	if(inpt.val() > 0 && inpt.val() <= +(inpt.attr("min"))){
+        	input.value = +(inpt.attr("min"));
+        }
+
+    	//verificar se é multiplo de x
+    	while(inpt.val()%input.dataset.multi != 0){
+    	inpt.val(inpt.val()-1);
+    	}
+
+
+
+    	var id = input.dataset.id;
+        var valor_unid = input.dataset.unival;
+        console.log(valor_unid,id,input.value)
+
+    	somarTotalUnitario(id, input.value, valor_unid);
+
+    	somarTotalDaCompra();
+    	setInput(input.name, valor_unid, "somaProduto_"+id, id); //Save in DB
+
+    	min = +($('#minval').text());
+    	actual_val = +($("#somaTotalProdutos").text().replace(",",""));
+        document.getElementById("soma2").innerText="R$ "+actual_val.toLocaleString('pt-br', {minimumFractionDigits: 2});
+		document.getElementById("soma3").innerText="R$ "+actual_val.toLocaleString('pt-br', {minimumFractionDigits: 2});
+
+    	if(actual_val >= min){
+        	buybtn_status(true);
+        }else{
+        	buybtn_status(false);
+        }
+
+    }
+
+
+    //função para converter para formato Moeda
+Number.prototype.formatMoney = function (c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
+
+    function currencyFormatted(value, str_cifrao) {
+    return str_cifrao + ' ' + value.formatMoney(2, '.', ',');
+    }
+
+    //atualizar o total unitario em cada campo
+        function somarTotalUnitario(id,val,preco){
+            var somaTotalUni = val * preco;
+            //somar o valor unitario
+            somaTotalUni = currencyFormatted(somaTotalUni,'');
+            console.log(somaTotalUni)
+            $('#somaProduto_'+id).text(somaTotalUni); // atualiza total unitario na tela web
+            $('#somaProduto_mobile'+id).text(somaTotalUni); // atualiza total unitario na tela mobile
+
+            //somar o total da compra
+            somarTotalDaCompra();
+
+        }
+
+        function somarTotalDaCompra() {
+
+        var itens = $('.totalUnitario');//somar total atraves do WEB
+        // var itens = $('.totalUnitario-mobile');
+        var total = 0;
+        for (var i = 0; i < itens.length; i++) {
+            var item = $(itens[i]);
+            var valor1=item.text().replace(",","");
+            var valor = parseFloat(valor1);
+            total = total + valor;
+
+        }
+
+        //chama a função que retorna o valor converttido em Real
+        total = currencyFormatted(total,''); //pode ser passado o Cifrão
+        console.log("Total",total)
+        $("#somaTotalProdutos").text(total);
+        total = 0;
+        }
+
+    function sub(id){
+		inpt = $('#'+id)
+		var multi = inpt.data("multi");
+
+    	if(inpt.val() > +(inpt.attr("min"))){
+    			inpt.val(inpt.val()-multi);
+        }else{
+        	inpt.val(0)
+        }
+    	onChangeQuantidade(document.getElementById(id));
+    }
+
+    function add(id){
+		inpt = $('#'+id)
+        var multi = inpt.data("multi");
+    	if(inpt.val() >= +(inpt.attr("min")) && inpt.val() < +(inpt.attr("max"))){
+    		inpt.val(+(inpt.val())+(multi));
+        }else if(inpt.val() == +(inpt.attr("max"))){
+
+        }else{
+        	inpt.val(+(inpt.attr("min")))
+        }
+    	onChangeQuantidade(document.getElementById(id));
+    }
+
+    function buybtn_status(is_enabled){
+    	btn = document.getElementById('buybtn')
+    	btn.disabled = !is_enabled;
+    	btnCompra=document.getElementById('btn_preco');
+    	if(!is_enabled){
+            //btn.style.backgroundColor = 'green' ;
+        	btn.classList.add("bg-dark");
+        	btnCompra.classList.add("bg-dark");
+        	return;
+        }
+    	
+    	btnCompra.classList.remove("bg-dark");
+    	btn.classList.remove("bg-dark");
+    }
+
+	function contaItem(){
+    	var inputs=document.querySelectorAll(".quantidadeItens");
+    	var c=0
+    	for(i=0;i<inputs.length;i++){
+        	if(inputs[i].value!=0){
+        		c+=parseInt(inputs[i].value);
+            }
+        }
+    	if(c!=0){document.getElementById("contadora").style.opacity="1";}
+    	else{document.getElementById("contadora").style.opacity="0";}
+    	console.log("aqui",c);
+    	document.getElementById("contagem").innerText=c;
+    	
+    }
+
+    function getTotalItens(){
+    	var quantItens = $('.quantidadeItens');//Soma quantidade quando acessado no mobile
+
+    	var totalItens = 0;
+    	for (var i = 0; i < quantItens.length; i++) {
+        	var item = $(quantItens[i]);
+        	cont = parseInt(item.val());
+
+        	totalItens = totalItens + cont;
+    	}
+
+    	return totalItens;
+
+    }
+
+    //somar quantidade de itens
+function somarQuantidadeDeItem(){
+    var quantItens = $('.quantidadeItens');//Soma quantidade quando acessado na WEB
+    var quantItens = $('.quantidadeItens-mobile');//Soma quantidade quando acessado no mobile
+
+    var totalItens = 0;
+    for (var i = 0; i < quantItens.length; i++) {
+        var item = $(quantItens[i]);
+        cont = parseInt(item.val());
+
+        totalItens = totalItens + cont;
+    }
+
+    $("#totalItens").text(totalItens);
+}
+
+    function setInput(id, preco, idSoma, idElementoBanco) {
+
+        // somar valor unitário
+        // var quantidade = document.getElementById(id).value;
+        var quantidade = $('#'+id).val();
+        var pegaid=idSoma.replace(/[^0-9]/g,'');
+
+        var valor1=preco.replace(",","");
+
+        var total = parseFloat(quantidade * parseFloat(valor1));
+        if (total == '') {
+            total = parseFloat(0);
+        }
+        if(total>0){
+            document.getElementById("cifrao_"+pegaid).style.opacity="1";
+            
+        }
+        else{
+            document.getElementById("cifrao_"+pegaid).style.opacity="0";
+        }
+        total = currencyFormatted(total,'');
+
+        //inserir valor Total Unitario somas
+        $('#'+idSoma).text(total);
+        somarQuantidadeDeItem();
+
+        //chamar a função que soma todos os totais
+        somarTotalDaCompra();
+    }
+
+	$(".inputModal").on("focus",function(){
+    var largura = window.screen.width;
+    console.log(largura);
+    	document.getElementById('abreModal').style.display="none";
+  		if(largura < 700){
+    		document.getElementById('mudafocus').style.display="none";
+        }
+    });
+
+    $(".inputModal").on("focusout",function(){
+    	var largura = window.screen.width;
+    	document.getElementById('abreModal').style.display="inline-block";
+    	if(largura < 700){
+    		document.getElementById('mudafocus').style.display="inline-block";
+        }
+    });
+    
+    $("#cpf2").on("focus",function(){
+    	var largura = window.screen.width;
+    	document.getElementById('abreModal').style.display="none";
+  		if(largura < 700){
+    		document.getElementById('itemsM').style.display="none";
+        }
+    })
+    
+    
+    $("#cpf2").on("focusout",function(){
+    	document.getElementById('abreModal').style.display="inline-block";
+    	document.getElementById('itemsM').style.display="inline-block";
+    })
+	
+     window.onload=function(){
+    	document.getElementById("loading").style.display = "none";
+    	document.getElementById("conteudo").style.display = "inline";
+    }
+
+    $(document).ready(function() {
+    	abreModal();
+    	contaItem();
+    	instaled(ins="OPEN");
+    	$("#cpf2").mask("99.999.999/9999-99");
+    	$("#textCnpj").text("Informe o CNPJ para comprar")
+    		if(testt==1){
+            	$("#cpf2").mask("999.999.999-99");
+    			document.getElementsByName('cnpj')[0].placeholder='Informe seu CPF';
+            	$("#textCnpj").text("Informe o CPF para comprar")
+    		}
+		});
+
+    $('#form-enviar').submit(function() {
+    	$.ajax({
+      		type: "POST",
+        	async: false,
+      		url: "<?php echo BASE_URL; ?>assets/api/bm_log.php",
+        	data:{
+            	tokenUser:"<?php echo $_GET['usuario'];?>",
+            	comp1:"<?php echo isMobile();?>",
+            	pref:"<?php echo prefixo;?>",
+            	total:$("#somaTotalProdutos").text(),
+            	totalitens:getTotalItens(),
+            },
+      		success: function (result) {
+           		console.log(result);
+      		},
+        	error: function(request, status, error){
+                  console.log(request.responseText);  
+            }
+ 		});
+    	return true;
+	});
+ 	
+                            
+    // Obtém o prefixo do navegador em questão
+
+// Envia o tempo que o usuário ficou na página
+
+// document.addEventListener(visibilityEvent, function(event) {
+//   if (!document[hidden]){
+//   	instaled(ins='OPEN');
+//   } else {
+//   	mandatempo();
+//   }
+// });
+// var ini=moment(new Date()); 
+// function mandatempo(){
+// 	var temp=moment(new Date());
+// 	var test=moment.duration(ini.diff(temp));
+// 	var tempo=Math.abs(test.asSeconds());
+// 	console.log(tempo);
+// 	$.ajax({
+//       		type: "POST",
+//         	async: true,
+//       		url: "<?php echo BASE_URL;?>assets/api/bm_log_tempo.php",
+//         	data:{
+//             	typelog:'B',
+//             	tokenUser:"<?php echo $_GET['usuario'];?>",
+//             	comp1:"<?php echo isMobile();?>",
+//             	teml:tempo,
+//             	pref:"<?php echo prefixo;?>"
+//             },
+//         	dataType:'json',
+//       		success: function(response) {
+//            		console.log(response);
+//       		},
+//         	error: function(request, status, error){
+//                  console.log(error);  
+//             }
+//  		});
+	 
+// }
+//  MODAL
+
+var descri=document.querySelectorAll(".ddesc");
+var caixa=document.querySelectorAll(".caixaqtde");
+var sku=document.querySelectorAll(".SKUcodigo");
+var cxx=document.querySelectorAll(".uni");
+var imge=document.querySelectorAll(".imp");
+var principal=document.getElementById("itemsM");                           
+function abreModal(){
+
+var valor =document.querySelectorAll(".totalUnitario");
+	principal.innerHTML="";
+	var conta=document.querySelectorAll(".qtdd");
+	for(i=0;i<conta.length;i++){
+    	if(conta[i].value>0){
+        	principal.innerHTML+='<div class="row d-lg-flex d-block divModal  justify-content-lg-start ms-lg-0 ms-2 mt-2 justify-content-center align-items-center"><div class="linha3 d-lg-flex d-block align-items-center"><div class="col-lg-8 descModal col-12 align-items-center d-lg-flex d-block"><img width="120" height="120" class="" src="'+imge[i].src+'" ><div class="d-block text-lg-start text-center ms-1 mt-lg-2 mt-0"><p class=""><b>'+sku[i].innerText+'</b></p><p class="txt "><b>'+descri[i].innerText+' - '+caixa[i].innerText+'</b></p><p class="txt"><b>'+cxx[i].innerText+'</b></p></div></div><div class="col-lg-2 col-12"><p class="text-danger qtdv"><b> <span class="d-lg-none d-inline-block">QTD</span><br>'+conta[i].value+'</b></p></div><div class="col-lg-2 col-12"><p class=""><b>R$ '+valor[i].innerText+'</b></p></div></div></div>'
+        }
+    }
+	conta='';
+	
+}
+// Faz o rodapé sumir ao chegar ao fim
+	
+    
+//modal produtos
+	// $("#prdt").on("click",function(){
+	// console.log(cards);
+	// })
+	function md(i,id,valorUni,multiplicador,qtdmin,qtdmax){
+    	$(".inputModal").attr("id","inputprod_"+id);
+    	$(".inputModal").attr("data-multi",multiplicador);
+    	$(".inputModal").attr("min",qtdmin);
+    	$(".inputModal").attr("max",qtdmax);
+    	$(".inputModal").attr("data-unival",valorUni);
+    	$(".btnAdcarrinho").attr("id",id);
+    	if($("#produto_"+id).val()>0){
+        	$(".inputModal").val($("#produto_"+id).val());
+        	somatoria(document.querySelector(".inputModal"));
+        }
+    	$("#modalImg").attr("src",i.children[0].children[0].src);
+    	$("#modalNome").text(i.children[1].innerText+' '+ i.children[2].children[1].innerText);
+    	$("#modalDesc").text(i.children[2].children[0].innerText);
+    	var tes=document.getElementById('descontin');
+    	if(tes.className=='d-none'){
+        	$("#desconto").text('');
+        }
+    	else{
+    		$("#desconto").text(i.children[3].children[0].children[0].innerText);
+        }
+    	$("#modalPreco").text(i.children[3].children[0].children[1].innerText);
+    	$("#promocao").text(i.children[4].innerText);
+    	$("#undy").text(i.children[3].children[1].innerText);
+    }
+    
+	function subalt(){
+    	inpt = $(".inputModal")
+		var multi = inpt.data("multi");
+
+    	if(inpt.val() > +(inpt.attr("min"))){
+    			inpt.val(inpt.val()-multi);
+        }else{
+        	inpt.val(0)
+        }
+    	somatoria(document.querySelector(".inputModal"));
+    }
+    function addalt(){
+    	inpt = $('.inputModal');
+        var multi = inpt.data("multi");
+    	if(inpt.val() >= +(inpt.attr("min")) && inpt.val() < +(inpt.attr("max"))){
+    		inpt.val(+(inpt.val())+(multi));
+        }else if(inpt.val() == +(inpt.attr("max"))){
+
+        }else{
+        	inpt.val(+(inpt.attr("min")))
+        }
+    	somatoria(document.querySelector(".inputModal"));
+    }  
+
+	function somatoria(input){
+    	if(input.value < 0){
+        	input.value = 0;
+        }
+    	var maximo=input.getAttribute("max");
+    	if(input.value>maximo){
+        	input.value=maximo;
+        }
+    	inpt = $('#'+input.id)
+
+    	if(+(inpt.attr("min")) == +(inpt.attr("max"))){
+        	input.value = +(inpt.attr("min"));
+        	return;
+        }
+
+    	if(inpt.val() > +(inpt.attr("max"))){
+           input.value = +(inpt.attr("max"));
+        }
+
+    	if(inpt.val() > 0 && inpt.val() <= +(inpt.attr("min"))){
+        	input.value = +(inpt.attr("min"));
+        }
+
+    	//verificar se é multiplo de x
+    	while(inpt.val()%input.dataset.multi != 0){
+    	inpt.val(inpt.val()-1);
+    	}
+    	
+    	var soma=input.value*input.getAttribute("data-unival");
+    	$('#smtotal').text(soma.toLocaleString('pt-br', {minimumFractionDigits: 2,style: 'currency', currency: 'BRL'}));
+    }
+	
+	function addCarrinho(btn){
+    	inptPrin=$("#produto_"+btn.id);
+    	inptPrin.val($(".inputModal").val());
+    	onChangeQuantidade(document.getElementById("produto_"+btn.id));
+    	limpa();
+    }
+	function limpa(){
+    	$(".inputModal").val(0);
+    	$('#smtotal').text('');
+    }
+
+	</script>
+</body>
+
+</html>

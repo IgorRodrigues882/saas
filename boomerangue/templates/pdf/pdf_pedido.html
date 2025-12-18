@@ -1,0 +1,111 @@
+{% load sass_tags %}
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="{% static 'assets/images/logo/boomerangue.png' %}" type="image/x-icon"/>
+    <title>Boomerangue PDF</title>
+</head>
+<style>
+
+.inicio img{
+	margin-left:500px;
+	margin-top:-50px;
+}
+</style>
+<body>
+	<div class="inicio">
+    	<h2>Pedido Boomerangue</h2> <img src="{{image}}" >
+	</div>
+	<div class="infos">
+		<div class="cliente">
+		<table>
+			<thead style="background:#B5BCE9;">
+            <tr>
+         		<th style="width:355px; text-align:left; font-size:0.9em;">Cliente</th>
+                <th style="width:250px; text-align:left; font-size:0.9em;">Pré-Pedido</th>
+                <th style="width:100px; text-align:left; font-size:0.9em;">Data envio</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                	<td style="font-size:1.2em; font-weight:600;">{{dados.entidade.Entidade}}</td>
+                	<td style="font-size:1.2em; font-weight:600;">{{dados.chave_busca}}</td>
+                	<td style="font-size:1.2em; font-weight:600;">{{dados.data_aceite_bm|date:'d/m/Y'}}</td>
+                </tr>
+            </tbody>
+                
+        </table>
+		</div>
+		<div style="margin-top:30px;">
+			<table>
+			<thead style="background:#B5BCE9;">
+            <tr>
+         		<th style="width:355px; text-align:left; font-size:0.9em;">Prazo Pagamento</th>
+                <th style="width:250px; text-align:left; font-size:0.9em;">CNPJ</th>
+                <th style="width:100px; text-align:left; font-size:0.9em;">Frete</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                	<td style="font-size:1.2em; font-weight:600;">{{dados.condicoes_pagamento.prazo_medio}}</td>
+                	<td style="font-size:1.2em; font-weight:600;">{{dados.entidade.CNPJ}}</td>
+                	<td style="font-size:1.2em; font-weight:600;">{% if dados.tipo_frete == 'C' %}CIF{% elif dados.tipo_frete == 'F' %}FOB{% endif %}</td>
+                </tr>
+            </tbody>
+                
+        </table>
+		</div>
+		<div style="margin-top:35px;">
+			<table>
+			<thead style="background:#3a4170;">
+            <tr>
+         		<th style="width:100px; text-align:left; font-size:0.8em; color:white;">Código/sku</th>
+                <th style="width:360px; text-align:left; font-size:0.8em; color:white;">Produto</th>
+                <th style="width:68px; text-align:left; font-size:0.8em; color:white;">Quantidade</th>
+				<th style="width:85px; text-align:left; font-size:0.8em; color:white;">Valor Unitário</th>
+				<th style="width:85px; text-align:center; font-size:0.8em; color:white;">Valor Total R$</th>
+            </tr>
+            </thead>
+            <tbody>
+				{% for produto in produtos %}
+                <tr>
+                	<td style="font-size:0.8em;">{{produto.produto.SKU}}</td>
+                	<td style="font-size:0.8em;">{{produto.produto.Descricao_Amigavel}}</td>
+                	<td style="font-size:0.8em; text-align:center;">{{produto.QuantidadeCompradaUN|floatformat:'0'}}</td>
+					<td style="font-size:0.8em; text-align:center;">R$ {{produto.valor_total_item|floatformat:2}}</td>
+					<td style="font-size:0.8em; text-align:center;">R$ {{produto.ValorTotalCompra|floatformat:2}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr style="background:#3a4170;">
+                    <td colspan="2" style="text-align:left; font-size:0.8em; color:white;">
+                        Totais:
+                    </td>
+                    <td colspan="1" style="text-align:center; font-size:0.8em; color:white;">
+                        {{dados.TotalQuantidade|floatformat:0}}
+                    </td>
+                    <td colspan="1"></td>
+                    <td colspan="1" style="text-align:center; font-size:0.8em; color:white;">
+                        R$ {{dados.valor_atual|floatformat:2}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+		</div>
+        <div style="margin-top: 50px;">
+                <p style="font-size:1.1em; font-style:italic;">Este pré-pedido pode sofrer alterações de valor, quantidade e/ou entrega</p>
+        </div>
+        <div>
+                <a href="/oferta/{{dados.token_bm}}" style="font-style:italic; text-decoration: none; color:white;"></a>
+       	</div>
+	</div>
+</body>
+</html>

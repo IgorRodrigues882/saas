@@ -1,0 +1,200 @@
+html, body { margin: 0; padding: 0; height: 100%; font-family: 'Roboto', sans-serif; background-color: #f4f4f4; overflow: hidden; }
+.page-container { display: flex; flex-direction: column; height: 100vh; }
+header { background-color: #128C7E; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+header h2 { margin: 0; }
+.save-button { background-color: #25D366; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+.save-button:hover { background-color: #1DAE50; }
+.flow-meta { padding: 10px 20px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; display: flex; gap: 20px; flex-shrink: 0; }
+.flow-meta div { flex: 1; }
+.flow-meta label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+.flow-meta input[type="text"] { width: 100%; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.9em; }
+.wrapper { display: flex; flex-grow: 1; overflow: hidden; }
+
+/* Colunas Layout */
+.col-nodes { width: 200px; background-color: #ECE5DD; padding: 15px; border-right: 1px solid #ccc; overflow-y: auto; flex-shrink: 0; }
+.col-main { flex-grow: 1; position: relative; display: flex; flex-direction: column; overflow: hidden; }
+.col-properties { width: 350px; background-color: #f0f0f0; border-left: 1px solid #ccc; padding: 0; /* Padding será interno */ overflow-y: auto; flex-shrink: 0; display: none; flex-direction: column; }
+.col-properties.visible { display: flex; }
+.properties-header { padding: 15px; border-bottom: 1px solid #ddd; background-color: #e9ecef; }
+.properties-header h3 { margin: 0; font-size: 1.1em; }
+.properties-body { padding: 15px; flex-grow: 1; overflow-y: auto; }
+.properties-footer { padding: 10px 15px; border-top: 1px solid #ddd; background-color: #e9ecef; text-align: right; }
+
+/* Drawflow Canvas */
+#drawflow { width: 100%; height: 100%; background-color: #e5ddd5; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); position: relative; flex-grow: 1; }
+.btn-export, .btn-clear, .btn-lock, .bar-zoom { position: absolute; background-color: rgba(0, 0, 0, 0.6); color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; z-index: 5; font-size: 0.9em; }
+.btn-export { top: 10px; right: 10px; display: none; }
+.btn-clear { top: 10px; right: 80px; }
+.btn-lock { top: 50px; right: 10px; }
+.bar-zoom { bottom: 10px; right: 10px; }
+
+/* Sidebar de Nós */
+.drag-drawflow { background-color: white; padding: 10px; margin-bottom: 10px; border-radius: 5px; cursor: grab; border: 1px solid #ccc; display: flex; align-items: center; font-size: 0.9em; }
+.drag-drawflow i { margin-right: 8px; color: #075E54; }
+
+/* Painel de Propriedades - Campos */
+.properties-body label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+.properties-body input[type="text"],
+.properties-body input[type="number"],
+.properties-body input[type="url"],
+.properties-body input[type="file"],
+.properties-body select,
+.properties-body textarea { width: 100%; padding: 8px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 0.9em; }
+.properties-body textarea { min-height: 60px; resize: vertical; }
+.properties-body .help-text { font-size: 0.8em; color: #666; margin-top: -8px; margin-bottom: 10px; display: block; }
+.properties-body .form-section { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #ccc; }
+.properties-body .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.properties-body h4 { font-size: 1em; margin-top: 0; margin-bottom: 10px; color: #075E54; }
+.properties-body button.control-button { background-color: #075E54; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-top: 5px; margin-bottom: 10px; font-size: 0.9em; }
+.properties-body button.control-button:hover { background-color: #128C7E; }
+.properties-body button.remove-button { padding: 2px 5px; font-size: 0.8em; background: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer; margin-left: 5px; }
+.properties-body .button-type-selector label { display: inline-block; margin-right: 10px; font-weight: normal; }
+.properties-body .button-type-selector input[type="radio"] { margin-right: 4px; }
+.properties-body .button-config-area { background-color: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+.properties-body .existing-buttons-list .button-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; font-size: 0.9em; padding: 5px; background: #f8f9fa; border: 1px solid #eee; border-radius: 3px;}
+.properties-body .media-preview-prop { margin-top: 5px; margin-bottom: 10px; }
+.properties-body .media-preview-prop img { max-width: 150px; max-height: 100px; border: 1px solid #ccc; border-radius: 3px; }
+.properties-body .media-preview-prop small { font-size: 0.85em; color: #555; }
+
+/* Estilo para a lista de botões existentes no painel */
+.properties-body .existing-buttons-list { margin-top: 15px; }
+.properties-body .existing-buttons-list .button-item {
+    display: flex; /* Coloca o span e o botão lado a lado */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Empurra o botão para a direita */
+    padding: 6px 8px;
+    margin-bottom: 5px;
+    background-color: #e9ecef; /* Fundo levemente diferente */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+.properties-body .existing-buttons-list .button-item span {
+     flex-grow: 1; /* Permite que o span ocupe o espaço restante */
+     margin-right: 10px; /* Espaço antes do botão remover */
+     word-break: break-all; /* Quebra palavras longas se necessário */
+}
+.properties-body .existing-buttons-list .button-item .remove-button {
+     flex-shrink: 0; /* Impede que o botão encolha */
+     padding: 3px 6px; /* Ajusta padding do botão remover */
+     line-height: 1; /* Ajusta altura da linha */
+}
+
+/* Botão Aplicar */
+.apply-button { background-color: #0d6efd; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+.apply-button:hover { background-color: #0b5ed7; }
+
+/* Estilos Nós */
+.drawflow-node { border-radius: 5px; background: white; min-width: 200px; }
+.drawflow-node .title-box { padding: 8px; font-weight: bold; border-top-left-radius: 5px; border-top-right-radius: 5px; font-size: 0.95em; color: white; display: flex; align-items: center; }
+.drawflow-node .title-box i { margin-right: 8px; }
+.drawflow-node .box { padding: 10px; font-size: 0.9em; }
+.drawflow-node .media-preview { margin-bottom: 8px; text-align: center; }
+.drawflow-node .media-preview img { max-width: 100%; max-height: 100px; border-radius: 3px; display: block; margin: 0 auto; }
+.drawflow-node .media-preview .file-icon { font-size: 2em; color: #6c757d; }
+.drawflow-node .media-preview small { font-size: 0.8em; color: #666; display: block; margin-top: 3px; }
+/* Ajuste no texto da mensagem para melhor espaçamento */
+.drawflow-node.enviar_mensagem .box .message-content {
+    margin-bottom: 10px; /* Espaço abaixo do texto, antes dos botões */
+    white-space: pre-wrap; /* Preserva espaços e quebras de linha */
+    word-wrap: break-word; /* Quebra palavras longas */
+    font-size: 0.9em; /* Tamanho da fonte do texto da mensagem */
+    line-height: 1.4; /* Espaçamento entre linhas */
+}
+/* Removido .drawflow-node .message-text duplicado */
+
+/* Cores Nós */
+.drawflow-node.inicio .title-box { background-color: #25D366; }
+.drawflow-node.enviar_mensagem .title-box { background-color: #34B7F1; }
+.drawflow-node.aguardar_resposta .title-box { background-color: #FFC107; color: black; }
+.drawflow-node.condicao .title-box { background-color: #9C27B0; }
+.drawflow-node.definir_variavel .title-box { background-color: #607D8B; }
+.drawflow-node.chamada_api .title-box { background-color: #FF5722; }
+.drawflow-node.atraso .title-box { background-color: #795548; }
+.drawflow-node.fim .title-box { background-color: #dc3545; }
+
+/* Estilos para Botões Dinâmicos DENTRO do Nó 'enviar_mensagem' */
+/* Usando .buttons-container e .message-button como no HTML gerado */
+.drawflow-node.enviar_mensagem .box .buttons-container {
+    margin-top: 10px; /* Espaço acima dos botões */
+    padding-top: 10px; /* Espaço interno acima */
+    border-top: 1px dashed #ccc; /* Linha separadora */
+    display: flex; /* Usa flexbox para layout */
+    flex-direction: column; /* Empilha os botões verticalmente */
+    gap: 6px; /* Espaço entre os botões */
+}
+
+.drawflow-node.enviar_mensagem .box .message-button {
+    display: flex; /* Alinha texto e saída (se houver) */
+    align-items: center; /* Alinha verticalmente */
+    /* justify-content: space-between; Removido - o posicionamento absoluto da saída cuida disso */
+    background-color: #e9ecef; /* Cor de fundo leve */
+    padding: 6px 10px; /* Padding interno */
+    border-radius: 4px; /* Bordas arredondadas */
+    border: 1px solid #ced4da; /* Borda sutil */
+    position: relative; /* Necessário para posicionar a saída absoluta */
+    min-height: 28px; /* Altura mínima para garantir espaço */
+    box-sizing: border-box;
+    width: 100%; /* Força o botão a ocupar a largura disponível no container */
+}
+
+.drawflow-node.enviar_mensagem .box .message-button span {
+    flex-grow: 1; /* Ocupa espaço disponível */
+    margin-right: 15px; /* Espaço antes da saída (se houver) */
+    font-size: 0.85em; /* Tamanho da fonte do texto */
+    overflow: hidden; /* Esconde texto que transborda */
+    text-overflow: ellipsis; /* Adiciona '...' se o texto transbordar */
+    white-space: nowrap; /* Impede quebra de linha */
+    line-height: 1.3; /* Melhora legibilidade */
+}
+
+/* REMOVIDO: Estilo para output DENTRO do .message-button (não é mais gerado assim) */
+/* .drawflow-node.enviar_mensagem .box .message-button .output { ... } */
+
+/* REMOVIDO: Regra para esconder output em botões URL (não é mais gerado dentro) */
+/* .drawflow-node.enviar_mensagem .box .message-button.url-button .output { ... } */
+
+/* Adiciona um ícone de link para botões do tipo URL (mantido, pois o span ainda existe) */
+.drawflow-node.enviar_mensagem .box .message-button.url-button span::after {
+    content: ' 🔗'; /* Ícone de link */
+    font-size: 0.9em; /* Tamanho do ícone */
+    color: #0d6efd; /* Cor azul para indicar link */
+    margin-left: 4px; /* Espaço antes do ícone */
+    display: inline-block; /* Garante que fique na mesma linha */
+}
+
+/* REMOVIDO: Regra para esconder outputs inativos (não são mais gerados com essa classe) */
+/* .drawflow-node.enviar_mensagem .box .buttons-container > .output.output-hidden { ... } */
+
+.button-container {
+     position: relative;
+     margin: 5px;
+   }
+
+   .button-output {
+     position: absolute;
+     right: -15px; /* Posiciona à direita do botão */
+     top: 50%;
+     transform: translateY(-50%);
+   }
+/* Removendo regras antigas/duplicadas que foram substituídas ou não são usadas */
+/* .dynamic-buttons-container { ... } */
+/* .dynamic-button-item { ... } */
+/* .dynamic-button-item .output { ... } */
+/* .dynamic-button-item.url-button .output { ... } */
+/* .dynamic-button-item.url-button span::after { ... } */
+
+/* Posicionamento Fixo para Outputs do Nó Condição */
+.drawflow-node.condicao .outputs .output {
+    position: absolute; /* Garante que 'top' funcione */
+}
+
+.drawflow-node.condicao .outputs .output_1 {
+    top: 110px; /* Ajustado para alinhar com o rótulo "True" */
+    right: -10px;
+}
+
+.drawflow-node.condicao .outputs .output_2 {
+    top: 140px; /* Ajustado para alinhar com o rótulo "False" */
+    right: -10px;
+}

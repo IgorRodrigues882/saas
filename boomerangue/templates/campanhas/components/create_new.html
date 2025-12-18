@@ -1,0 +1,267 @@
+{% load static %}
+{% load i18n %}
+<style>
+
+
+.btn-blink {
+    position: absolute;
+    right: 0; /* Posiciona à direita do contêiner */
+    top: -10px;
+    background-color: transparent; /* Cor laranja */
+    color: #FE4170;
+    border: none; /* Remove a borda padrão */
+    width: 50px; /* Largura do botão */
+    height: 50px; /* Altura do botão */
+    text-align: center; /* Centraliza o texto */
+    line-height: 30px; /* Centraliza verticalmente o texto */
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 1.4em;
+    transition: all 0.3s;
+}
+.btn-blink:hover{
+  color: rgb(228, 228, 51); /* Cor para simular a lâmpada "ligada" */
+}
+.dz-remove {
+    height: 20px ;
+    font-size: 12px;
+    text-align: center;
+    border: none;
+    background-color: #ff0000;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dz-remove:hover {
+    background-color: #ff4444;
+}
+
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="form theme-form projectcreate">
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label>{% trans 'Título da campanha' %}*</label>
+                  <input class="form-control" id="Campanha" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label>{% trans 'EDI Campanha' %}*</label>
+                  <button class="btn-blink" id="sugere_edi" title="Sugerir Edi Campanha"><i class="icofont icofont-idea"></i></button>
+                  <input class="form-control" id="EdiCampanha" type="text">
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label>{% trans 'Gateway PIX' %}</label>
+                  <select class="js-example-basic-single"  id="gateway_pagamento">
+                    <option value="">Nenhum</option>
+                    {% for gateway in gateways %}
+                      <option value="{{ gateway.pk }}">{{gateway.gateway_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label>{% trans 'Bot Envio' %}</label>
+                  <select class="js-example-basic-single"  id="bot_id">
+                    <option value="">Nenhum</option>
+                    {% for bot in bots %}
+                      <option value="{{ bot.pk }}">{{bot.bot}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label>{% trans 'Template' %}*</label>
+                  <select class="form-select" id="template">
+                    <option value="">Escolha um template</option>
+                    {% for template in templates %}
+                      <option value="{{template.pk}}">{{template.nome_template}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label>{% trans 'Tipo de Campanha' %}*</label>
+                  <select class="form-select" id="tipo-campanha">
+                    {% for option in select_tipos_campanhas %}
+                    <option value="{{ option.pk }}">{{option.option}}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Texto Título' %}</label>
+                  <input class="form-control" id="TextoHeader" type="text" >
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Texto Rodapé' %}</label>
+                  <input class="form-control" id="TextoFooter" type="text" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Link Rodapé' %}</label>
+                  <input class="form-control" id="LinkFooter" type="text" >
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Texto Promocional' %}</label>
+                  <input class="form-control" id="TextoPromocional" type="text" >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Campanha ativa' %}</label>
+                  <select class="form-select" id="CampanhaAtiva">
+                    <option value="N">{% trans 'Não' %}</option>
+                    <option value="S">{% trans 'Sim' %}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Link Marketing' %}</label>
+                  <input class="form-control" id="LinkMarketing" type="text" >
+                </div>
+              </div>
+            </div>
+
+              
+
+        <div class="row">
+          <div class="col">
+              <label>{% trans 'Status' %}</label>
+              <select class="js-example-basic-single" id="status-campanha">
+                <option value="AG">{% trans 'Aguardando' %}</option>
+              </select>
+          </div>
+          <div class="col">
+              <label>{% trans 'Periodicidade' %}</label>
+              <select class="js-example-basic-single" id="periodicidade">
+                {% for option in tipos_periodicidade %}
+                  <option value="{{ option.0 }}">{% trans option.1 %}</option>
+                {% endfor %}
+              </select>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+              <label>{% trans 'Data Início' %}</label>
+              <div class="">
+                <div class="input-group">
+                  <input class="datepicker-here form-control digits" type="text" data-language="pt-BR" id="data-inicio">
+                </div>
+              </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 clockpicker">
+              <label>{% trans 'Horário Início' %}</label>
+              <input class="form-control" type="text" id="horario-inicio" placeholder="Horário Início Campanha" maxlength="20"><span class="input-group-addon"><span
+                class="glyphicon glyphicon-time"></span></span>
+              <div class="invalid-tooltip">Hora de Início não pode estar vazio</div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+              <label>{% trans 'Data Fim' %}</label>
+              <div class="">
+                <div class="input-group">
+                  <input class="datepicker-here form-control digits" type="text" data-language="pt-BR" id="data-fim">
+                </div>
+              </div>
+          </div>
+          <div class="col">
+            <div class="mb-3 clockpicker">
+              <label>{% trans 'Horário Fim' %}</label>
+              <input class="form-control" type="text" id="horario-fim" placeholder="Horário Fim Campanha" maxlength="20"><span class="input-group-addon"><span
+                class="glyphicon glyphicon-time"></span></span>
+              <div class="invalid-tooltip">Hora de Fim não pode estar vazio</div>
+            </div>
+          </div>
+        </div>
+        <br>
+            <!-- <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label>Enter some Details</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>{% trans 'Imagem de banner para PC' %}</label>
+                  <div id="imgpc">
+                    <form class="dropzone" id="ImageBannerPC" action="/api/campanhas/">
+                      <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                          <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                              da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="mb-3">
+                  <label>Imagem de banner para Celular</label>
+                  <form class="dropzone" id="ImageBannerMobile" action="/api/campanhas/">
+                    <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                        <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                            da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="mb-3">
+                  <label>Importar arquivos CSV</label>
+                  <form class="dropzone" id="csvArquivos" data-intro="Se já preencheu um arquivo CSV com as informações da campanha, só inseri-lo aqui! Não precisa preencher os outros campos." action="/api/campanhas/">
+                    <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                        <h6>Arraste os arquivos aqui ou clique para fazer upload.</h6><span class="note needsclick">(Isto é apenas uma demonstração
+                            da zona de queda. Os arquivos selecionados não são <strong>efetivamente</strong> enviados.)</span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="text-end"><a class="btn btn-secondary me-3" id="create_campaign" href="#">Criar</a><a class="btn btn-danger"
+                    href="#" id="cancel_create_campaign">Limpar</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

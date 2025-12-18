@@ -1,0 +1,90 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">{% trans 'Tipos Empresas' %}</h5>
+        </div>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="new_()" class="btn btn-primary">{% trans 'Criar Tipo Empresa' %}</a>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Tipo empresa' %}</span></th>
+              <th> <span>{% trans 'Prefixo' %}</span></th>
+              <th> <span>{% trans 'Cadastro' %}</span></th>
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tipo in tipos_de_negocios %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><img class="img-fluid b-r-5"
+                      src="{% static 'assets/images/predio-comercial.png' %}" alt=""></div>
+                  <div class="media-body ps-2">
+                    <div class="avatar-details"><a href="#">
+                        <h6>{{tipo.value}}</h6>
+                      </a><span>#{{tipo.pk}}</span></div>
+                  </div>
+                </div>
+              </td>
+              <td class="img-content-box">
+                {{tipo.value_prefixo}}
+              </td>
+              <td>
+                <h6>{{tipo.cadastro_dt|date:'d/m/Y'}}</h6>
+              </td>
+              <td>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">Opções</button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item"
+                            href="#" onclick="delete_('{{tipo.pk}}')">Excluir</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editar_tipo('{{tipo.pk}}')">Editar</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-xl"  onclick="ver_empresa('{{tipo.pk}}')">Ver Empresas</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-add"  onclick="add_empresa('{{tipo.pk}}')">Add Empresas</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-perms"  onclick="permissao('{{tipo.pk}}')">Ver Permissões</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-select"  onclick="select_option('{{tipo.pk}}')">Select Tipos Campanhas</a>
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-prompt"  onclick="prompt_ia('{{tipo.pk}}')">Prompt IA</a>
+
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-termos"  onclick="termos('{{tipo.pk}}')">Termos do sistema</a>
+
+                            <a class="dropdown-item"
+                            href="javascript:void(0)" data-bs-toggle="modal"
+                            data-bs-target=".bd-example-modal-atributos"  onclick="atributos_func('{{tipo.pk}}')">Atributos Boomerangues</a>
+
+                        </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

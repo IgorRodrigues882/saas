@@ -1,0 +1,215 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+      <h5>Provedores</h5><span class="f-14 pull-right mt-0"></span>
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddProvedor">Criar Provedor</a>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            {% if provedores %}
+                {% for provedor in provedores %}
+                <a class="contact-tab-{{provedor.pk}} nav-link  {% if forloop.first %} active{% endif %}" id="v-pills-user-tab" data-bs-toggle="pill" onclick="activeDiv('{{provedor.pk}}')"
+                href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true">
+                <div class="media"><img class="img-50 img-fluid m-r-20 rounded-circle update_img_0"
+                    src="{% static 'assets/images/provedor_image.png' %}" alt="">
+                    <div class="media-body">
+                    <h6><span class="first_name_0"></span>{{provedor.provedor}}</h6>
+                    <p class="email_add_0">{% if provedor.provedor_ativo == 'S' %} <span class="badge badge-success">{% trans 'Ativo' %}</span> {% else %} <span class="badge badge-danger">{% trans 'Inativo'%}</span> {%endif%}</p>
+                    </div>
+                </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <p class="text-center">
+                        Não Há provedores cadastrados!
+                    </p>
+                </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'bot_provedor/components/components.html' %}
+
+          </div>
+          <div class="contact-editform">
+            <form>
+              <div class="row g-2">
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="provedor">{% trans 'Provedor' %}</label>
+                      <input class="form-control" id="provedor" type="text" required="" maxlength="45" placeholder="{% trans 'Canal' %}"
+                        value="">
+                    </div>
+                    <div class="col-sm-3 mb-2">
+                        <label for="email">{% trans 'Suporta Email' %}</label>
+                        <select class="form-control" id="email">
+                            <option value="S">{% trans 'Sim' %}</option>
+                            <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-3 mb-2">
+                        <label for="whatsapp">{% trans 'Suporta WhatsApp' %}</label>
+                        <select class="form-control" id="whatsapp">
+                            <option value="S">{% trans 'Sim' %}</option>
+                            <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="mt-0 mb-3 col-md-12">
+                  <div class="row g-2">
+                    <div class="col-sm-6 mb-2">
+                        <label for="sms">{% trans 'Suporta SMS' %}</label>
+                        <select class="form-control" id="sms">
+                          <option value="S">{% trans 'Sim' %}</option>
+                          <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-6 mb-2">
+                        <label for="provedor_ativo">{% trans 'Provedor Ativo' %}</label>
+                        <select class="form-control" id="provedor_ativo">
+                          <option value="S">{% trans 'Sim' %}</option>
+                          <option value="N">{% trans 'Não' %}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_1">{% trans 'Legenda 1' %}</label>
+                        <input class="form-control " type="text" id="legenda_1" required="" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_2">{% trans 'Legenda 2' %}</label>
+                        <input class="form-control " type="text" id="legenda_2" required="" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_3">{% trans 'Legenda 3' %}</label>
+                        <input class="form-control " type="text" id="legenda_3" required="" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_4">{% trans 'Legenda 4' %}</label>
+                        <input class="form-control" type="text" id="legenda_4" required="" maxlength="100" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-3 m-b-20">
+                        <label for="provedor_padrao">{% trans 'Provedor Padrão' %}</label>
+                          <select name="text_tom" class="js-example-basic-single" style="border: none; background-color: #F5F9FC;" id="provedor_padrao">
+                            {% for provedor in provedores_options %} 
+                              <option value="{{provedor.0}}">{{provedor.1}}</option>
+                            {% endfor %}
+                          </select>
+                      </div>
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_2">{% trans 'Parametro 1' %}</label>
+                        <input class="form-control " type="text" id="parametro_1"  maxlength="200" autocomplete="off">
+                      </div>
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_3">{% trans 'Parametro 2' %}</label>
+                        <input class="form-control " type="text" id="parametro_2"  maxlength="200" autocomplete="off">
+                      </div>
+                      <div class="col-sm-3 m-b-20">
+                        <label for="legenda_4">{% trans 'Parametro 3' %}</label>
+                        <input class="form-control" type="text" id="parametro_3"  maxlength="200" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-4 m-b-20">
+                        <label for="provedor_padrao">{% trans 'Secret 1' %}</label>
+                        <input class="form-control" type="text" id="secret_1"  maxlength="200" autocomplete="off">
+                      </div>
+                      <div class="col-sm-4 m-b-20">
+                        <label for="legenda_2">{% trans 'Secret 2' %}</label>
+                        <input class="form-control " type="text" id="secret_2"  maxlength="200" autocomplete="off">
+                      </div>
+                      <div class="col-sm-4 m-b-20">
+                        <label for="legenda_3">{% trans 'Secret 3' %}</label>
+                        <input class="form-control " type="text" id="secret_3"  maxlength="200" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-4 m-b-20">
+                        <label for="provedor_padrao">{% trans 'NroNovoLimiteDiario' %}</label>
+                        <input class="form-control" type="text" id="NroNovoLimiteDiario" placeholder="50" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-4 m-b-20">
+                        <label for="legenda_2">{% trans 'NroNovoLimiteHora' %}</label>
+                        <input class="form-control " type="text" id="NroNovoLimiteHora" placeholder="10" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-4 m-b-20">
+                        <label for="legenda_3">{% trans 'NroNovoLimiteMinuto' %}</label>
+                        <input class="form-control " type="text" id="NroNovoLimiteMinuto" placeholder="1" maxlength="100" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-6 m-b-20">
+                        <label for="provedor_padrao">{% trans 'NroNovoIntervaloMininoMin' %}</label>
+                        <input class="form-control" type="text" id="NroNovoIntervaloMininoMin" placeholder="5" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-6 m-b-20">
+                        <label for="legenda_2">{% trans 'NroNovoIntervaloMininoMax' %}</label>
+                        <input class="form-control " type="text" id="NroNovoIntervaloMininoMax" placeholder="9" maxlength="100" autocomplete="off">
+                      </div>
+                    </div>
+
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-2 m-b-20">
+                        <label for="legenda_2">{% trans 'Limite Diário' %}</label>
+                        <input class="form-control " type="text" id="LimiteDiario" placeholder="200" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-2 m-b-20">
+                        <label for="legenda_2">{% trans 'Limite Hora' %}</label>
+                        <input class="form-control " type="text" id="LimiteHora" placeholder="120" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-2 m-b-20">
+                        <label for="legenda_2">{% trans 'Limite Minuto' %}</label>
+                        <input class="form-control " type="text" id="LimiteMinuto" placeholder="2" maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-2 m-b-20">
+                        <label for="legenda_2">{% trans 'Intervalo Mínino' %}</label>
+                        <input class="form-control " type="text" id="IntervaloMininoMin" placeholder="3"  maxlength="100" autocomplete="off">
+                      </div>
+                      <div class="col-sm-4 m-b-20">
+                        <label for="legenda_2">{% trans 'Intervalo Máximo' %}</label>
+                        <input class="form-control " type="text" id="IntervaloMininoMax" placeholder="6" required="" maxlength="100" autocomplete="off">
+                      </div>
+                    </div>
+                    
+                    <div class="row d-block d-sm-flex">
+                      <div class="col-sm-12 m-b-20">
+                        <label for="legenda_2">{% trans 'Provedor URL Api' %}</label>
+                        <input class="form-control" type="text" id="provedor_url_api"  maxlength="500" autocomplete="off">
+                      </div>
+                    </div>
+
+                    {% if admin == 'ADMIN' %}
+                      <div class="col-sm-12 mb-2">
+                        <label for="provedor_teste">{% trans 'Provedor de teste' %}</label>
+                        <select class="form-control" id="provedor_teste">
+                          <option value="N">{% trans 'Não' %}</option>
+                          <option value="S">{% trans 'Sim' %}</option>
+                        </select>
+                      </div>
+                    {%endif%}
+                </div>
+              <button class="btn btn-secondary update-contact mt-0" type="button">{% trans 'Salvar' %}</button>
+              <button class="btn btn-primary mt-3" id="cancel_edit" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

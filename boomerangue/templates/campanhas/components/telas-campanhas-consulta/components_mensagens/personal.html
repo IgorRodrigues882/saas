@@ -1,0 +1,73 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<style>
+.CodeMirror-scroll{
+    max-height: 200px;
+    overflow-y: auto;
+}
+.CodeMirror{
+  font-size: 1.5em;
+}
+
+.dz-remove {
+    height: 20px ;
+    font-size: 12px;
+    text-align: center;
+    border: none;
+    background-color: #ff0000;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dz-remove:hover {
+    background-color: #ff4444;
+}
+
+</style>
+<div class="tab-pane fade active show" id="pills-personal" role="tabpanel" aria-labelledby="pills-personal-tab">
+  <div class="card mb-0">
+    <div class="card-header d-flex">
+        <div id="remote">
+          <div>
+              <h5>Mensagens Usuários</h5>
+            </div>
+        </div>
+        <div class="d-flex">
+          <div class="job-filter">
+            <div class="faq-form">
+              <input class="typeahead form-control" id="lead_pesquisar" type="text" placeholder="Pesquisar lead..">
+                <div class="input-group-append">
+                  <span class="loading-indicator-itens-msgs-user input-group-text text-primary" style="display: none;"><i class="fa fa-spin fa-spinner"></i></span>
+                </div>
+            </div>
+          </div>
+          <div class="ms-2">
+            <button type="button" class="btn btn-primary" s id="busca_lead_mensagens">Buscar</button>
+          </div>
+        </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="row list-persons" id="addcon">
+        <div class="col-xl-4 xl-50 col-md-5 box-col-12" id="lista_usuarios_msg" style="height: 80vh; overflow-y: scroll;">
+          <div class="nav d-block nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            
+          </div>
+          <div class="loader-box" style="display: none;" id="loader_user_msgs">
+            <div class="loader-2"></div>
+          </div>
+        </div>
+        <div class="col-xl-8 xl-50 col-md-7 box-col-6">
+          <div class="tab-content" id="v-pills-tabContent">
+
+            {% include 'campanhas/components/telas-campanhas-consulta/components_mensagens/components.html' %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

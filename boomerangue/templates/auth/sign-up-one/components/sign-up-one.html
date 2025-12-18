@@ -1,0 +1,174 @@
+{% load static %}
+{% load sass_tags %}
+<!-- Loader starts-->
+<div class="loader-wrapper">
+  <div class="loader">
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-bar"></div>
+    <div class="loader-ball"></div>
+  </div>
+</div>
+<!-- Loader ends-->
+<!-- page-wrapper Start-->
+<section>
+  <div class="container-fluid p-0">
+    <div class="row m-0">
+      <div class="col-xl-5 p-0"><img class="bg-img-cover bg-center" src="{% static 'assets/images/login/bg-boomerangue-auth.png' %}"
+          alt="looginpage"></div>
+      <div class="col-xl-7 p-0">
+        <div class="login-card">
+          <div class="row" style="min-width: 60%;">
+            <div class="card">
+              <div class="card-header pb-0">
+                <h5>Cadastro de Empresa</h5>
+              </div>
+              <div class="card-body">
+                <form class="f1" id="form_cadastro">
+                  <div class="f1-steps">
+                    <div class="f1-progress">
+                      <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"></div>
+                    </div>
+                    <div class="f1-step active">
+                      <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                      <p>Empresa</p>
+                    </div>
+                    <div class="f1-step">
+                      <div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                      <p>Opções da empresa</p>
+                    </div>
+                    <div class="f1-step">
+                      <div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                      <p>Usuário</p>
+                    </div>
+                  </div>
+                  <fieldset>
+                    <div class="mb-3 linha-input">
+                      <label for="cnpj">CNPJ</label>
+                      <input class="form-control" id="cnpj" type="text" name="cnpj"
+                        placeholder="00.000.000/0000-00">
+                    </div>
+                    <div class="f1-buttons">
+                      <button class="btn btn-primary" type="button" id="verificar_cnpj">Verificar</button>
+                      <button class="btn btn-primary btn-next" type="button" id="proximo_cnpj" disabled>Próximo</button>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <div class="mb-3 linha-input">
+                      <label for="url">URL da empresa</label>
+                      <div class="input-group">
+                        <input class="form-control" id="url" type="text" name="url"
+                          placeholder="URL da empresa">
+                          <span class="input-group-text" id="basic-addon2">.boomerangue.me</span>
+                      </div>
+                    </div>
+                    <div class="mb-3 linha-input">
+                      <label for="tipo_de_negocio">Ramo de atuação</label>
+                      <select name="tipo_de_negocio" class="form-control" required id="tipo_de_negocio">
+                        <option value="">Escolha o Ramo de atuação da sua empresa</option>
+                        {% for tipo in tipo_de_negocio %}
+                          <option value="{{tipo.pk}}">{{tipo.value}}</option>
+                        {% endfor %}
+                      </select>
+
+                    </div>
+                    <div class="f1-buttons">
+                      <button class="btn btn-primary btn-previous" type="button">Anterior</button>
+                      <button class="btn btn-primary btn-next" type="button">Próximo</button>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <div class="mb-3 linha-input">
+                      <label class="sr-only" for="nome">Nome</label>
+                      <input class="f1-none form-control" id="nome" type="text" name="nome" placeholder="Nome..."
+                        required="">
+                    </div>
+                    <div class="mb-3 linha-input">
+                      <label class="sr-only" for="email">Email</label>
+                      <input class="f1-email form-control" id="email" type="text" name="email" placeholder="Email..."
+                        required="">
+                    </div>
+                    <div class="mb-3 linha-input">
+                      <label class="sr-only" for="telefone">Telefone</label>
+                      <input class="f1-telefone form-control" id="telefone" type="text"
+                        name="telefone" placeholder="Telefone...">
+                    </div>
+                    <div class="mb-3 linha-input">
+                      <label class="sr-only" for="senha">Senha</label>
+                      <input class="f1-password form-control" id="senha" type="password" name="senha"
+                        placeholder="Senha..." >
+                    </div>
+                    <div class="mb-3 linha-input">
+                      <label class="sr-only" for="repetir-senha">Repetir Senha</label>
+                      <input class="f1-repeat-password form-control" id="repetir-senha" type="password"
+                        name="repetir-senha" placeholder="Repetir senha...">
+                    </div>
+                    <div class="form-group btn-margin">
+                      <div class="checkbox">
+                        <input id="checkbox1" type="checkbox">
+                        <label class="text-muted" for="checkbox1">Aceitar <span>Política de Privacidade </span></label>
+                      </div>
+                    </div>
+                    <div class="f1-buttons">
+                      <button class="btn btn-primary btn-previous" type="button">Anterior</button>
+                      <button class="btn btn-primary btn-submit" id="botao_cadastro" type="button">Enviar</button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% comment %} <form id="form_cadastro" class="theme-form login-form">
+            <h4>Criar sua conta</h4>
+            <h6>Digite seus detalhes pessoais para criar uma conta.</h6>
+            
+            <div class="form-group">
+              <label>Seu nome</label>
+              <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+                <input class="form-control" type="text" name="nome" placeholder="Nome">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <div class="input-group"><span class="input-group-text"><i class="icon-email"></i></span>
+                <input class="form-control" type="email" name="email" placeholder="Test@gmail.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <div class="input-group"><span class="input-group-text"><i class="icon-microphone"></i></span>
+                <input class="form-control" type="text" name="telefone" id="telefone" placeholder="(99) 99999-9999">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Senha</label>
+              <div class="input-group"><span class="input-group-text"><i class="icon-lock"></i></span>
+                <input class="form-control" type="password" name="senha" placeholder="*********">
+                <div class="show-hide"><span class="show"> </span></div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" id="botao_cadastro" type="button">Criar Conta</button>
+            </div>
+            <!-- <div class="login-social-title">
+              <h5>Sign in with</h5>
+            </div>
+            <div class="form-group">
+              <ul class="login-social">
+                <li><a href="https://www.linkedin.com/login" target="_blank"><i data-feather="linkedin"></i></a></li>
+                <li><a href="https://twitter.com" target="_blank"><i data-feather="twitter"></i></a></li>
+                <li><a href="https://www.facebook.com" target="_blank"><i data-feather="facebook"></i></a></li>
+                <li><a href="https://www.instagram.com/login" target="_blank"><i data-feather="instagram"> </i></a></li>
+              </ul>
+            </div> -->
+            <p>Já tem uma conta?<a class="ms-2" href="/login">Login</a></p>
+          </form> {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- page-wrapper end-->

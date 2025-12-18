@@ -1,0 +1,146 @@
+{% load static %}
+<div class="container-fluid">
+  <div class="row project-cards">
+    <div class="col-md-12 project-list">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6 p-0">
+            <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+              <li class="nav-item"><a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                  role="tab" aria-controls="top-home" aria-selected="true"><i data-feather="target"></i>Todos</a></li>
+              <li class="nav-item"><a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
+                  role="tab" aria-controls="top-profile" aria-selected="false"><i data-feather="info"></i>Administradores</a></li>
+              <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact"
+                  role="tab" aria-controls="top-contact" aria-selected="false"><i
+                    data-feather="check-circle"></i>Usuários</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 p-0">
+            <div class="form-group mb-0 me-0"></div><a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#criar_grupo_permissao"> <i
+                data-feather="plus-square"> </i>Criar novo grupo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .symbol.symbol-35px .symbol-label {
+          width: 35px;
+          height: 35px;
+      }
+      .symbol.symbol-circle, .symbol.symbol-circle > img, .symbol.symbol-circle .symbol-label {
+          border-radius: 50%;
+      }
+      .symbol .symbol-label {
+          width: 50px;
+          height: 50px;
+      }
+      .symbol .symbol-label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 500;
+          color: #3f4254;
+          background-color: #f5f8fa;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+          border-radius: 0.475rem;
+      }
+    </style>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="tab-content" id="top-tabContent">
+            <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+              <div class="row">
+                {% for grupo in grupos %}
+                  <div class="col-xxl-4 box-col-6 col-lg-6">
+                    <div class="project-box">
+                      <h6>{{ grupo.nome }}</h6>
+                      <p>{{ grupo.descricao }}</p>
+                      <div class="customers">
+                        <ul>
+                          {% for usuario in grupo.usuarios|slice:":3" %}
+                            <li class="d-inline-block">
+                              <div class="symbol symbol-35px symbol-circle">
+                                {% if usuario.foto %}
+                                  <img src="{{ usuario.foto }}" alt="Pic">
+                                {% else %}
+                                  <span class="symbol-label fw-semibold">{{ usuario.nome|first }}</span>
+                                {%endif%}
+                              </div>
+                            </li>
+                          {% endfor %}
+                          {% if grupo.usuarios|length|add:"-3" > 0 %}
+                            <li class="d-inline-block ms-2">
+                              <p class="f-12">{{ grupo.usuarios|length|add:"-3" }} mais</p>
+                            </li>
+                          {% endif %}
+                          
+                        </ul>
+                      </div>
+                      <div style="display: flex; justify-content: end;">
+                        <a href="#" class="m-2">Editar</a>
+                        <a href="#" class="m-2" id="botao_excluir" data-id={{ grupo.id }}>Excluir</a>
+                      </div>
+                    </div>
+                  </div>
+                  {%endfor%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="criar_grupo_permissao" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Criar Grupo de Permissão</h5>
+        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-bookmark needs-validation" id="create_form" novalidate="">
+          <div class="row g-2">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-body">
+
+                  
+                  <div class="mb-3">
+                    <label class="control-label">Nome</label>
+                    <input class="form-control" type="text" name="nome" placeholder="Nome" required="required">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="control-label">Descrição</label>
+                    <input class="form-control" type="text" name="descricao" placeholder="Descrição" required="required">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="control-label">Nível Permissão</label>
+                    <select class="form-control" type="text" name="nivel_permissao" placeholder="Nome" required="required">
+                      <option value="1">1 (Maior)</option>
+                      <option value="1">2</option>
+                      <option value="1">3</option>
+                      <option value="1">4</option>
+                      <option value="1">5 (Menor)</option>
+                    </select>
+                  </div>
+
+                  <button class="btn btn-secondary" type="button" id="salvar_grupo">Salvar</button>
+                  <button class="btn btn-primary" type="button" data-bs-dismiss="modal">Cancelar</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

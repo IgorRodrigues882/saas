@@ -1,0 +1,106 @@
+{% load static %}
+{% load i18n %}
+{% load sass_tags %}
+<div class="col-12">
+  <div class="card ongoing-project recent-orders">
+    <div class="card-header card-no-border">
+      <div class="media media-dashboard">
+        <div class="media-body">
+          <h5 class="mb-0">{% trans 'Grupo Produtos' %}</h5>
+        </div>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="newcat()" class="btn btn-primary">{% trans 'Criar Grupo' %}</a>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="table-responsive">
+        <table class="table table-bordernone" id="item-table">
+          <thead>
+            <tr>
+              <th> <span>{% trans 'Grupo Produto' %}</span></th>
+              <th> <span>{% trans 'Grupo Ativo' %}</span></th>
+              <th> <span>{% trans 'Ordem' %}</span></th>
+              <th> <span>{% trans 'Cadastro' %}</span></th>
+              <th> <span>{% trans 'Opções' %}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for gp in ger_grupoprodutos %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="square-box me-2"><img class="img-fluid b-r-5"
+                      src="{% static 'assets/images/produtos_group.jpg' %}" alt=""></div>
+                  <div class="media-body ps-2">
+                    <div class="avatar-details"><a href="#">
+                        <h6>{{gp.GrupoProdutos}}</h6>
+                      </a><span>{{gp.pk}}</span></div>
+                  </div>
+                </div>
+              </td>
+              <td class="img-content-box">
+                {% if gp.grupoAtivo == 'S' %}
+                  <span class="badge badge-success text-white">{{gp.get_grupoAtivo_display}}</span>
+                {% else %}
+                  <span class="badge badge-danger text-white">{{gp.get_grupoAtivo_display}}</span>
+                {% endif %}
+              </td>
+              <td>
+                <h6>{{gp.OrdemGrupoProdutos}}</h6>
+              </td>
+              <td>
+                <h6>{{gp.cadastro_dt|date:'d/m/Y'}}</h6>
+              </td>
+              <td>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editar_grupo('{{gp.pk}}')"><i data-feather="edit-2"></i></a>
+                <a href="#" class="ms-2" onclick="delete_grupo('{{gp.pk}}')"><i data-feather="trash-2"></i></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="loader-box" id="loader" style="display: none;">
+          <div class="loader-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-bookmark" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">{% trans 'Add Grupo Produtos' %}</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-bookmark needs-validation" id="bookmark-form" novalidate="">
+                    <div class="form-row">
+                      <div class="row d-block d-sm-flex">
+                        <div class="col-sm-6 m-b-20">
+                          <label for="Grade">{% trans 'Grupo Produto Nome' %}</label>
+                          <input class="form-control" id="GrupoProdutos" type="text" required="" maxlength="50" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="NroInicial">{% trans 'Ordem' %}</label>
+                          <input class="form-control" id="OrdemGrupoProdutos" type="text" maxlength="5" autocomplete="off">
+                        </div>
+                        <div class="col-sm-3 m-b-20">
+                          <label for="grupoAtivo">{% trans 'Ativo' %}</label>
+                          <select  id="grupoAtivo" class="form-control">
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-secondary" id="salvar_categoria" data-set=""
+                      type="submit">{% trans 'Salvar' %}</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">{% trans 'Cancelar' %}</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
